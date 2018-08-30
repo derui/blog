@@ -1,3 +1,31 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "My New Hugo Site"
+baseURL = "https://derui.netlify.com/"
+languageCode = "ja-jp"
+title = "val deltabox: ('input -> blog) "
+theme = "hugo-nuo"
+enableRobotsTXT = true
+PygmentsCodeFences = true
+canonifyurls = true
+
+[[menu.main]]
+  name = "Home"
+  weight = 10
+  identifier = "home"
+  url = "/"
+
+[[menu.main]]
+  name = "Works"
+  weight = 30
+  identifier = "works"
+  url = "https://github.com/derui"
+
+[[menu.main]]
+  name = "Tags"
+  weight = 40
+  identifier = "tags"
+  url = "/tags/"
+
+[params]
+  author = "derui"
+  email = "derutakayu@gmail.com"
+  github = "derui"
+  paginate = 10

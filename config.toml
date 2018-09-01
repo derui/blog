@@ -29,3 +29,4 @@ canonifyurls = true
   email = "derutakayu@gmail.com"
   github = "derui"
   paginate = 10
+  avatar = "/img/avatar.png"

@@ -1,4 +1,4 @@
-baseURL = "https://derui.netlify.com/"
+baseURL = "https://blog.deltabox.site/"
 languageCode = "ja-jp"
 title = "val deltabox: ('input -> blog) "
 theme = "hugo-nuo"

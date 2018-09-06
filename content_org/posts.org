@@ -80,6 +80,7 @@ Qiitaの方はmarkdownで書いている＋Webから登録する方が色々楽�
 CLOSED: [2018-09-06 木 17:46] SCHEDULED: <2018-09-06 木>
 :PROPERTIES:
 :EXPORT_FILE_NAME: tableau_i18n
+:EXPORT_AUTHOR: derui
 :END:
 
 この半年くらい、Tableauをよく触っています。そんな中、今まで国内だけで使っていたTableau Workbookを国外でも利用したい、という話が出てきました。

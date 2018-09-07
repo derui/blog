@@ -1,3 +1,6 @@
+// IEdge 9-14, Android < 5, Safari < 10
+import objectFitImages from 'object-fit-images';
+import SmoothScroll from 'smooth-scroll';
 import './styles/main.css';
 
 // Selected DOM elements

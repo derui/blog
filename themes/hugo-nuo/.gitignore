@@ -5,7 +5,4 @@ npm-debug.log
 yarn-error.log
 node_modules
 !.gitignore
-static/css/bundle.css
-static/js/bundle.js
-static/fonts/
-static/img/
+static/

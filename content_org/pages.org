@@ -1,0 +1,18 @@
+#+STARTUP: content indent logdone
+
+#+HUGO_BASE_DIR: ../
+#+HUGO_AUTO_SET_LASTMOD: t
+
+* Pages
+:PROPERTIES:
+:EXPORT_hugo_custom_front_matter:
+:EXPORT_HUGO_MENU: :menu main
+:EXPORT_HUGO_WEIGHT: auto
+:EXPORT_HUGO_SECTION: pages
+:END:
+
+* Footnotes
+* COMMENT Local Variables                                           :ARCHIVE:
+# Local Variables:
+# org-hugo-auto-export-on-save: t
+# End:

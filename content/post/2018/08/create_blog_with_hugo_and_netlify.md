@@ -1,7 +1,7 @@
 +++
 title = "ブログをHugo + Netlifyで作りました"
 date = 2018-08-30T23:56:00+09:00
-lastmod = 2018-09-01T13:40:10+09:00
+lastmod = 2018-09-11T22:19:55+09:00
 tags = ["雑記"]
 draft = false
 +++

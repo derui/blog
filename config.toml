@@ -30,3 +30,5 @@ canonifyurls = true
   github = "derui"
   paginate = 10
   avatar = "/img/avatar.png"
+
+googleAnalytics = "UA-125827187-1"

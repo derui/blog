@@ -5,6 +5,7 @@ theme = "hugo-nuo"
 enableRobotsTXT = true
 PygmentsCodeFences = true
 canonifyurls = true
+googleAnalytics = "UA-125827187-1"
 
 [[menu.main]]
   name = "Home"
@@ -30,5 +31,3 @@ canonifyurls = true
   github = "derui"
   paginate = 10
   avatar = "/img/avatar.png"
-
-googleAnalytics = "UA-125827187-1"

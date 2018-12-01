@@ -195,8 +195,8 @@ SpringとかのDIライブラリがあれば、この辺をうまくやってく
 
 もっとOCamlに習熟したら、こういう手段に訴えなくても、より楽・堅牢な実装をしていけるかもしれないので、より精進していきたいです。
 
-** TODO crkbdを作った :自作キーボード:
-   SCHEDULED: <2018-11-18 日>
+** DONE crkbdを作った                                        :自作キーボード:
+   CLOSED: [2018-12-01 土 10:12] SCHEDULED: <2018-11-18 日>
 :PROPERTIES:
 :EXPORT_FILE_NAME: made_crkbd
 :EXPORT_AUTHOR: derui

@@ -1,10 +1,11 @@
 +++
 title = "crkbdを作った"
 author = ["derui"]
+date = 2018-12-01T10:12:00+09:00
 publishDate = 2018-11-18T00:00:00+09:00
-lastmod = 2018-11-18T20:22:37+09:00
+lastmod = 2018-12-01T10:12:08+09:00
 tags = ["自作キーボード"]
-draft = true
+draft = false
 +++
 
 前々から作ってみたかった [crkbd](https://pskbd.booth.pm/items/869375) が、Corne Cherryとしてキットが発売されたので、速攻で入手して作ってみました。

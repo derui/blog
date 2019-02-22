@@ -103,6 +103,134 @@ zshからfishに移行してみてまだ数日ですが、すでに大体問題�
 移行したてで問題点が見えていない面もありますが、とりあえずfishはおすすめできますので、bashで十分と思っている人も、zsh最高な方も、一度試してみてはいかがでしょうか。
 
 
+** Create React App + TypeScriptにStorybookを追加してみる :JavaScript:TypeScript:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: cra_and_ts_and_storybook
+   :EXPORT_AUTHOR: derui
+   :END:
+
+タイトルの通り、CRA2 + TypeScriptのプロジェクトに、更にStorybookを追加してみました。
+
+<!--more-->
+
+*** 前口上
+    いろいろ試すための個人プロジェクトを作って、色々なライブラリであったり、言語であったりを試しています。
+    一応ツールとして利用したいと思って作っていはのですが、永遠に動くようにできないんじゃないかという懸念と戦いつつ実装しています。いつか日の目を見ることを祈りつつ・・・。
+
+    Frontendとしては[[https://electronjs.org/][Electron]]で作っていて、Create React App + TypeScriptでGUIを作っています。今回、これに[[https://storybook.js.org/][Storybook]]を追加することにしました。
+
+*** Storybookとは
+    [[https://storybook.js.org/][Storybook]]の公式から、Storybookについてを引用します。
+
+    #+begin_quote
+Storybook is a UI development environment and playground for UI components. The tool enables users to create components independently and showcase components interactively in an isolated development environment.
+
+https://storybook.js.org/basics/introduction/
+    #+end_quote
+
+    Componentのカタログ（showcase）を作り、再利用を促しつつ、生きた例として提供する、という感じでしょうか。
+
+*** なぜ追加するのか
+    なんとなく＋気になるから。
+
+    ・・・いつもどおりの理由ですが、実際コンポーネントベースの開発をしていると、 **基底となるコンポーネント** が欲しくなります。これがないと、同じようなものが量産されるというのを実際に経験してます。また、実際に動くものがあると、話がしやすいとかの効果もあるようです。
+    デザイナーと協業とかしたことないので、デザイナーから見ても嬉しいのか？というのは実感できませんが・・・。
+
+    ただ、いきなりプロジェクトに投入するのはどうなんだ？ということで、どうとでもなる個人プロジェクトで試してみようという次第です。
+
+*** 追加する
+    今回使うプロジェクトの前提は以下のとおりです。
+
+    - create-react-appの2.1以降
+    - create-react-app公式の方法でTypeScriptを導入している
+
+まずはStorybookを追加します。Storybook公式の手順は =npm= ですが、私は =yarn= を利用しているので、以下はyarn前提です。
+
+#+begin_src shell
+  $ yarn add -D @storybook/react
+  # もしかしたら下のコマンドはいらないかもしれない
+  $ npx -p @storybook/cli sb init
+
+  # TypeScript向けのlibraryを追加します
+  $ yarn add -D @types/storybook__react
+  $ yarn add -D @storybook/addon-info
+  $ mkdir .storybook
+#+end_src
+
+さて、これで追加自体はできるんですが、これだけだと動かないようで、[[https://github.com/storybooks/storybook/issues/4739][issue]]が立てられています。この中で示されている解決策を導入してみます。 =.storybook/webpack.config.js= として以下の内容を追加します。
+
+#+begin_src javascript
+  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+  module.exports = (baseConfig, env, config) => {
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      loader: require.resolve('babel-loader'),
+      options: {
+          presets: [require.resolve('babel-preset-react-app')]
+        }
+    });
+
+    config.resolve.extensions.push('.ts', '.tsx');
+
+    return config;
+  };
+#+end_src
+
+=.storybook/tsconfig.json= として以下を追加します。これは、StorybookとCRAが推奨するtsconfigの中身が異なり、かつCRAがtsconfigを推奨設定に自動的に書き換えてしまうため、とのことです。
+
+#+begin_src javascript
+  {
+      "extends": "../tsconfig",
+      "compilerOptions": {
+        "jsx": "react",
+        "isolatedModules": false,
+        "noEmit": false
+    }
+  }
+#+end_src
+
+=.storybook/config.ts= として以下を追加します。 =const req〜= と =loadStories= の中身がコメントアウトしてあるのは、単純に起動だけさせたかったためです。
+
+#+begin_src typescript
+  import { configure } from '@storybook/react';
+  // automatically import all files ending in *.stories.tsx
+  // const req = require.context('../src/ts/stories', true, /.stories.tsx$/);
+
+  function loadStories() {
+    // req.keys().forEach(req);
+  }
+
+  configure(loadStories, module);
+
+#+end_src
+
+
+package.jsonにscriptを追加します。
+
+#+begin_src javascript
+{
+"scripts": {
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  }
+}
+#+end_src
+
+*** 動かしてみる
+    ここまでの設定をすると、次のコマンドで =http://localhost:9001= にStorybookが立ち上がります。
+
+    #+begin_src shell
+      $ yarn storybook
+    #+end_src
+
+    当然何も書いていないので空ですが。↑で紹介したissueでは、再現するためのminimal productがありますので、興味があれば利用してみてください。
+
+*** Storyを書いてみる
+    ・・・と行きたいところですが、componentがまだ書いていないので、一回ここまでとします。
+
+    またstoryを書いて運用してみたら記事にしようかと思います。
+
+
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
 # org-hugo-auto-export-on-save: t

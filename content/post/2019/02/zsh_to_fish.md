@@ -2,7 +2,7 @@
 title = "zshからfishに移行してみた"
 author = ["derui"]
 date = 2019-02-12T22:23:00+09:00
-lastmod = 2019-02-12T22:23:12+09:00
+lastmod = 2019-02-23T11:17:49+09:00
 tags = ["Shell", "zsh", "fish"]
 draft = false
 +++

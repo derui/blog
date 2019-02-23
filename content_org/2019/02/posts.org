@@ -5,7 +5,7 @@
 
 * Posts
 :PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/01
+:EXPORT_HUGO_SECTION: post/2019/02
 :END:
 
 ** DONE zshからfishに移行してみた                            :Shell:zsh:fish:
@@ -103,7 +103,8 @@ zshからfishに移行してみてまだ数日ですが、すでに大体問題�
 移行したてで問題点が見えていない面もありますが、とりあえずfishはおすすめできますので、bashで十分と思っている人も、zsh最高な方も、一度試してみてはいかがでしょうか。
 
 
-** Create React App + TypeScriptにStorybookを追加してみる :JavaScript:TypeScript:
+** DONE Create React App + TypeScriptにStorybookを追加してみる :JavaScript:TypeScript:
+   CLOSED: [2019-02-23 土 11:17]
    :PROPERTIES:
    :EXPORT_FILE_NAME: cra_and_ts_and_storybook
    :EXPORT_AUTHOR: derui
@@ -153,24 +154,25 @@ https://storybook.js.org/basics/introduction/
 
   # TypeScript向けのlibraryを追加します
   $ yarn add -D @types/storybook__react
-  $ yarn add -D @storybook/addon-info
+  $ yarn add -D @storybook/addon-info @types/storybook__addon-info react-docgen-typescript-webpack-plugin
   $ mkdir .storybook
 #+end_src
 
 さて、これで追加自体はできるんですが、これだけだと動かないようで、[[https://github.com/storybooks/storybook/issues/4739][issue]]が立てられています。この中で示されている解決策を導入してみます。 =.storybook/webpack.config.js= として以下の内容を追加します。
 
 #+begin_src javascript
-  const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+  const TSDocgenPlugin = require("react-docgen-typescript-webpack-plugin");
 
   module.exports = (baseConfig, env, config) => {
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       loader: require.resolve('babel-loader'),
       options: {
-          presets: [require.resolve('babel-preset-react-app')]
-        }
+        presets: [require.resolve('babel-preset-react-app')]
+      }
     });
 
+    config.plugins.push(new TSDocgenPlugin());
     config.resolve.extensions.push('.ts', '.tsx');
 
     return config;
@@ -195,14 +197,13 @@ https://storybook.js.org/basics/introduction/
 #+begin_src typescript
   import { configure } from '@storybook/react';
   // automatically import all files ending in *.stories.tsx
-  // const req = require.context('../src/ts/stories', true, /.stories.tsx$/);
+  const req = require.context('../src/ts/stories', true, /.stories.tsx$/);
 
   function loadStories() {
-    // req.keys().forEach(req);
+    req.keys().forEach(req);
   }
 
   configure(loadStories, module);
-
 #+end_src
 
 
@@ -223,12 +224,47 @@ package.jsonにscriptを追加します。
       $ yarn storybook
     #+end_src
 
-    当然何も書いていないので空ですが。↑で紹介したissueでは、再現するためのminimal productがありますので、興味があれば利用してみてください。
+    まだstoryを一つも書いていないので当然ながらエラーになります。なのでstoryを書いてみます。
 
 *** Storyを書いてみる
-    ・・・と行きたいところですが、componentがまだ書いていないので、一回ここまでとします。
+    =list-item= というコンポーネントがあるという前提で、次のように書くことが出来ます。
 
-    またstoryを書いて運用してみたら記事にしようかと思います。
+#+begin_src typescript
+  import { withInfo } from "@storybook/addon-info";
+  import { storiesOf } from "@storybook/react";
+  import * as React from "react";
+
+  import ListItem from "../components/ui/list-item/list-item";
+  // tslint:disable-next-line
+  const styles = require('./list-item.stories.module.scss');
+
+  storiesOf("List Item", module)
+    .addDecorator(withInfo)
+    .addParameters({ info: { inline: true } })
+    .add("with text", () => {
+      return <ListItem>Text</ListItem>;
+    })
+    .add("with other component", () => {
+      return (
+        <ListItem>
+          <span style={{ color: "red" }}>Text in span</span>
+        </ListItem>
+      );
+    })
+    .add("with class names", () => {
+      return <ListItem classes={[styles.base, styles.padding, styles.border]}>Item</ListItem>;
+    })
+    .add("with other container", () => {
+      return <ListItem container="a">Link is container</ListItem>;
+    });
+#+end_src
+
+直前に書いた =yarn storybook= を立ち上げたままにしておくと、勝手に読み込んでリロードしてくれます。
+
+*** 導入は簡単、活用は大変
+ひとまずStorybookを導入してみましたが、これをちゃんと活用していくのは結構ハードルが高そうです。基底コンポーネント、Application固有のコンポーネント、とかがきっちり管理されていて初めてうまみがありそうな・・・。
+
+とにかく、しばらく運用してみてからさらなる判断をしていきたいと思います。
 
 
 * comment Local Variables                                           :ARCHIVE:

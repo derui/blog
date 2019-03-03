@@ -229,6 +229,11 @@
     --icon-comment: "\f27a";
     --icon-quora: "\f2c4";
 
+    /* Share color */
+    --twitter-color: #55acee;
+    --facebook-color: #3b5998;
+    --pinterest-color: #bd081c;
+
     /* Table */
     --table: var(--grey-darker);
     --table-background: var(--white);

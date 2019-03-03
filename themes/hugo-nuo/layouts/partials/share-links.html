@@ -1,0 +1,42 @@
+<!-- Social Share Button HTML -->
+
+<!-- Twitter -->
+{{ if .Site.Params.socialShareTwitter | default true}}
+<li class="share-link-item share-link-item--twitter">
+  <a href="//twitter.com/share?url={{ .Permalink }}&amp;text={{ .Title }}" target="_blank" class="share-button twitter">
+    <i class="icon icon-twitter"></i>
+    <p class="share-link-name">Twitter</p>
+    </a>
+</li>
+{{ end }}
+
+<!-- Facebook -->
+{{ if .Site.Params.socialShareFacebook | default true}}
+
+<li class="share-link-item share-link-item--facebook">
+  <a href="//www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank" class="share-button facebook">
+    <i class="icon icon-facebook"></i>
+    <p class="share-link-name">Facebook</p>
+    </a>
+</li>
+{{ end }}
+
+<!-- Pintrest -->
+{{ if .Site.Params.socialSharePinterest | default true}}
+<li class="share-link-item share-link-item--pinterest">
+  <a href="//www.pinterest.com/pin/create/button/?url={{ .Permalink }}&amp;description={{ .Title }}" target="_blank" class="share-button pinterest">
+    <i class="icon icon-pinterest"></i>
+    <p class="share-link-name">Pinterest</p>
+  </a>
+</li>
+{{ end }}
+
+<!-- Email -->
+{{ if .Site.Params.socialShareEmail | default true}}
+<li class="share-link-item share-link-item--email">
+  <a href="mailto:?subject=Check out this post by {{ .Params.author }}&amp;body={{ .Permalink }}" target="_blank" class="share-button email">
+    <i class="icon icon-email"></i>
+    <p class="share-link-name">Email</p>
+  </a>
+</li>
+{{ end }}

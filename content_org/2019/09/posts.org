@@ -8,7 +8,8 @@
 :EXPORT_HUGO_SECTION: post/2019/09
 :END:
 
-** TODO OCamlでMonadを使う時はppx_letを使おう                         :OCaml:
+** DONE OCamlでMonadを使う時はppx_letを使おう                         :OCaml:
+CLOSED: [2019-09-14 土 11:17]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_ppx_let_in_ocaml
 :EXPORT_AUTHOR: derui

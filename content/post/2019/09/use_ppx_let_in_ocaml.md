@@ -1,9 +1,10 @@
 +++
 title = "OCamlでMonadを使う時はppx_letを使おう"
 author = ["derui"]
-lastmod = 2019-09-14T11:15:26+09:00
+date = 2019-09-14T11:17:00+09:00
+lastmod = 2019-09-14T11:17:53+09:00
 tags = ["OCaml"]
-draft = true
+draft = false
 +++
 
 ちょっとしたCLI（ある程度出来たら記事にします）をOCamlで作っています。その際、初めて[ppx\_let](https://github.com/janestreet/ppx%5Flet)を使ってみたんですが、なかなか良かったので紹介します。

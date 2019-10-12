@@ -8,7 +8,8 @@
 :EXPORT_HUGO_SECTION: post/2019/10
 :END:
 
-** TODO OCamlでFFTを実装してみる                                      :OCaml:
+** DONE OCamlでFFTを実装してみる                                      :OCaml:
+CLOSED: [2019-10-12 土 11:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: implement_fft_in_ocaml
 :EXPORT_AUTHOR: derui

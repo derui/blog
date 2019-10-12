@@ -1,9 +1,10 @@
 +++
 title = "OCamlでFFTを実装してみる"
 author = ["derui"]
-lastmod = 2019-10-12T11:55:38+09:00
+date = 2019-10-12T11:56:00+09:00
+lastmod = 2019-10-12T11:56:43+09:00
 tags = ["OCaml"]
-draft = true
+draft = false
 +++
 
 WAVから十二音技法に基づく音程を、gnuplot形式で抽出するCLIをほそぼそと作っています。

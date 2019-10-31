@@ -222,6 +222,69 @@ ocaml-cross-windowsは、コミュニティによって運営されているた�
 :EXPORT_AUTHOR: derui
 :END:
 
+歓迎会と送別会が連チャンになったらだいぶグロッキーになってしまい、睡眠を削って生活するのはもう無理だなぁと思いました。十分な睡眠によるパフォーマンス向上をなめてはいけない・・・。
+
+さて、第二回は実際にCross Compileを行うための環境について書きたいと思います。
+
+<!--more-->
+
+*** ビルド環境の選定
+まずOCamlプログラムのクロスコンパイル・・・というかWindows向けのビルド環境をどうするか？です。Windows向けにビルドする場合、次のいずれかが主要な選択肢になります。
+
+1. Linux上でMinGWをインストールし、Windows向けのバイナリをクロスコンパイルする
+2. Windows上でOCaml/OPAMをインストールし、Windows向けのバイナリをネイティブコンパイルする
+
+
+Windows上でコンパイルする場合、OCaml/OPAMそれぞれをビルドするか、もしくは配布されているバイナリを展開する方法があります。この内、自前でビルドする方法は後述するとおり結構厳しいです。一応チャレンジしてみましたが、敢え無く爆砕しました・・・。
+
+と、いうことで、Linuxでのクロスコンパイルに一縷の望みを託してみます。
+
+**** Windows上のOCamlについて
+OCaml本体は、実はWindows環境上でもちゃんとコンパイル・実行できるようになっています。（MSVC/Cygwinのいずれかが必要です）また、OPAMもWindows上でビルドできるようになっています・・・が。
+
+OPAMをMinGWでビルドしてしまうと、 =opam init= が上手く動作しない、という問題が発生します・・・。これはOPAMでも認識されている問題です。このため、OPAMをWindows上で動かす場合、OCaml本体もCygwin向けにコンパイルする必要があります。
+
+しかし、Cygwinでコンパイルしてしまうと、Cygwin1.dllというdllを同梱しないと動作しなくなります。Cygwin1.dllはライセンス的にも結構厳しいため、できれば付けたくありません・・・。
+
+*** Linux上でのクロスコンパイル環境
+OCamlプログラムを、Linux上でWindows向けにコンパイルする方法は、 *MinGWでコンパイルされたOCamlコンパイラでコンパイル・リンクする* という形になります。本来、Linux上でMinGWを利用してコンパイルされたバイナリは、Windows環境またはWineでしか動きません。
+
+ここで前に紹介した[[https://github.com/ocaml-cross/opam-cross-windows][ocaml-cross-windows]]が効いてきます。このリポジトリでは、Windowsバイナリを生成でき、Linux上で実行可能なOCamlコンパイラを提供してくれています。ただ、ocaml-cross-windowsでは、Debianとかを推奨？している雰囲気があります。しかし私の利用しているDistributionはGentoo・・・。
+
+と、いうことで、こういうときはDockerに頼ります。Debianのベースイメージから、クロスコンパイル環境を整えます。
+
+*** クロスコンパイル用のイメージを作成する
+
+#+begin_src text
+  FROM debian:bullseye
+
+  RUN apt update \
+      && apt install -y --no-install-recommends opam gcc-mingw-w64-x86-64 gawk m4 git ca-certificates \
+      && dpkg --add-architecture i386 \
+      && apt update \
+      && apt install -y --no-install-recommends wine wine32 \
+      && rm -rf /var/cache/apt/archives \
+      && opam init -n --disable-sandboxing \
+      && opam switch install 4.08.0 \
+      && opam repository --all add windows git://github.com/derui/sxfiler-repo-windows \
+      && eval $(opam env) \
+      && opam install -y conf-flambda-windows \
+      && opam install -y ocaml-windows64 \
+      && opam install -y ocaml-windows
+
+  COPY scripts/entrypoint.sh /entrypoint.sh
+  RUN chmod a+x /entrypoint.sh
+  ENTRYPOINT ["/entrypoint.sh"]
+#+end_src
+
+=entrypoint.sh= の内容は、opamを利用できるようにしているだけです。ここでのポイントは、aptでopamを入れることで色々楽していることと、64bit向けのMinGW環境を導入していることです。gawkを入れているのは、地味にこれがないとOCaml自体のコンパイルに失敗するためです。
+
+↑のようなDockerfileからimageをビルドし、 =dune build -x windows= のようにすると、Windows向けのバイナリがビルドできます！・・・上手く行けば。
+
+#+begin_quote
+基本的にOCamlプログラムのビルドは、duneを使っておくのが無難です。ocaml-cross-windowsの仕組みに対応しているので、面倒なことせずに動きます。
+#+end_quote
+
 ** TODO Windows上でOCamlアプリケーションを動かす デバッグ編   :OCaml:Windows:
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_app_on_windows_part3

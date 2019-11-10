@@ -116,8 +116,18 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 :EXPORT_AUTHOR: derui
 :END:
 
-~# wine /usr/share/win64/gdbserver :3000 sample.exe~
-~# x86_64-w64-mingw32-gdb sample.exe~
+ようやく涼しくなってきたと思った瞬間に晩秋になってしまい、秋がなかったなぁ、としみじみと感じてしまいました。
+
+第三回は、Cross Compileできたものの、上手く動かない、というときに役立つデバッグについて書きます。
+
+<!--more-->
+
+
+*** Cross Compileしたバイナリの難しさ
+Linux上でクロスコンパイルしたバイナリですが、実際にこのバイナリを動かしてみると、問題が発生（Segfaultとか）することがあります。
+
+=# wine /usr/share/win64/gdbserver :3000 sample.exe=
+=# x86_64-w64-mingw32-gdb sample.exe=
 
 #+begin_src sh
   Program received signal SIGSEGV, Segmentation fault.

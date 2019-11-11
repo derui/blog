@@ -110,7 +110,8 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 
 次回はそういう場合に必要だった、クロスコンパイル環境でのデバッグ方法について書きたいと思います。
 
-** TODO Windows上でOCamlアプリケーションを動かす デバッグ編   :OCaml:Windows:
+** DONE Windows上でOCamlアプリケーションを動かす デバッグ編   :OCaml:Windows:
+CLOSED: [2019-11-11 月 21:36]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_app_on_windows_part3
 :EXPORT_AUTHOR: derui
@@ -126,10 +127,30 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 *** Cross Compileしたバイナリの難しさ
 Linux上でクロスコンパイルしたバイナリですが、実際にこのバイナリを動かしてみると、問題が発生（Segfaultとか）することがあります。
 
-=# wine /usr/share/win64/gdbserver :3000 sample.exe=
-=# x86_64-w64-mingw32-gdb sample.exe=
+特に最初はWineで動かすと思いますが、エラーの内容がメモリアドレスくらいしか無く、結構色々と辛いです。Windows上で実行してみるのも中々にしんどいです。普通にそのまま実行時エラーで落ちるので。
+
+Visual Studioとかで動かしてみる、というのも手段だと思いますが、ここではあくまでLinux上で解決してみます。
+
+*** gdbserverとgdb
+gdbには、remoteのgdbと繋げてローカルで実行できる =gdbserver= というツールが存在しています。
+
+Debianであれば、まず以下でmingw向けのgdbserverと、mingwでコンパイルされたtargetをデバッグできるgdbをインストールします。
 
 #+begin_src sh
+  apt install mingw32-w64-gdbserver mingw32-w64-gdb-target
+#+end_src
+
+これを使うと、以下のようにしてdebugを行えます。
+
+#+begin_src sh
+  wine /usr/share/win64/gdbserver :3000 sample.exe
+  x86_64-w64-mingw32-gdb sample.exe
+
+  # ここからGDB内
+  > remote target localhost:3000
+  # つながると普通の（若干コマンドが成約されていますが）gdbとして使えます。
+  > continue
+
   Program received signal SIGSEGV, Segmentation fault.
   0x0000000000a19d1c in lwt_unix_not_available (feature=<optimized out>) at lwt_unix_stubs.c:107
   107     lwt_unix_stubs.c: No such file or directory.
@@ -139,6 +160,10 @@ Linux上でクロスコンパイルしたバイナリですが、実際にこの
   #2  0x00000000008611ed in camlLwt_unix__entry ()
   #3  0x0000000000000001 in ?? ()
 #+end_src
+
+上記のように、Windows向けにビルドしたバイナリを、Linux上でデバッグできます。OCamlでビルドしたものであれば、上記のようにcaml系統のデバッグシンボルも見えるので、デバッグがはかどります。
+
+今回は短かったですが、この情報が中々見つからず、苦労してしまったので、どこかの誰かのお役に立てばと思います。
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:

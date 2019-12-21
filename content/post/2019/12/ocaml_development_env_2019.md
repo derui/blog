@@ -2,7 +2,7 @@
 title = "OCamlの開発環境2019末"
 author = ["derui"]
 date = 2019-12-03T08:29:00+09:00
-lastmod = 2019-12-03T08:29:30+09:00
+lastmod = 2019-12-08T10:52:05+09:00
 tags = ["Emacs"]
 draft = false
 +++

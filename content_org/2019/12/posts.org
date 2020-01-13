@@ -190,11 +190,6 @@ ProtocolBuffersを使ったバイナリ転送を使わなくても、わりか�
 
 とりあえず使う分には割と気軽に使えるので、ちょこっとだけ導入とかも検討してみちゃーどうでしょうか。将来的にgRPCとかProtocolBuffersを使う時に楽になる・・・かも？
 
-** TODO polybarからi3blocksに乗り換えてみた                           :Linux:
-:PROPERTIES:
-:EXPORT_FILE_NAME: polybar_to_i3blocks
-:END:
-
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:

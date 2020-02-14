@@ -24,7 +24,7 @@ CLOSED: [2020-02-07 金 19:45]
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=derui09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=1680502549&linkId=05192cc54dff2d67c58d290cad5cdd28"></iframe>
 
-<!-- more -->
+<!--more-->
 
 *** どんな内容？
 すごい簡単に書くと、 *F#でDDDをやっていく時のノウハウが詰まっている* 本です。たいていこういう本はScalaとかHaskellで書かれている印象（偏見）なので、F#というのが中々ニッチな印象でした。

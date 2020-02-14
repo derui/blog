@@ -2,7 +2,7 @@
 title = "Domain Modeling Made Functionalを読んだ"
 author = ["derui"]
 date = 2020-02-07T19:45:00+09:00
-lastmod = 2020-02-07T19:45:56+09:00
+lastmod = 2020-02-14T17:48:38+09:00
 tags = ["雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=\_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=derui09-22&language=ja\_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as\_ss\_li\_til&asins=1680502549&linkId=05192cc54dff2d67c58d290cad5cdd28"></iframe>
 
-<!-- more -->
+<!--more-->
 
 
 ## どんな内容？ {#どんな内容}

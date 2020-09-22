@@ -2,7 +2,7 @@
 title = "Excelのページ指定印刷をPowerShellでやる方法"
 author = ["derui"]
 date = 2019-07-10T15:14:00+09:00
-lastmod = 2019-07-10T15:14:46+09:00
+lastmod = 2020-09-22T12:59:07+09:00
 tags = ["Emacs"]
 draft = false
 +++

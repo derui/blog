@@ -2,7 +2,7 @@
 title = "手動で作るReact + TypeScript環境（2019/8版）"
 author = ["derui"]
 date = 2019-08-21T22:27:00+09:00
-lastmod = 2019-08-21T22:28:09+09:00
+lastmod = 2020-09-22T12:58:46+09:00
 tags = ["JavaScript"]
 draft = false
 +++

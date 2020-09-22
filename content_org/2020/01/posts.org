@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_SECTION: post/2020/01
 #+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/01
-:END:
-
-** DONE Protocol BuffersとJSONの扱い in OCaml                    :日本語入力:
+* DONE Protocol BuffersとJSONの扱い in OCaml                     :日本語入力:
 CLOSED: [2020-01-13 月 12:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: protocolbuffers_and_json_in_ocaml
@@ -19,7 +15,7 @@ CLOSED: [2020-01-13 月 12:27]
 
 <!--more-->
 
-*** ocaml-protoc-pluginに乗り換えた
+** ocaml-protoc-pluginに乗り換えた
 前回は ocaml-protocを使いましたが、[[https://github.com/issuu/ocaml-protoc-plugin][ocaml-protoc-plugin]]に乗り換えました。理由としては以下となります。
 
 - 標準のprotocにおけるpluginという形での提供
@@ -27,14 +23,14 @@ CLOSED: [2020-01-13 月 12:27]
 - 型定義にannotationを付けられる
   - yojsonとかに変換するのが簡単です
 
-*** ts-protoc-gen + protoc標準から、pbjs（protobufjs）に乗り換えた
+** ts-protoc-gen + protoc標準から、pbjs（protobufjs）に乗り換えた
 前はprotocに標準添付されているJavaScript実装と、[[https://github.com/improbable-eng/ts-protoc-gen][ts-protoc-gen]]を組み合わせていたのですが、以下のような問題があったので乗り換えました。
 
 - Jsonからの変換とかが出来ない
   - protocの標準では、 *protocolbuffers以外に対するserialize/deserializeがありません*
   - JSON-RPCを利用しているので、軽く絶望しながら切り替えました（先に調べろと
 
-*** 発生した問題
+** 発生した問題
 今作っているapplicationでは、Electronとbackend server間をWebsocketでつなぎ、RPCとしてJSON-RPCを利用しています。この構成、面倒ではありますが、割と使い勝手がよいのです。しかし、protoファイルから生成した型を使っていると、困る割にいい解決策が無い問題にあたりました。
 
 その問題とは、 *OCamlでの型定義とProtocolBufferでの型定義との互換性* です。ナンノコッチャですが、要はocaml-protoc-pluginが生成してくれる型と、protocol_conv_jsonのでのJSON変換が一筋縄では行かない、ということです。
@@ -91,7 +87,7 @@ annotationが付きました。さて、ここでprotocol_conv_jsonが代数的�
 
 なお、今回はデータ型の構造も超シンプルだったので、手で変換する部分を書きました。書いた後に、pbjsで生成された実装に、enumの名前を利用して変換できるようにする仕組みを見つけました・・・。ドキュメントはちゃんと読みましょう。
 
-*** 異なるシステム間の構造共有は難しい
+** 異なるシステム間の構造共有は難しい
 OpenAPIとかでもそうですが、こういった構造の共有、加えて当初は想定されていない組み合わせを使うと、色々と問題が起こりがちです。今回は、大人しくProtocol Buffersだけを使って実行するような仕組みにしていたら良かった気もしていますが・・・。
 
 protocolbuffersとOCamlでは、 =oneof= の扱いがどうしてもprotocol_conv_jsonでは対応できない、という問題もありました。この辺り、Protoファイルを型定義の共有としてだけ使い、ProtocolBuffers以外の仕組みで使う際に意外とハマるポイントなのでは？と思いました。

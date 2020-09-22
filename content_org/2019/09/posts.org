@@ -2,17 +2,13 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/09
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/09
-:END:
-
-** DONE OCamlでMonadを使う時はppx_letを使おう                         :OCaml:
+* DONE OCamlでMonadを使う時はppx_letを使おう                          :OCaml:
 CLOSED: [2019-09-14 土 11:17]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_ppx_let_in_ocaml
-:EXPORT_AUTHOR: derui
 :END:
 
 ちょっとしたCLI（ある程度出来たら記事にします）をOCamlで作っています。その際、初めて[[https://github.com/janestreet/ppx_let][ppx_let]]を使ってみたんですが、なかなか良かったので紹介します。
@@ -22,7 +18,7 @@ CLOSED: [2019-09-14 土 11:17]
 [[https://github.com/janestreet/ppx_let][ppx_let]]は、OCaml界隈では知らない人のいない[[https://www.janestreet.com/][Jane Street]]社が公開しているPPX拡張です。
 
 
-*** OCamlでmonadを扱う時の課題
+** OCamlでmonadを扱う時の課題
 大抵、resultとかoption（特にresult）をmonadicにつなげていく時、大抵は下のような書き方になります。
 
 #+begin_src ocaml
@@ -65,7 +61,7 @@ CLOSED: [2019-09-14 土 11:17]
 
 これらを解決するために、PPX拡張が色々出ています。lwt用にlwt_ppxとかあったりします。
 
-*** ppx_letの特徴
+** ppx_letの特徴
 詳しくはppx_letのreadmeを読むのが早いのですが、overviewとして次のように書かれています。
 
 #+begin_quote
@@ -76,7 +72,7 @@ The aim of this rewriter is to make monadic and applicative code look nicer by w
 
 ppx_letは、特定のMonad/Applicativeに閉じず、 **特定のmodule定義があれば動作します** 。この辺りの汎用性が高いです。
 
-*** ppx_letで書いてみる
+** ppx_letで書いてみる
 先に出た例は、以下のように書き換えられます。
 
 #+begin_src ocaml
@@ -109,7 +105,7 @@ ppx_letは、対応する型に対して、 ~Let_syntax~ というmoduleが定�
 この違いは、 ~bind~ はlet expression全体をそのまま利用する、 ~map~ はlet expression全体をmonadに包む、という点の違いです。
 
 
-*** ppx_letのいい所
+** ppx_letのいい所
 - コンパイル後にライブラリ依存がない
   - Jane Street製のppxの中には、コンパイル後にbaseとかcoreを要求するものがあったりするので、場合によっては使いづらいです
 - 汎用的
@@ -119,7 +115,7 @@ ppx_letは、対応する型に対して、 ~Let_syntax~ というmoduleが定�
   - 変数束縛が不要な場合は、普通にoperatorを使うほうがスッキリします
 
 
-*** monadを使う場合はppx拡張を使おう
+** monadを使う場合はppx拡張を使おう
 ほとんどのアプリケーションでは、何かしらのMonadを使うかと思います。そうでなくとも、optionやresultは多用されると思います。
 
 ひたすらnestしたmatch書いてるなー、とか、operatorが10個とか続いて心がすさんでいると感じたら、ppx_letを試してみてはいかがでしょうか。少しは心の平穏を得られるかもしれません・・・。

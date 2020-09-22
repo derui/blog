@@ -2,17 +2,13 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/08
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/08
-:END:
-
-** DONE 手動で作るReact + TypeScript環境（2019/8版）             :JavaScript:
+* DONE 手動で作るReact + TypeScript環境（2019/8版）              :JavaScript:
 CLOSED: [2019-08-21 水 22:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: handmade_react_typescript
-:EXPORT_AUTHOR: derui
 :END:
 
 最近、React＋TypeScriptの開発環境を作る場合、大抵は[[https://github.com/facebook/create-react-app][create-react-app]]を利用するケースが多いと思います。
@@ -35,7 +31,7 @@ CLOSED: [2019-08-21 水 22:27]
 - webpack-dev-serverでhot reloading
   - Componentのreloadは色々問題もあるのでやりません
 
-*** Reactの導入
+** Reactの導入
 まず新しいpackageを作りましょう。ここでは =react-handmade-sample= という名前で作ります。
 
 #+begin_src sh
@@ -50,7 +46,7 @@ CLOSED: [2019-08-21 水 22:27]
   $ npm install react react-dom styled-components
 #+end_src
 
-*** Webpackの導入
+** Webpackの導入
 [[https://webpack.js.org/][Webpack]]は、現時点でデファクトbundlerです。非常に設定量が多いと思われがちですが、必要最小限であれば、意外と量は少ないです。とりあえず必要なので入れます。webpack-dev-serverもついでにいれます。
 
 #+begin_src sh
@@ -93,7 +89,7 @@ Webpackは、developmentの場合に使う基本設定と、production時に利�
 
 空っぽに近いですが、とりあえず最小限です。
 
-*** TypeScriptの導入
+** TypeScriptの導入
 TypeScriptを書く以上、TypeScriptの導入は避けられません。ただ、webpackを利用するので、TypeScriptを直接入れると言うよりは、[[https://github.com/TypeStrong/ts-loader][ts-loader]]を導入します。BabelでもTypeScriptを利用できるのですが、Babelの場合、TypeScriptで得られる利点のいくつかを捨てることになります。なので、全体をTypeScriptで書く場合は素直にts-loaderを使うほうがよいかと。
 
 #+begin_src sh
@@ -145,7 +141,7 @@ TypeScriptを使えるように、webpack.config.jsを書き換えます。
   };
 #+end_src
 
-*** TypeScriptの設定
+** TypeScriptの設定
 =@/hoge= のようにアクセスできる出来るようにするための設定を含めて、tsconfig.jsonを書きます。tsconfig.jsonは普通にpackage.jsonと同じディレクトリに置いておきます。
 
 #+begin_src js
@@ -191,7 +187,7 @@ TypeScriptを使えるように、webpack.config.jsを書き換えます。
 
 excludeでテストを抜いているのは、こうしないと色々問題があるのでこうしています。testは別ディレクトリに置く場合は、多分無くても大丈夫です。
 
-*** webpack-dev-serverの設定
+** webpack-dev-serverの設定
 ~webpack.dev.js~ として以下のような内容を作ります。
 
 #+begin_src js
@@ -210,7 +206,7 @@ excludeでテストを抜いているのは、こうしないと色々問題が�
 もともとのconfig.jsを再利用し、dev-serverの設定を追加します。
 
 
-*** ESLintの設定
+** ESLintの設定
 ESLintを導入します。TSLintを使わず、ESLintだけでやっていきます。
 
 #+begin_src sh
@@ -263,7 +259,7 @@ ESLintを導入します。TSLintを使わず、ESLintだけでやっていき�
   }
 #+end_src
 
-*** prettierの追加
+** prettierの追加
 フォーマットは、四の五の言わずprettierを使います。prettier_dを導入しているのは、Emacsで開発する際に、prettierをそのまま使っているとめっちゃ重いからです。
 
 #+begin_src sh
@@ -282,7 +278,7 @@ ESLintを導入します。TSLintを使わず、ESLintだけでやっていき�
   }
 #+end_src
 
-*** Jestの導入
+** Jestの導入
 テストランナーは、だいたいデファクトになったJestを使います。
 
 #+begin_src sh
@@ -332,7 +328,7 @@ jestの設定は、個別の設定とかも出来るようですが、とりあ�
 
 ts-jestとtsconfig.jsonを使うことで、pathsの問題とかも解消できます。 ~setupFilesAfterEnv~ という部分に知らない設定がありますが、これはすぐあとで設定します。
 
-*** Enzymeの設定
+** Enzymeの設定
 Componentのテストを効率よくやるために、enzymeを追加します。
 
 #+begin_src sh
@@ -350,7 +346,7 @@ Componentのテストを効率よくやるために、enzymeを追加します�
   export default undefined;
 #+end_src
 
-*** npm scriptsの設定
+** npm scriptsの設定
 最後に、npm scriptsを追加します。
 
 #+begin_src js
@@ -364,7 +360,7 @@ Componentのテストを効率よくやるために、enzymeを追加します�
 
 lint自体は、webpackの設定に組み込んで、webpack-dev-serverを実行している間にも実行することも出来ます。その辺りの設定は難しくないので、必要ならやってみるといいかと思います。
 
-*** これは基本設定です
+** これは基本設定です
 この辺りは、あくまで基本設定です。CSS moduleを使ったり、SVGをrequireしたりするようにしたり、babelを導入したり・・・と、色々やっていくことは出来ます。
 
 ただ、設定が増えると後で変更しづらくなったり、設定の影響が把握しづらくなったりするので、程々にしておくのがおすすめです。実際、このくらいでも十分に開発していくことが出来ます。時間のあるときにでも、一度０から設定する、というのもいかがでしょうか。

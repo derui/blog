@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_SECTION: post/2020/08
 #+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/08
-:END:
-
-** DONE lambda-termでmulti byteを一文字ずつ表示する                   :OCaml:
+* DONE lambda-termでmulti byteを一文字ずつ表示する                    :OCaml:
 CLOSED: [2020-08-01 土 11:34]
 :PROPERTIES:
 :EXPORT_FILE_NAME: lambda-term_print_multibyte_per_character
@@ -20,7 +16,7 @@ CLOSED: [2020-08-01 土 11:34]
 
 <!--more-->
 
-*** やりたかったことと起こっていたこと
+** やりたかったことと起こっていたこと
 やりたかったこととしては、
 
 - 一文字ずつ表示したい
@@ -41,7 +37,7 @@ lambda-termでは、 ~LTerm_draw.draw_string~ と ~LTerm_draw.draw_char~ とい�
 これで表示自体は出来るんですが、 ~LTerm_draw.draw_char~ を使っていった時に、色々と気になる問題がありました。
 それは、multi byte（ここでは日本語）を表示しようとした時に、なぜか表示されない、ということでした。
 
-*** 解決
+** 解決
 備忘録なのでさっさと行きますが、原因は ~LTerm_draw.draw_char~ のcolumn指定の誤りでした。
 
 ~LTerm_draw.draw_char~ のシグネチャは、以下のようになっています。
@@ -69,12 +65,12 @@ lambda-termでは、 ~LTerm_draw.draw_string~ と ~LTerm_draw.draw_char~ とい�
 
 わかってしまえば納得ですが、中々ドキュメントだけでは分かりづらいことなので、誰か（主に自分）の役に立てばと思います。
 
-*** 結び
+** 結び
 今回のやつは、実際にはもうだいぶわからんかったので直接ソースを読んで挙動を使う把握しました。
 
 わからなかったらソースを読める、というのはやはりOpenSourceの強みだなぁと実感した次第です。
 
-** DONE Windows10 + WSL2で環境を整えた                        :Windows:Emacs:
+* DONE Windows10 + WSL2で環境を整えた                         :Windows:Emacs:
 CLOSED: [2020-08-08 土 16:20]
 :PROPERTIES:
 :EXPORT_FILE_NAME: dev_env_on_windows_and_wsl2
@@ -86,7 +82,7 @@ CLOSED: [2020-08-08 土 16:20]
 
 <!--more-->
 
-*** 不安な点
+** 不安な点
 いつもはVagrant上に構築したX11環境で開発していたわけですが、今回はWSL2になるということで、いろいろ考える必要がありそうでした。
 
 - WSL2ではUbuntu20.04/Debian/SUSEくらいしか使えない
@@ -96,7 +92,7 @@ CLOSED: [2020-08-08 土 16:20]
 - 自分のdotfileが使えるのか・・・？
   - Gentoo/Archlinux用になっているようなものなので、色々厳しそう？
 
-*** 今回の要件
+** 今回の要件
 以下を目標にします。努力目標は ~OPT~ がついてます。
 
 - EmacsをGUIで使える
@@ -108,7 +104,7 @@ CLOSED: [2020-08-08 土 16:20]
 
 Emacsとterminalだけで大体生きてるOld typeなので、これくらい出来ればだいたい何とかなります。
 
-*** WSL2のインストール
+** WSL2のインストール
 いつものごとく画像はありませんがご容赦を。以下の手順でWSLを有効にします。なお、前提としてWindowsのOS versionがMay Update以降である必要があります。お気をつけて。
 
 #+begin_quote
@@ -135,7 +131,7 @@ https://docs.microsoft.com/ja-jp/windows/wsl/install-win10
 
 
 これでいけるはずです。WSLにアクセスする時は、Windows TerminalとかcmdとかPowerShellとかお好きなもので ~wsl~ と打てば、デフォルトで設定されているディストリビューションに対してアクセスできます。
-*** WSLにいろいろインストール
+** WSLにいろいろインストール
 WSL2は普通のLinuxなので、色々設定をしていきます。ただ、WSL2は若干特殊な環境なので、systemctlは使えないものと考えるのが良さそうです。
 
 timezoneはだいたい初期状態で問題なさそうでした。
@@ -157,14 +153,14 @@ timezoneはだいたい初期状態で問題なさそうでした。
   # <dotfileなどなどをインストール>
 #+end_src
 
-*** X serverのインストール
+** X serverのインストール
 次に、GUIのEmacsを使えるように、X serverをWindows側にinstallします。ここではVcXsrvを使います。
 
 https://sourceforge.net/projects/vcxsrv/
 
 難しいことはなく、ダウンロードしてinstallしてください。Chocolateyとかhomebrewを使っている場合はそちらからインストールするのもいいかと。
 
-*** DISPLAY環境変数の設定とxhostの起動
+** DISPLAY環境変数の設定とxhostの起動
 WSL2は、物理的に異なるマシンであるのとほぼ変わらないので、母艦のマシンとは異なるIPが振られています。そのため、母艦のX serverと通信するために、DISPLAY環境変数を動的に設定する必要があります。
 また、母艦のxhostをWSLから使うことで、動的に許可を行えるようにします。
 
@@ -191,7 +187,7 @@ https://w.atwiki.jp/ntemacs/pages/69.html
 
 試しにWSLからxevとかxeyesとかを起動して、ちゃんと起動できれば成功です。
 
-*** Emacsのビルド
+** Emacsのビルド
 Emacs 27では、目玉機能の一つとして、native json（Cで実装されたJSON library）を使うことが出来ます。LSPとかを使う時、JSONを処理する速度で10倍くらい速度が違うので、こいつがあるかないかは重要なのです。
 
 #+begin_quote
@@ -210,7 +206,7 @@ Emacs 27では、目玉機能の一つとして、native json（Cで実装され
 
 最終的にmake installするかどうかは好みかなーと思います。
 
-*** Nodejsのインストール
+** Nodejsのインストール
 nodejsは、aptからインストールせずにnodenvを使ってインストールしてみます。デスクトップではnodebrewを使っていて特に困っていないのですが、たまには新しいものも使ってみます。
 
 なお、nodenvはanyenv経由でインストールします。anyenvはもう設定できてる前提としときます。
@@ -224,10 +220,10 @@ nodejsは、aptからインストールせずにnodenvを使ってインスト�
   $ npm install -g yarn
 #+end_src
 
-*** opamとかのインストール
+** opamとかのインストール
 は、上で終わっています。opamの設定とかは省略です。
 
-*** 日本語入力について
+** 日本語入力について
 このままだと、Emacs上で日本語入力が出来ない状態（まぁあんまり困らないケースもあるかと思いますが・・・）です。
 
 WSL1上でGoogle日本語入力を使う方法としてはこちらに情報がまとまっています。
@@ -237,7 +233,7 @@ https://w.atwiki.jp/ntemacs/pages/50.html
 WSL1の情報がどれだけ流用できるのか？が不明ですが、xhostの設定とかは動くようなので、もしかしたら動く？かもしれません。
 安牌なやり方としては、普通にaptでmozcを入れる、というのもあります。特に設定を共有できることにこだわりはないので、こっちにする可能性が高いです。
 
-*** とりあえず作業ができるようになりました
+** とりあえず作業ができるようになりました
 一通り導入が終わったので、後はlspが動くかとかを確認していく感じになります。開発環境はWSL2、環境の作り捨てはVirtualBox、というように棲み分け出来そうなイメージが出来てきました。
 
 とりあえず使ってみてまた書けることがあれば書こうと思います。

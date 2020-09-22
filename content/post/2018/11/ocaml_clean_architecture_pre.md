@@ -3,7 +3,7 @@ title = "OCamlでClean Architectureもどき"
 author = ["derui"]
 date = 2018-11-04T17:06:00+09:00
 publishDate = 2018-11-04T00:00:00+09:00
-lastmod = 2020-09-22T11:22:05+09:00
+lastmod = 2020-09-22T13:02:41+09:00
 tags = ["OCaml"]
 draft = false
 +++

@@ -1,9 +1,9 @@
 +++
 title = "Spring Boot + Gradle + AssertJでAssertJ generatorを実行するTips"
 author = ["derui"]
-date = 2018-10-23T09:50:00+00:00
-publishDate = 2018-10-23T00:00:00+00:00
-lastmod = 2018-10-23T09:50:57+00:00
+date = 2018-10-23T09:50:00+09:00
+publishDate = 2018-10-23T00:00:00+09:00
+lastmod = 2020-09-22T13:03:11+09:00
 tags = ["java"]
 draft = false
 +++
@@ -103,7 +103,6 @@ task assertjGen(dependsOn: assertjClean, type: JavaExec) {
 }
 
 compileTestJava.dependsOn(assertjGen)
-
 ```
 
 `args` にある `foo.bar` はパッケージ名と思ってもらえれば。

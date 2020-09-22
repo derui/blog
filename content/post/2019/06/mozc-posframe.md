@@ -2,7 +2,7 @@
 title = "mozcの候補をposframeで表示するEmacs拡張を作った"
 author = ["derui"]
 date = 2019-06-07T09:54:00+09:00
-lastmod = 2019-06-07T09:54:27+09:00
+lastmod = 2020-09-22T12:59:34+09:00
 tags = ["Emacs"]
 draft = false
 +++

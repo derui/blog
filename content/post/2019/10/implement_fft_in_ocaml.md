@@ -2,7 +2,7 @@
 title = "OCamlでFFTを実装してみる"
 author = ["derui"]
 date = 2019-10-12T11:56:00+09:00
-lastmod = 2019-10-12T11:56:43+09:00
+lastmod = 2020-09-22T12:58:04+09:00
 tags = ["OCaml"]
 draft = false
 +++

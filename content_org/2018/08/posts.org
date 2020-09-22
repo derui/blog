@@ -1,18 +1,14 @@
-#+STARTUP: content indent logdone
+#+STARTUP: content logdone inlneimages
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2018/08
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2018/08
-:END:
-
-** DONE ブログをHugo + Netlifyで作りました                            :雑記:
+* DONE ブログをHugo + Netlifyで作りました                              :雑記:
 CLOSED: [2018-08-30 木 23:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: create_blog_with_hugo_and_netlify
-:EXPORT_DATE: <2018-08-30 木>
 :END:
 
 今まで放置しっぱなしだったはてなダイアリーが終了するというニュースを受けて、個人ブログ移行の問題が出てきました。
@@ -21,7 +17,7 @@ CLOSED: [2018-08-30 木 23:56]
 
 <!--more-->
 
-*** 移行時に重視した点
+** 移行時に重視した点
 いざ移行を考えた時、以下のようなフローでやってみたくなりました。
 
 - Githubにpushしたら公開される
@@ -32,7 +28,7 @@ CLOSED: [2018-08-30 木 23:56]
 
 最後は願望でしたが。
 
-*** 利用したツール/サービス
+** 利用したツール/サービス
 このブログを作成するにあたり、以下のサービス・ツールを利用しました。
 
 - [[https://gohugo.io/][Hugo]]
@@ -44,12 +40,12 @@ CLOSED: [2018-08-30 木 23:56]
 
 なお、執筆環境は基本的にEmacs一択です。
 
-**** ox-hugoからのexport
+*** ox-hugoからのexport
 ox-hugoは、 *org fileをmarkdownにexportするbackend* です。backendとは、Org modeにおいてorg fileを変換するための処理みたいなものです。
 
 とにかく、markdownを生成するものなので、Github上には =.org= と =.md= の両方のファイルがcommitされていきます。これは、仮にOrg modeを利用しなくなっても、markdownをそのまま書けばいい、ということでもあります。この点を鑑みて、リポジトリの容量については一旦置いておくことにしています。
 
-*** 執筆フロー
+** 執筆フロー
 1. Org modeで書く
 2. ~TODO~ を付けてdraft化
    1. draftになっている間は、pushしても表示はされない（はず）
@@ -59,16 +55,15 @@ ox-hugoは、 *org fileをmarkdownにexportするbackend* です。backendとは
 
 というフローでやっていきます。
 
-*** 決めかねてる点
+** 決めかねてる点
 Hugoだと基本的に =post/<ファイル名>= 、という形式になるようですが、個人的にはいつ書いたか？をURLに入れておきたいです。
 
 ただ、色々な人の構成を見ている限りでは、日時はHugoに任せて、タイトルだけにしているケースが多いようでした。
 郷に入れば郷に従え、ということでとりあえず従っておきますが、なんかモヤモヤします。
 
-*** 所感
+** 所感
 Qiitaの方はmarkdownで書いている＋Webから登録する方が色々楽ということで、あっちはあっちで書いていきますが、こっちも充実させていければと思います。
 
-* Footnotes
 * COMMENT Local Variables                                           :ARCHIVE:
 # Local Variables:
 # eval: (org-hugo-auto-export-mode)

@@ -2,7 +2,7 @@
 title = "Emacsの設定を色々いじった -その１-"
 author = ["derui"]
 date = 2019-04-04T22:28:00+09:00
-lastmod = 2019-04-04T22:28:36+09:00
+lastmod = 2020-09-22T13:00:25+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -16,7 +16,7 @@ draft = false
 <https://github.com/derui/dot.emacs.d>
 
 
-## doom-modeline + all-the-icons {#doom-modeline-all-the-icons}
+## doom-modeline + all-the-icons {#doom-modeline-plus-all-the-icons}
 
 [doom-modeline](https://github.com/seagle0128/doom-modeline)
 [all-the-icons](https://github.com/domtronn/all-the-icons.el)

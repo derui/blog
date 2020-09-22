@@ -2,7 +2,7 @@
 title = "Windows上でOCamlアプリケーションを動かす ビルド環境編"
 author = ["derui"]
 date = 2019-11-02T10:10:00+09:00
-lastmod = 2019-11-02T10:10:52+09:00
+lastmod = 2020-09-22T12:57:32+09:00
 tags = ["OCaml", "Windows"]
 draft = false
 +++

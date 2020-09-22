@@ -3,13 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
+#+HUGO_SECTION: post/2020/06
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/06
-:END:
-
-** DONE 最近はpure CSS + PostCSSを使っている話                          :CSS:
+* DONE 最近はpure CSS + PostCSSを使っている話                           :CSS:
 CLOSED: [2020-06-10 水 21:07]
 :PROPERTIES:
 :EXPORT_FILE_NAME: pure_css_with_postcss
@@ -20,7 +16,7 @@ CLOSED: [2020-06-10 水 21:07]
 
 <!--more-->
 
-*** なぜPure CSSに回帰したのか
+** なぜPure CSSに回帰したのか
 以前は、自分で書くのは全部SCSSで、仕事ではPure CSSでした。SCSSの現場もありましたが、余計な依存を増やさないでくれ、という依頼があった時はPure CSSを書くようにしていました。
 
 だいぶ前（PostCSSが出るより前）は、ある程度構造化したり共通化したCSSをかきたいなー、ってなった場合、SCSSなりSassやLESSといったAltCSSを選択するしかありませんでした。
@@ -37,7 +33,7 @@ CLOSED: [2020-06-10 水 21:07]
 - 色々やりすぎて結局保守性が下がる
 
 
-*** PostCSSとCSS Custom Variables
+** PostCSSとCSS Custom Variables
 PostCSSは以前から知っていましたが、実際に使ったことはありませんでした。使うだけなら、npm/yarnでCLIを入れれば使えます。
 
 #+begin_src shell
@@ -59,7 +55,7 @@ SCSSの変数とは異なるものではありますが、逆にSCSSの変数で
 
 なにより、最悪PostCSSが使えなくなってもダメージがそれ程でもない、というのが安心感あります。
 
-*** 最近使っているPostCSSのPlugin
+** 最近使っているPostCSSのPlugin
 - [[https://github.com/csstools/postcss-extend-rule][postcss-extend-rule]]
   - ~@extend~ を使えます、が、現状特に使っていないという・・・
 - [[https://github.com/postcss/postcss-import][postcss-import]]
@@ -73,7 +69,7 @@ SCSSの変数とは異なるものではありますが、逆にSCSSの変数で
 
 これくらいしか入れていなくても、それほど問題なくサクサクと書けています。複数人開発じゃないから、というのもありそうですが・・・。
 
-*** とりとめのない終わり
+** とりとめのない終わり
 実際、SCSSを書いてもCSSを書いても、セレクタの命名規則だったり詳細度の話だったりは変わりません。
 ので、ちょっとした書き味の違いを求めるのであれば、標準であるCSSをそのまま書いたほうがメリットがあると、最近は思っています。
 

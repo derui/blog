@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/11
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/11
-:EXPORT_AUTHOR: derui
-:END:
-
-** DONE Windows上でOCamlアプリケーションを動かす ビルド環境編 :OCaml:Windows:
+* DONE Windows上でOCamlアプリケーションを動かす ビルド環境編  :OCaml:Windows:
 CLOSED: [2019-11-02 土 10:10]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_app_on_windows_part2
@@ -22,7 +18,7 @@ CLOSED: [2019-11-02 土 10:10]
 
 <!--more-->
 
-*** ビルド環境の選定
+** ビルド環境の選定
 まずOCamlプログラムのクロスコンパイル・・・というかWindows向けのビルド環境をどうするか？です。Windows向けにビルドする場合、次のいずれかが主要な選択肢になります。
 
 1. Linux上でMinGWをインストールし、Windows向けのバイナリをクロスコンパイルする
@@ -33,7 +29,7 @@ Windows上でコンパイルする場合、OCaml/OPAMそれぞれをビルドす
 
 と、いうことで、Linuxでのクロスコンパイルに一縷の望みを託してみます。
 
-**** Windows上のOCamlについて
+*** Windows上のOCamlについて
 OCaml本体は、実はWindows環境上でもちゃんとコンパイル・実行できるようになっています。（MSVC/Cygwinのいずれかが必要です）また、OPAMもWindows上でビルドできるようになっています・・・が。
 
 OPAMをMinGWでビルドしてしまうと、 =opam init= が上手く動作しない、という問題が発生します・・・。これはOPAMでも認識されている問題です。このため、OPAMをWindows上で動かす場合、OCaml本体もCygwin向けにコンパイルする必要があります。
@@ -42,14 +38,14 @@ OPAMをMinGWでビルドしてしまうと、 =opam init= が上手く動作し�
 
 しかし、Cygwinでコンパイルしてしまうと、Cygwin1.dllというdllを同梱しないと動作しなくなります。Cygwin1.dllはライセンス的にも結構厳しいため、できれば付けたくありません・・・。
 
-*** Linux上でのクロスコンパイル環境
+** Linux上でのクロスコンパイル環境
 OCamlプログラムを、Linux上でWindows向けにコンパイルする方法は、 *MinGWでコンパイルされたOCamlコンパイラでコンパイル・リンクする* という形になります。本来、Linux上でMinGWを利用してコンパイルされたバイナリは、Windows環境またはWineでしか動きません。
 
 ここで前に紹介した[[https://github.com/ocaml-cross/opam-cross-windows][ocaml-cross-windows]]が効いてきます。このリポジトリでは、Windowsバイナリを生成でき、Linux上で実行可能なOCamlコンパイラを提供してくれています。ただ、ocaml-cross-windowsでは、Debianとかを推奨？している雰囲気があります。しかし私の利用しているDistributionはGentoo・・・。
 
 と、いうことで、こういうときはDockerに頼ります。Debianのベースイメージから、クロスコンパイル環境を整えます。
 
-*** クロスコンパイル用のイメージを作成する
+** クロスコンパイル用のイメージを作成する
 
 #+begin_example
   FROM debian:bullseye
@@ -78,7 +74,7 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 記事の時点においては、OCamlプログラムのビルドには、duneを使っておくのが無難です。ocaml-cross-windowsの仕組みに対応しているので、面倒なことせずに動きます。
 #+end_quote
 
-**** 番外：Linux向けのコンパイル環境
+*** 番外：Linux向けのコンパイル環境
 上ではクロスコンパイル用のimage生成でしたが、Linux用のバイナリ生成でも色々と気にする必要があります。割と有名？な問題として、Linux向けのバイナリは大抵動的リンクを利用しているため、libcとかのバージョンが異なると稀に動かないとか、実は動的リンクしているものがあって動かない、みたいなことがあります。
 
 そのため、[[https://www.musl-libc.org/][musl]]を利用するのが一般的です。この場合、muslがデフォルトのlibcとして使われている[[https://alpinelinux.org/index.html][Alpine Linux]]のコンテナを使うのがベターです。ただし、muslを使ったとしても、duneはデフォルトで共有ライブラリを動的リンクするようなビルドを行うので、明示的に設定を行う必要があります。
@@ -99,7 +95,7 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 
 のように書いた場合のみ、静的リンクを行うことが出来るようになります。これは地味にハマったポイントなので、duneのドキュメントはよく読むことをオススメします。
 
-*** クロスコンパイルは始まりに過ぎない
+** クロスコンパイルは始まりに過ぎない
 前段までで、 *一応* Windowsで実行可能なバイナリを生成することが出来ました。ただ、OCamlプログラムのWindows用バイナリ生成は始まりに過ぎません。ここからが厳しいです。何が厳しいのかというと・・・。
 
 - そもそもWindowsを想定していないpackageがありえる
@@ -111,7 +107,7 @@ OCamlプログラムを、Linux上でWindows向けにコンパイルする方法
 
 次回はそういう場合に必要だった、クロスコンパイル環境でのデバッグ方法について書きたいと思います。
 
-** DONE Windows上でOCamlアプリケーションを動かす デバッグ編   :OCaml:Windows:
+* DONE Windows上でOCamlアプリケーションを動かす デバッグ編    :OCaml:Windows:
 CLOSED: [2019-11-11 月 21:36]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_app_on_windows_part3
@@ -124,14 +120,14 @@ CLOSED: [2019-11-11 月 21:36]
 <!--more-->
 
 
-*** Cross Compileしたバイナリの難しさ
+** Cross Compileしたバイナリの難しさ
 Linux上でクロスコンパイルしたバイナリですが、実際にこのバイナリを動かしてみると、問題が発生（Segfaultとか）することがあります。
 
 特に最初はWineで動かすと思いますが、エラーの内容がメモリアドレスくらいしか無く、結構色々と辛いです。Windows上で実行してみるのも中々にしんどいです。普通にそのまま実行時エラーで落ちるので。
 
 Visual Studioとかで動かしてみる、というのも手段だと思いますが、ここではあくまでLinux上で解決してみます。
 
-*** gdbserverとgdb
+** gdbserverとgdb
 gdbには、remoteのgdbと繋げてローカルで実行できる =gdbserver= というツールが存在しています。
 
 Debianであれば、まず以下でmingw向けのgdbserverと、mingwでコンパイルされたtargetをデバッグできるgdbをインストールします。
@@ -165,7 +161,7 @@ Debianであれば、まず以下でmingw向けのgdbserverと、mingwでコン�
 
 今回は短かったですが、この情報が中々見つからず、苦労してしまったので、どこかの誰かのお役に立てばと思います。
 
-** DONE Emacsの設定管理をuse-packageからleaf.elにしてみた             :Emacs:
+* DONE Emacsの設定管理をuse-packageからleaf.elにしてみた              :Emacs:
 CLOSED: [2019-11-17 日 09:10]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use-package_to_leaf_el
@@ -175,7 +171,7 @@ CLOSED: [2019-11-17 日 09:10]
 
 <!--more-->
 
-*** use-packageに感じていた問題点
+** use-packageに感じていた問題点
 ・・・というのは実はあまりないんですが、あえて言えば次のような点でした。
 
 - 設定のgroupingがしづらい
@@ -187,7 +183,7 @@ CLOSED: [2019-11-17 日 09:10]
 
 あまり頻繁に.emacs.dを更新していない、というのもあるんですが、端的に言うと *まーいいか* という状態でした。
 
-*** leaf.el
+** leaf.el
 [[https://github.com/conao3/leaf.el][leaf.el]]は、 =leaf.el is yet another use-package.= として作成されたpackageです。use-packageと比較してどうか？というのは、作者が書いている記事を見たほうが早いでしょう。
 
 [[https://qiita.com/conao3/items/dc88bdadb0523ef95878]]
@@ -202,10 +198,10 @@ https://github.com/derui/dot.emacs.d/blob/master/conf/package-config.el
 
 https://github.com/derui/dot.emacs.d/blob/master/conf/emacs-base-setting.el
 
-*** leaf.elに移行してみて
+** leaf.elに移行してみて
 ただ、leaf.elもいいところばかりではなく、いくつか設定上の問題がありました。
 
-**** bindingが上手く行かない問題
+*** bindingが上手く行かない問題
 leaf.elでは、bindingに設定した関数は、基本的にそのpackage内の関数である、とみなそうとします。
 
 #+begin_src emacs-lisp
@@ -242,7 +238,7 @@ leaf.elでは、bindingに設定した関数は、基本的にそのpackage内�
 
 上記のautoload設定問題があって、例えばevilのkeymapに色々な設定を追加していこうとしても、各々の関数を持つpackage自体に設定が分散してしまう、という問題があります。まぁgrepすれば見つかるものではあるんですが、どうも一箇所でまとまっていない、というのが若干気持ち悪いポイントになっています。
 
-*** 設定の棚卸しは定期的に
+** 設定の棚卸しは定期的に
 今回leaf.elに移行してみて、全体を見直していたのですが、重複していたり矛盾する設定だったりがあり、その整理も出来たのでちょうどよかったです。棚卸しは定期的に行うべきですね。
 
 仕事上ではEmacsだけではなく、Visual Studio CodeやIntelliJとかも利用しており、Emacsだけに依存していません。特にVisual Studio Codeは特に高速性や見た目の良さなどから、Emacsからのいい移行対象だなぁ、と思ったりもします。

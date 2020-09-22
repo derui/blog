@@ -3,13 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
+#+HUGO_SECTION: post/2020/07
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/07
-:END:
-
-** DONE shellのpipeを使いつつ入力とかを受け付ける方法                 :Linux:
+* DONE shellのpipeを使いつつ入力とかを受け付ける方法                  :Linux:
 CLOSED: [2020-07-12 日 13:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: pipe_with_terminal_interactive
@@ -18,7 +14,7 @@ CLOSED: [2020-07-12 日 13:54]
 
 <!--more-->
 
-*** pipeしたときの標準出力とかの状態
+** pipeしたときの標準出力とかの状態
 Unix(Linux)で、shellからプログラムをpipeで繋いで起動した場合に、標準入出力がどうなるか？というのは、以下の記事にわかりやすく載っています。
 
 [[https://qiita.com/akym03/items/aadef9638f78e222de22][Qiita Linuxのパイプをちょっとだけ理解する]]
@@ -28,7 +24,7 @@ Unix(Linux)で、shellからプログラムをpipeで繋いで起動した場合
 また、この状態でさらにpipeで繋がれると、当然ですが標準出力が別のコマンドの標準出力につながることになります。進捗などを表示したりするときに標準出力に出したりすると、別のコマンドに余計な出力をすることにもなり、あんまりうれしくありません。
 こういうのをどうやって解決したら良いか？
 
-*** ~/dev/tty~ を使う
+** ~/dev/tty~ を使う
 そんなときには、character deviceである ~/dev/tty~ を使います。
 
 http://tldp.org/HOWTO/Text-Terminal-HOWTO-7.html#ss7.3
@@ -57,7 +53,7 @@ http://tldp.org/HOWTO/Text-Terminal-HOWTO-7.html#ss7.3
 
 
 特にpsコマンドの方だと、shell scriptの中から起動されたコマンドのttyは、起動元のshellのttyと同一であったりと、仕組みが思い浮かぶような感じにもなっていて面白いので、覚えておくといいと思います。
-*** 最後に
+** 最後に
 今回は久しぶりにhow to 系の記事でした。またこういうのも書いていこうと思います。How To系ってちゃんと書こうとするとハードルが高いのと、調べればわかるので書く気力が湧けば、ですが・・・。
 
 * comment Local Variables                                           :ARCHIVE:

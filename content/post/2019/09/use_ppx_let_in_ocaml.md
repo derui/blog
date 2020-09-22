@@ -2,7 +2,7 @@
 title = "OCamlでMonadを使う時はppx_letを使おう"
 author = ["derui"]
 date = 2019-09-14T11:17:00+09:00
-lastmod = 2019-09-14T11:17:53+09:00
+lastmod = 2020-09-22T12:58:23+09:00
 tags = ["OCaml"]
 draft = false
 +++

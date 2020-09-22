@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+hugo_section: post/2020/05
 #+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/05
-:END:
-
-** DONE cmigemoの代わりに自作のmigemoを使うようにしてみた        :JavaScript:
+* DONE cmigemoの代わりに自作のmigemoを使うようにしてみた         :JavaScript:
 CLOSED: [2020-05-05 火 10:52]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_selfmade_migemo
@@ -21,7 +17,7 @@ GWでも変わらずこもってますが、よく考えたら常日頃こもっ
 
 <!--more-->
 
-*** なんで動いていなかったのか
+** なんで動いていなかったのか
 そもそもなんで動いていなかったのか、ですが、cmigemo自体は自分でbuildしていたものがあったので、動かすことは出来ました。ただ、
 
 - cmigemoが依存しているnkfが、gentooでinstallできない（ので、cmigemoもinstallできない）
@@ -30,7 +26,7 @@ GWでも変わらずこもってますが、よく考えたら常日頃こもっ
 
 という一点に於いて、cmigemoをこのまま使うべきかどうか、中々判断しづらかった、というのがあります。
 
-*** cmigemoの代替は・・・
+** cmigemoの代替は・・・
 cmigemoでなければどうするか、ということですが、実は選択肢はほとんど無く、originalのmigemoくらいしかありません。
 
 http://0xcc.net/migemo/
@@ -42,14 +38,14 @@ http://0xcc.net/migemo/
 
 という天啓（？）を受けて、実装することにしました。
 
-**** こぼれ話：なんでOCamlでmigemoを実装していたのか
+*** こぼれ話：なんでOCamlでmigemoを実装していたのか
 趣味で作っているOCamlアプリケーションで、migemoを使った検索をしたかったんです。ただ、Windows/Linux両対応する、というときに、C Libraryを使うのは色々とめんどくさいですし、stubの実装が馬鹿になりません。
 
 pure OCamlで作ってしまえば、Windows/Linux両対応部分が大幅に減るので、色々楽じゃん、ということで再実装しました。
 
 cmigemoとほぼ遜色のない速度を出せているので、個人的には満足です。
 
-*** Emacsの正規表現をだせるようにする
+** Emacsの正規表現をだせるようにする
 migemocamlで出力している正規表現は、PCREを前提とした、最小限の特殊文字だけ利用しています。ただ、Emacsの正規表現は、歴史的な事情から、特殊なエスケープが必要になっています。
 
 https://flex.phys.tohoku.ac.jp/texi/eljman/eljman_218.html
@@ -68,7 +64,7 @@ https://github.com/derui/migemocaml/pull/1
 ocamlformatをかけたのでめっちゃ差分が出てるけど・・・
 #+end_quote
 
-*** Emacsに設定する
+** Emacsに設定する
 無事に実装できたので、Emacsで設定してみます。なお、Emacsの設定では全面的に ~leaf.el + straight.el~ になっております。
 
 #+begin_src emacs-lisp
@@ -93,7 +89,7 @@ ocamlformatをかけたのでめっちゃ差分が出てるけど・・・
 
 使ってみてですが、cmigemoのときとだいぶ環境が違っているので、一概に評価できないですが、体感的にはほとんど変わらない使用感です。さすがOCaml（何）
 
-*** 自分で作っても意外と動く
+** 自分で作っても意外と動く
 長年cmigemoで動かしていましたが、自作のmigemoでもちゃんと動くことが結構嬉しかったです。もちろん、色々対応しているmigemo.elであったり、migemocamlのリファレンス実装としたcmigemoの存在などがなければ、migemocamlは実装できていません。
 そういう意味で、巨人の肩に乗った形になります。
 

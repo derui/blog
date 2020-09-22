@@ -2,7 +2,7 @@
 title = "qmk_firmwareの日本語配列からかな入力をする"
 author = ["derui"]
 date = 2020-04-29T12:01:00+09:00
-lastmod = 2020-09-22T10:41:53+09:00
+lastmod = 2020-09-22T12:55:44+09:00
 tags = ["雑記"]
 draft = false
 +++

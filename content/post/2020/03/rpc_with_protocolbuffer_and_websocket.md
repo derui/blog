@@ -1,7 +1,8 @@
 +++
 title = "ProtocolBufferを使ってWebSocketでRPCをする"
+author = ["derui"]
 date = 2020-03-15T13:59:00+09:00
-lastmod = 2020-09-22T10:42:04+09:00
+lastmod = 2020-09-22T12:56:06+09:00
 tags = ["JavaScript", "ProtocolBuffer"]
 draft = false
 +++

@@ -2,16 +2,12 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
+#+HUGO_SECTION: post/2020/09
+#+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/09
-:END:
-
-** DONE Migemoを使って絞り込みできるfzfっぽいものを作っています                              :OCaml:
+* DONE Migemoを使って絞り込みできるfzfっぽいものを作っています        :OCaml:
 CLOSED: [2020-09-09 水 21:00]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: finder_with_migemo
 :END:
 残暑というかもう真夏じゃねーか、という気温でいやんな感じです。でも夕方の風邪は大分過ごしやすくなってきました。
@@ -22,7 +18,7 @@ https://github.com/derui/oif
 
 <!--more-->
 
-*** なにこれ？
+** なにこれ？
 OCaml純正のfzfっぽいものです。しばらく前に書いたやつですが、一応それっぽく動くようになりました。最大の特徴はOCamlで書かれていることと、こういうfinder系では他にない（私が知らないだけという可能性が100%）、検索時にMigemoれることです。
 
 見た目はこんな感じです。fzfっぽいのは仕様です。
@@ -33,7 +29,7 @@ Migemoっている風景は以下。
 
 [[file:oif_migemo.png]]
 
-*** なんで作った？
+** なんで作った？
 簡単に言うと
 
 - Migemoれるfinderが何となく欲しかった
@@ -44,7 +40,7 @@ Migemoっている風景は以下。
 
 です。せっかくPure OCaml実装のMigemoを作っていたので、それをライブラリとして使ってみたかった、というのもあります。実際にはMigemoは他のツールに組み込むために作ったので、たまたまですが・・・。ちなみに自前でつくったmigemoは、若干機能がたりないけど、今もEmacsで普通に使えています。
 
-*** 出来ること
+** 出来ること
 必要最小限です。
 
 - 部分一致・Migemoの切り替え
@@ -55,7 +51,7 @@ Migemoっている風景は以下。
 
 まだ複数の単語でのマッチとかが出来ないのと、Migemoのライブラリが少し機能が足りないので、いますぐfzfの代わりに！というわけではないです。ただ、OCamlでもちゃんとこういうのは作れるんだぞ、というのはわかっていただけるかと。ちゃんとってなんだ。
 
-*** これからの展望
+** これからの展望
 まだまだ実用には遠いので、いろいろいじっていこうと思います。
 
 - 複数単語でマッチできる
@@ -72,10 +68,9 @@ Migemoっている風景は以下。
 
 OCamlはライブラリがないなら作ってしまえばいいじゃない、という感じなので、自前で色々作る練習にもなりますよ。
 
-** DONE OCaml製プログラムでperformance profileをする                            :OCaml:
+* DONE OCaml製プログラムでperformance profileをする                   :OCaml:
 CLOSED: [2020-09-22 火 09:14]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: performance_profile_with_ocaml
 :END:
 OCamlで作ったソフトウェアをチューニングしようとprofilingしようとしたら、4.09.0で gprof 対応が削除されていました。
@@ -87,7 +82,7 @@ https://github.com/ocaml/ocaml/pull/2314
 <!--more-->
 
 
-*** 何を使うのか？
+** 何を使うのか？
 Linuxでperformance profiling、特にCPU cycleを見る場合、perfというプログラムを使うのが一般的なようです。
 
 
@@ -99,7 +94,7 @@ http://www.brendangregg.com/perf.html
 https://qiita.com/k0kubun/items/b094c4b9bd4fe0027a48
 
 
-*** 使い方とduneでのフラグ付け
+** 使い方とduneでのフラグ付け
 使い方自体は、OCaml本体でも紹介されていますだ、以下のように実行してevent traceを取得し、reportを見る、という感じです。
 
 #+begin_src shell
@@ -117,7 +112,7 @@ https://qiita.com/k0kubun/items/b094c4b9bd4fe0027a48
 
 ・・・が、duneは色々やってくれてるので、最近のduneを使っている場合は、 ~--profile=dev~ を指定してビルドするだけです（デフォルトのprofileがdevなので、指定しなくてもいいです）。実際に ~-g~ オプションがついているかどうかは、duneに ~--display=short~ を付けて実行するとよくわかります。
 
-*** 他のprofiling手法
+** 他のprofiling手法
 OCamlでは、どっちかというとmemory profilingの手法が多く見つかるので、CPU cycleのプロファイルを取る方法をメモりました。ただ、この記事を書こうとしたらもっと網羅的な記事が見つかったので、こっちでいいやん・・・ってなりました。
 
 https://github.com/ocaml-bench/notes/blob/master/profiling_notes.md

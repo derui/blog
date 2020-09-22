@@ -2,7 +2,7 @@
 title = "lambda-termでmulti byteを一文字ずつ表示する"
 author = ["derui"]
 date = 2020-08-01T11:34:00+09:00
-lastmod = 2020-09-22T10:21:41+09:00
+lastmod = 2020-09-22T12:53:45+09:00
 tags = ["OCaml"]
 draft = false
 +++

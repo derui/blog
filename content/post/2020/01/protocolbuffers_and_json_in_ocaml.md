@@ -1,7 +1,8 @@
 +++
 title = "Protocol BuffersとJSONの扱い in OCaml"
+author = ["derui"]
 date = 2020-01-13T12:27:00+09:00
-lastmod = 2020-09-22T10:42:37+09:00
+lastmod = 2020-09-22T12:56:39+09:00
 tags = ["日本語入力"]
 draft = false
 +++

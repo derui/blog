@@ -2,7 +2,7 @@
 title = "shellのpipeを使いつつ入力とかを受け付ける方法"
 author = ["derui"]
 date = 2020-07-12T13:54:00+09:00
-lastmod = 2020-07-12T13:54:17+09:00
+lastmod = 2020-09-22T12:54:23+09:00
 tags = ["Linux"]
 draft = false
 +++

@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_SECTION: post/2020/02
 #+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/02
-:END:
-
-** DONE polybarからi3blocksに乗り換えてみた                           :Linux:
+* DONE polybarからi3blocksに乗り換えてみた                            :Linux:
 CLOSED: [2020-02-21 金 16:01]
 :PROPERTIES:
 :EXPORT_FILE_NAME: polybar_to_i3blocks
@@ -21,7 +17,7 @@ CLOSED: [2020-02-21 金 16:01]
 
 <!--more-->
 
-*** i3blocks
+** i3blocks
 [[https://github.com/vivien/i3blocks][i3blocks]]は、その説明にあるとおり、text-baseなstatus barです。[[https://github.com/polybar/polybar][polybar]]もだいたい同じような感じですね。これらの違いを個人的にあげてみます。
 
 - polybar
@@ -36,7 +32,7 @@ CLOSED: [2020-02-21 金 16:01]
 i3blocksは、組み込みmoduleとかがほぼない代わりに、moduleから返された結果を表示するだけ、というシンプルな形式に割り切っています。そのため、複雑化しやすい（個人の意見です）polybarよりも設定ファイルがシンプルになります。
 
 
-*** polybarから乗り換えた理由
+** polybarから乗り換えた理由
 polybarは、その組み込みmoduleが多いことも相まって、コンパイル時の依存が多いです。出来るだけ依存を少なくしたいのと、利用しないmoduleが多かったというのもあり、他のstatus barを検討していました。
 
 i3blocksは1.4まではデフォルトでmoduleを用意していましたが、1.5で大きく変更され、i3blocks本体は最小限で、moduleは全て[[https://github.com/vivien/i3blocks-contrib][i3blocks-contrib]]に分割されています。(blockletと読んでいるようです）。
@@ -44,7 +40,7 @@ i3blocksは1.4まではデフォルトでmoduleを用意していましたが、
 
 また、色とかもmodule内で出力することで個別に変更できるため、別ファイルにまとめておいて読み出す、とかもできます。configにまとめるのとどっちがいいか、というのはありますが・・・。
 
-*** i3blocksの設定
+** i3blocksの設定
 
 #+begin_src conf
   color=#8fa1b3
@@ -85,14 +81,14 @@ i3blocksは1.4まではデフォルトでmoduleを用意していましたが、
 
 各command内は、シンプルにbash scriptを呼んでいるだけです。polybar同様、実行さえ出来ればPythonでもrubyでもなんでもOKです。
 
-*** これからの課題
+** これからの課題
 polybarの方が優れていたのが、電源周りのmoduleが用意されており、それが結構使い勝手が良かったことです。i3blocksは当然デフォルトでは用意されていないので、自分でいろいろやることになります。
 
 ~interval=persist~ という設定を入れると、そのスクリプトを起動しっぱなしにしても大丈夫になるので、それを利用しています。一応動作はしているのですが、もうちょっとなんとかならんか・・・というところで止まっています。
 
 デフォルトで用意されている（battery included）ことを拒絶した以上、自分で解決する必要があるのはそのとおりなので、もうちょっと試行錯誤してみようと思います。i3wmを利用している方は一回試してみると、また新しい何かが見えるかもしれませんよ？
 
-** DONE Domain Modeling Made Functionalを読んだ                        :雑記:
+* DONE Domain Modeling Made Functionalを読んだ                         :雑記:
 CLOSED: [2020-02-07 金 19:45]
 :PROPERTIES:
 :EXPORT_FILE_NAME: domain_modeling_made_functional
@@ -104,7 +100,7 @@ CLOSED: [2020-02-07 金 19:45]
 
 <!--more-->
 
-*** どんな内容？
+** どんな内容？
 すごい簡単に書くと、 *F#でDDDをやっていく時のノウハウが詰まっている* 本です。たいていこういう本はScalaとかHaskellで書かれている印象（偏見）なので、F#というのが中々ニッチな印象でした。
 
 ちなみにF#を知らない方のために紹介だけしておくと、F#は以下のような特徴を持つ言語です。
@@ -118,7 +114,7 @@ CLOSED: [2020-02-07 金 19:45]
 
 OCamlを使っている人間としては、F#の文法は若干の違和感を感じるくらいで、特に読みづらさとかは感じませんでした。
 
-**** もうちょっと細かい内容
+*** もうちょっと細かい内容
 概ね、以下順で進んでいきます。
 
 1. DDD自体の解説
@@ -145,7 +141,7 @@ OCamlを使っている人間としては、F#の文法は若干の違和感を�
 
 
 
-*** 特に印象に残った点
+** 特に印象に残った点
 DDDに当たる部分は、Evans本やIDDD本を読んでいれば、ある程度は読み飛ばしてしまっていいと思います。そこ以外で印象に残っていたり、参考になったものがいくつかあります。
 
 - とにかく型で表現する
@@ -170,14 +166,14 @@ DDDに当たる部分は、Evans本やIDDD本を読んでいれば、ある程�
 - 型パズルの解き方
   - 大量の型が出てきた時に、どのように関数を繋げていくか、という方法論が書かれています
 
-*** 関数型言語でもDDDをやりたい人にはオススメです
+** 関数型言語でもDDDをやりたい人にはオススメです
 DDDをJavaとかC#、他の言語ではやっているけど、関数型言語ではどうやるんだろう、Monadとかよくわからない概念のオンパレードになるんじゃないか、とか思っている人にオススメです。
 
 私はこれを読んでから自分のアプリケーションを見直してみたら、ドメインルールが普通に流出していたり、型で表現しきれていない部分を大量に見つけました・・・。大分絶望感に襲われましたが、いい経験と思って書き直してます。
 
 いかにして、シンプルな型で表現していき、ビジネスの制約やルールを生きたドキュメントにするか、という点に力点を置いているので、そのポイントを押さえるだけでもかなりの価値があるのではないかと思います。
 
-** DONE hygen.ioでboilerplateを自動生成すると捗る話              :JavaScript:
+* DONE hygen.ioでboilerplateを自動生成すると捗る話               :JavaScript:
 CLOSED: [2020-02-29 土 16:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: hygen_io_to_reduce_boilerplate
@@ -189,7 +185,7 @@ CLOSED: [2020-02-29 土 16:54]
 
 <!--more-->
 
-*** hygen.ioとは
+** hygen.ioとは
 [[http://www.hygen.io/][hygen.io]]は、公式で以下のように紹介されています。
 
 #+begin_quote
@@ -201,12 +197,12 @@ The scalable code generator that saves you time.
 特徴としては *速度* と *シンプルである* ことで、複雑なDSLを覚える必要は特になく、簡単に使い始められます。
 また、後述する ~inject~ という機能のおかげで、自動生成しつつ、その情報を別ファイルに埋め込む、みたいなことが割と簡単です。
 
-**** どんなprojectで使われてる？
+*** どんなprojectで使われてる？
 [[https://github.com/jondot/hygen][ここ]]を見ると大体わかりそうです。JavaScript界隈での有名企業が入っていたりと、それなりに広く使われているようです。
 
 なお、gulpとかnpm scriptとかMakefileでも出来るんちゃう？という気もしますし、実際出来ると思いますが、code generatorとして特化した機能を提供しているhygenを利用する方が、設定のごった煮になる可能性が低いかな・・・という気がします。
 
-*** boilerplateを自動生成してみる
+** boilerplateを自動生成してみる
 今個人で作業しているリポジトリでは、Reduxをmoduleという形で利用するとともに、多数のcommandというmoduleを生成する必要があります。ほとんどinterfaceだけは決まっているので、新しいcommandやmoduleを追加する度、同じようなファイルを生成したり、構造に気を使ったり・・・という作業が必要になります。
 
 流石にこれはめんどくさい・・・となってきたので、hygenを利用していろいろ自動生成してみました。
@@ -252,13 +248,13 @@ hygen自体の使い方は[[http://www.hygen.io/quick-start][公式サイト]]�
 
 また、実際には ~modules/index.ts~ というファイルがあり、ここで ~combineReducers~ とか全Actionをunionしたtypeを作ったりしています。
 
-**** 今回のReduxの構成について
+*** 今回のReduxの構成について
 今回、reduxの構成は [[https://github.com/erikras/ducks-modular-redux]] に書かれている *Ducks* というパターンを若干改造したもの
 
 ~modules/<module name>/~ というディレクトリの下に、action/reducerが全て置かれており、外部のmoduleに依存しないようにしています。
 実際に依存しないように出来るかどうかはともかく、現時点では割といい感触です。
 
-**** actionsの生成
+*** actionsの生成
 action creatorとaction type、action creatorのtest caseの生成です。
 
 #+begin_src typescript
@@ -310,7 +306,7 @@ action creatorとaction type、action creatorのtest caseの生成です。
 
 ~actions.ejs.t~ において、何箇所か ~// prettier-ignore~ を付けているのは、prettierでの成形時にコードが崩れてしまうことを防止するために入れています。
 
-**** module全体のindex生成
+*** module全体のindex生成
 これは基本的に最初に生成されたら変更されないので、特に変わったことはしていません。
 
 #+begin_src typescript
@@ -329,7 +325,7 @@ action creatorとaction type、action creatorのtest caseの生成です。
   export { reducer, emptyState } from "./reducer";
 #+end_src
 
-**** 生成時の各ファイルへのinject
+*** 生成時の各ファイルへのinject
 
 #+begin_src typescript
   // inject_action-type.ejs.t
@@ -371,7 +367,7 @@ action creatorとaction type、action creatorのtest caseの生成です。
 
 なので、自動生成以外でいじらないような場所には、 ~prettier-ignore~ などを利用してフォーマットされないようにしておくことをオススメします。
 
-**** reducerの生成
+*** reducerの生成
 
 #+begin_src typescript
   // reducer-test.ejs.t
@@ -410,7 +406,7 @@ action creatorとaction type、action creatorのtest caseの生成です。
 
 reducerの生成では、あえてaction typeのcase文を追加するようなことをしていません。実際には可能だと思いますが、reducerはロジックを書く場所なので、自由度を上げるため、あえて自動生成に乗せていません。
 
-*** 手を抜きつつ品質を上げるためにgeneratorを使おう
+** 手を抜きつつ品質を上げるためにgeneratorを使おう
 大体このような構成にするため、4時間くらい試行錯誤しました・・・。ただ、こういう自動生成する系は、何度も反復して利用することで結果的にコストを低減し、品質を向上させていくものです。
 
 まだいくつかしか作っていませんが、boilerplateを書く必要がないというのは、かなり効率が良くなります。今回はTypeScript向けだったのでhygenを利用しましたが、他の言語でも似たようなものはあると思います。

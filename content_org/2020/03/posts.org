@@ -2,14 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+HUGO_SECTION: post/2020/03
 #+AUTHOR: derui
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2020/03
-:END:
-
-** DONE ProtocolBufferを使ってWebSocketでRPCをする :JavaScript:ProtocolBuffer:
+* DONE ProtocolBufferを使ってWebSocketでRPCをする :JavaScript:ProtocolBuffer:
 CLOSED: [2020-03-15 日 13:59]
 :PROPERTIES:
 :EXPORT_FILE_NAME: rpc_with_protocolbuffer_and_websocket
@@ -21,7 +17,7 @@ CLOSED: [2020-03-15 日 13:59]
 
 <!--more-->
 
-*** さきにまとめ
+** さきにまとめ
 ここを見たら後の文は見なくていいんじゃないか疑惑が。
 
 - gRPCを利用しない場合、ブラウザと双方向でやり取りできるのはWebSocketくらい
@@ -32,7 +28,7 @@ CLOSED: [2020-03-15 日 13:59]
 
 以降ではこれについての詳細を。
 
-*** gRPCの利点と課題
+** gRPCの利点と課題
 ProtocolBufferを利用したRPCというと、[[https://grpc.io/][gRPC]]がまっさきに出てきますし、ProtocolBufferを使う方の半分くらい（要出典）はこれが目的でしょう。ただし、それはgRPCを利用できる環境があるから、という前提が当然あります。
 
 ではgRPCを利用できる条件とはどのようなものでしょうか。その大前提として、 *HTTP/2* の存在があります。元々HTTP/2のベースであるSPDY自体、Googleが開発していたためでしょう。HTTP/2とHTTP/1.1の違いは次のようなものがあります。
@@ -50,7 +46,7 @@ gRPCは、これらのHTTP/2が持つ利点を活かして、高パフォーマ�
 いま個人的に作っているツールでは、serverからのpushを必要としているので、HTTP/2が使えない場合、WebSocketを使うしかありません。しかし、WebSocketではgRPCを使うことは出来ません。
 (gRPCは、HTTPのmethodやpathを利用して色々行っているため)
 
-*** WebSocketでRPCを実現しよう
+** WebSocketでRPCを実現しよう
 改めて、WebSocketは以下のような特徴を持つprotocolです。
 
 
@@ -71,7 +67,7 @@ RPCを実装する上では、そのメッセージがどのcommandに対するr
 JSON-RPC自体、非常にLightな仕様ですが、大事なのが *requestとresponseが完全に非同期である* ということを前提としていることです。この特徴から、WebSocket上でも特に問題なく動作します。
 ということは、 *JSON-RPCっぽいのをProtocolBufferで実装すればいいんではないか？* という考えが浮かびます。
 
-*** ProtocolBufferにJSON-RPCっぽいのを実装する
+** ProtocolBufferにJSON-RPCっぽいのを実装する
 では早速protoファイルを作ってみます。
 
 #+begin_src protobuf
@@ -148,7 +144,7 @@ Commandを ~enum~ としているのは、OCamlで代数的データ型として
 
 後は、Request/ResponseのIDを保存し、RequestのIDに対応したResponseにだけ対応する、という実装をすることで、RPCみたいな実装が出来ます。
 
-*** この方式の欠点
+** この方式の欠点
 実際にWebSocket上でこの形式のProtocolBufferで通信を行い、それなりの性能も出ています（JSONでやり取りしていた時とあんまり変わらない）が、いくつかの問題が考えられます。
 
 - deserializeを2回行わないといけない
@@ -160,7 +156,7 @@ Commandを ~enum~ としているのは、OCamlで代数的データ型として
 
 型で守りにくい、という点については、ある程度仕組み化してしまうことで軽減は可能です。deserialize/serializeが必ず2回必要、というのを避ける手段は多分ありません。性能という話だと、この辺りがネックになってくると思われます。
 
-*** gRPCじゃなくてもProtocolBufferは使える
+** gRPCじゃなくてもProtocolBufferは使える
 世間的には、 ~ProtocolBuffer == gRPC~ という感じになっていると思いますが、protoファイルによる自動生成を活用したい、という動機もあるはずです。その場合、ProtocolBufferやその周辺を整えてやることで、色々とうまく使えるんではないでしょうか。
 
 実際、JavaScriptは別格で、OCamlとかJavaだとJSON < ProtocolBufferとなるケースも多いらしいので、フロントが多少遅くなってもトータルで速くなる、という話もあります。

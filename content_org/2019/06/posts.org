@@ -2,17 +2,13 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/06
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/06
-:END:
-
-** DONE mozcの候補をposframeで表示するEmacs拡張を作った               :Emacs:
+* DONE mozcの候補をposframeで表示するEmacs拡張を作った                :Emacs:
 CLOSED: [2019-06-07 金 09:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: mozc-posframe
-:EXPORT_AUTHOR: derui
 :END:
 
 最近家に帰ってからめっきりプログラミングをしなくなってしまいました。いろいろやることがあると同時並行では難しいですね。
@@ -27,7 +23,7 @@ mozcの候補表示は、標準で存在する Echo Areaへの表示、overlay�
 
 （Emacs上での日本語入力にfcitxとかを利用している人は対象外です。そういう人のほうが多いんだろうか・・・）
 
-*** mozc-popupの利点
+** mozc-popupの利点
 mozc-popupを利用していたのは、やはり利便性を重視してのことでしたが、特に以下の点がキーだったと思います。
 
 - 変換位置と候補が近い
@@ -36,7 +32,7 @@ mozc-popupを利用していたのは、やはり利便性を重視してのこ�
   - Spacemacsから入った人は知らないかもしれない、auto-completeで熟成したpopup表示に特化したlibraryです
   - この結果、標準のoverlayよりも高速でした
 
-*** だんだんででくる問題点
+** だんだんででくる問題点
 mozc-popupを利用する前は、mozc + popupという組み合わせで長年使っていましたが、最近色々と問題が見えるようになってきました。
 
 - org-modeとpopup.elの相性が悪い
@@ -46,7 +42,7 @@ mozc-popupを利用する前は、mozc + popupという組み合わせで長年�
   - 一時代を築いたpopup.elですが、companyが台頭してからはだいぶ表舞台から消えてしまった感があります
   - その仕組み上も複雑で、メンテナンスが困難だという話も
 
-*** child frameという潮流
+** child frameという潮流
 Emacs 26から、frameに大きな拡張が入り、child frameと呼ばれる形態が可能になりました。端的に言うと、frameをfloating windowとして扱うことができる、というものです。
 
 すでに様々なライブラリで利用されており、名実ともにEmacs26の目玉機能となっています。（個人の観測範囲では）
@@ -57,23 +53,23 @@ Emacs 26から、frameに大きな拡張が入り、child frameと呼ばれる�
 
 しかし、あくまでframeを扱うものであるため、そのままだとpixel単位での操作が必要となり、非常に煩雑です。WIN32 APIでwindow作っていた時代になった気分です。それをラッピングしたlibraryが、 [[https://github.com/tumashu/posframe][posframe]] です。
 
-*** mozc + posframe
+** mozc + posframe
 前述したmozc-popupの問題は、つまるところoverlayでの表現に限界があった、ということに尽きると思います。overlayはあくまでtextのpropertyでしかないので、複数のoverlayが設定された場合、その時時で異なる問題が出るであろうことは想像に難くありません
 
 PCで日本語を入力する場合、大抵はIMEを使うかと思います。Windows/macOS/Linux いずれも、候補表示そのものは *独立したWindow* です。つまり、Child frameをこの用途に使うと丁度いいんじゃないか？というのは前々から考えていました。
 
 すでにあるだろうと探してもなかったので自作することにしたわけですが。
 
-*** mozc-popupとの比較
+** mozc-popupとの比較
 
-**** Pros
+*** Pros
 - org-modeやそれ以外でも、候補表示の時間がほぼ一定
   - 調整の余地はありますが
 - 表示崩れがない
   - これがposframeを利用する最大の利点です
   - 独立したframeを表示しているだけなので、複数のoverlayが設定されることに起因する問題から開放されています
 
-**** Cons
+*** Cons
 - install方法が煩雑
   - melpaとかに入っていないので、どうしてもstraight.elとかが必要です
 - Emacs26以上 + GUIでないと動かない
@@ -81,16 +77,15 @@ PCで日本語を入力する場合、大抵はIMEを使うかと思います。
   - 描画性能もほとんどの場合GUIツールキットの方が早いし、ChildFrameは性質上GUIでしか動きません
   - 端末しかない？諦めてVimった方が幸せになれるかと・・・
 
-*** ありがとう、mozc-popup
+** ありがとう、mozc-popup
 mozc-posframeは、mozc-popupのソースを7割くらい流用しています。mozc-popupがなければ、そもそもmozc-posframeを作ろうと思ってなかったと思います。
 
 まだmozc-posframeは若干のバグや性能向上の余地がありますが、すでに常用できるものになっている（というか常用してる）と思うので、よければ利用してみてください。
 
-** DONE 以前作ったtensorflowを使うprojectで2.0 betaを試してみた（動いてない）
+* DONE 以前作ったtensorflowを使うprojectで2.0 betaを試してみた（動いてない）
 CLOSED: [2019-06-30 日 14:19]
 :PROPERTIES:
 :EXPORT_FILE_NAME: tensorflow-2-beta-pre
-:EXPORT_AUTHOR: derui
 :END:
 
 だいぶ前ですが、Tensorflowのメジャーバージョンアップである2.0のbetaがリリースされました。丁度いいので、以前作ったまま放置していたツールを更新してみようと思います。
@@ -106,7 +101,7 @@ CLOSED: [2019-06-30 日 14:19]
 
 大雑把に言うと、着色済みの画像から線画を抽出するものと、その逆版です。現在ではこういう個人レベルのおもちゃではなく、実際にサービスとして運用されてるものもありますね。
 
-*** 1. まず公式サイトを確認する
+** 1. まず公式サイトを確認する
 
 2.0-betaをインストールする方法は、公式サイトに載っています。ちゃんと確認しておきます。
 
@@ -116,7 +111,7 @@ CLOSED: [2019-06-30 日 14:19]
 
 [[https://www.tensorflow.org/install/gpu]]
 
-*** 2. CUDAとかを色々用意する
+** 2. CUDAとかを色々用意する
 他のツールは触ったことがないのでなんとも言えませんが、TensorflowはかなりアグレッシブにCUDAのバージョンアップを行っている印象です。実際、2.0-betaでは以下を要求してきました。
 
 #+begin_quote
@@ -150,26 +145,26 @@ CUDAは、(Gentooであれば) =~amd64= キーワードを追加した上でemer
 
 というのが主な理由です。
 
-*** 3. 2.0.0の変更点
+** 3. 2.0.0の変更点
 Tensorflowは以前はDefine by Run（確か）で、事前に定義した計算グラフを計算していく、という形式しか出来ませんでした。私がいじっていた段階だと、Eager Execution(Define and Run)の導入について議論されていた段階だと記憶しています。
 
 しかもKerasが統合される前だったので、上で挙げたrepositoryでは、基本的にすべてlow level APIのみで構成されていました。ちなみに1.x系の最新だと、特に変更しなくても動いてくれました。
 
-**** APIのclean up
+*** APIのclean up
 APIの名称、パッケージ、引数の名前、デフォルト値・・・などが諸々変更になっているようです。手動変更は基本的に推奨されていないようです。やりたくもないですが・・・。
 
-**** Eager executionがデフォルト化
+*** Eager executionがデフォルト化
 現在のAPIからするとこれが一番大きそうです。session.runとかが基本的に不要になっているのに加え、pythonの関数や制御構造を変換するようにしているので、基本的に内部API的なものを触らなくてもよい感じになっています。
 
 tf.condとかあったなぁ・・・。
 
-**** Globalの未使用へ
+*** Globalの未使用へ
 1.xの場合、variableをトップレベルで宣言して〜とかが必要でした。global変数は基本的に避けるべき、というプログラミングの基本に則った感じです。
 
-**** Keras APIの猛push
+*** Keras APIの猛push
 Keras API＝高レベルAPIの利用を強くpushしています。Networkを積み上げるだけ、というような場合は十二分だし、色々やってくれるのですが、今回のものはもう結構いじってしまっているので、一旦これは見なかったことにしておきます。
 
-*** 4. upgradeの実施
+** 4. upgradeの実施
 
 1.xから2.xへのupgradeは、 [[https://www.tensorflow.org/beta/guide/migration_guide][migration guide]]が作られています。この中で、upgrade scriptを用意してくれているので、これを流します。実行すると、report.txtというのが出てきます。
 
@@ -201,21 +196,21 @@ tflib_old/operations.py:86:24: WARNING: tf.get_variable requires manual check. t
 tflib_old/operations.py:87:25: WARNING: tf.get_variable requires manual check. tf.get_variable returns ResourceVariables by default in 2.0, which have well-defined semantics and are stricter about shapes. You can disable this behavior by passing use_resource=False, or by calling tf.compat.v1.disable_resource_variables().
 #+end_src
 
-**** tf.contribを使っている系
+*** tf.contribを使っている系
 tf.contribは2.0.0からそもそも同梱されなくなるので、使わないようにしましょう。今回、エラーが出たのはもう使っていないsourceだったので、消してしまいました。
 
-**** summary系APIの変更
+*** summary系APIの変更
 summaryはいろいろ仕様が変更されたようなので、手動migrationが必要です。
 
-**** name_scopeのre-entering廃止
+*** name_scopeのre-entering廃止
 nameを指定した場合、一回しかscopeに入ることが出来ない、という感じのようです。eager executionがデフォルトになったことと関係がありそうです。
 
-**** compat.v1系統からの書き換え
+*** compat.v1系統からの書き換え
 =tf.compat.v1= というパッケージに、1.xのAPIが移動されていて、これを（必要であれば）変えていく、という作業が必要です。もっとも、1.xで提供されていたAPIと同等のものがないので、compatパッケージを使っていく、というのももちろんありだと思います。
 
 公式のmigration guideにも、普通にcompatパッケージを使っている例があるので。
 
-*** 5. いろいろ書き換え（進行中）
+** 5. いろいろ書き換え（進行中）
 列挙すると多すぎるので、書き換えしようとしているポイントだけ挙げます。
 
 

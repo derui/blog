@@ -2,17 +2,13 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/02
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/02
-:END:
-
-** DONE zshからfishに移行してみた                            :Shell:zsh:fish:
+* DONE zshからfishに移行してみた                             :Shell:zsh:fish:
    CLOSED: [2019-02-12 火 22:23]
 :PROPERTIES:
 :EXPORT_FILE_NAME: zsh_to_fish
-:EXPORT_AUTHOR: derui
 :END:
 
 一ヶ月くらい[[http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout][Eucalyn配列]]でできるだけ生活していたら、CorneでQWERTYが全然打てなくなっててびっくりしました。ノートPCのキーボードではちょっと引っかかるけど普通なので、Corne用の脳領域が出来たようです。
@@ -25,7 +21,7 @@ fishや他のdotfilesは以下で管理しています。
 
 https://github.com/derui/dotfiles
 
-*** 移行の動機
+** 移行の動機
 
 *なんとなく。*
 
@@ -34,7 +30,7 @@ https://github.com/derui/dotfiles
 zshはemacs/vimのようにカスタマイズを極めれば最高なのは確かなんですが、その時間自体を取れなくなってきた、というのが主な理由です。
 それと、結構前からfish推しの声を聞いてきたので、試してみたいというのもありました。
 
-*** 移行プラン
+** 移行プラン
     zshからfishに移行するにあたり、何が必要か？を洗い出してみました。
 
 - plugin manager
@@ -43,7 +39,7 @@ zshはemacs/vimのようにカスタマイズを極めれば最高なのは確�
 
   ・・・めっちゃ少なかった。ので、移行自体はさらっと行けました。
 
-**** plugin manager
+*** plugin manager
 zshではzplugを利用していましたが、fishでは[[https://github.com/jorgebucaran/fisher][fisher]]を利用しました。次のような感じでインストールしました。
 
 #+begin_src fish
@@ -65,16 +61,16 @@ for file in $fisher_path/conf.d/*.fish
 end
 #+end_src
 
-**** fzf + ghq/historyの連携
+*** fzf + ghq/historyの連携
 zshでは、どこかから拾ってきたfunctionをそのまま利用していたのですが、fishでも同じようにして探してきました。
 
 探した後で気づきましたが、fisherでpluginをインストールしたらいいやん、ということで、面倒なことをする前にpluginを探してインストールするのがいいと思います。
 
-**** 各種補完
+*** 各種補完
 そもそもzshでもそんなにいじっていなかったので、fishのデフォルトで必要十分でした。
 
 
-*** powerlineの導入
+** powerlineの導入
 fishへの移行ついでに、powerlineに再度チャレンジすることにしました。virtualenvを有効にしている状態が前提になっていますが、以下のようにしてsetupしています。
 
 #+begin_src fish
@@ -97,30 +93,28 @@ end
 
 よくpowerlineの紹介では、一行に全部表示しているような設定が多いんですが、内容によってプロンプトの位置が激しく移動するのが気に入らなかったので、複数行で表示するようにしています。元々zshでも複数行のプロンプトを利用していたこともあり、こっちのほうが違和感ないです。
 
-*** 移行してみて
+** 移行してみて
 zshからfishに移行してみてまだ数日ですが、すでに大体問題なく運用できています。スクリプトの書式がPOSIX標準と異なるとかありますが、そもそもそんなに書かないので、あまり気になりません。Rubyとかを利用している人にとってはむしろ違和感が少ないのではないでしょうか。
 
 移行したてで問題点が見えていない面もありますが、とりあえずfishはおすすめできますので、bashで十分と思っている人も、zsh最高な方も、一度試してみてはいかがでしょうか。
 
-
-** DONE Create React App + TypeScriptにStorybookを追加してみる :JavaScript:TypeScript:
-   CLOSED: [2019-02-23 土 11:17]
-   :PROPERTIES:
-   :EXPORT_FILE_NAME: cra_and_ts_and_storybook
-   :EXPORT_AUTHOR: derui
-   :END:
-
+* DONE Create React App + TypeScriptにStorybookを追加してみる :JavaScript:TypeScript:
+CLOSED: [2019-02-23 土 11:17]
+:PROPERTIES:
+:EXPORT_FILE_NAME: cra_and_ts_and_storybook
+:END:
+   
 タイトルの通り、CRA2 + TypeScriptのプロジェクトに、更にStorybookを追加してみました。
 
 <!--more-->
 
-*** 前口上
+** 前口上
     いろいろ試すための個人プロジェクトを作って、色々なライブラリであったり、言語であったりを試しています。
     一応ツールとして利用したいと思って作っていはのですが、永遠に動くようにできないんじゃないかという懸念と戦いつつ実装しています。いつか日の目を見ることを祈りつつ・・・。
 
     Frontendとしては[[https://electronjs.org/][Electron]]で作っていて、Create React App + TypeScriptでGUIを作っています。今回、これに[[https://storybook.js.org/][Storybook]]を追加することにしました。
 
-*** Storybookとは
+** Storybookとは
     [[https://storybook.js.org/][Storybook]]の公式から、Storybookについてを引用します。
 
     #+begin_quote
@@ -131,7 +125,7 @@ https://storybook.js.org/basics/introduction/
 
     Componentのカタログ（showcase）を作り、再利用を促しつつ、生きた例として提供する、という感じでしょうか。
 
-*** なぜ追加するのか
+** なぜ追加するのか
     なんとなく＋気になるから。
 
     ・・・いつもどおりの理由ですが、実際コンポーネントベースの開発をしていると、 **基底となるコンポーネント** が欲しくなります。これがないと、同じようなものが量産されるというのを実際に経験してます。また、実際に動くものがあると、話がしやすいとかの効果もあるようです。
@@ -139,7 +133,7 @@ https://storybook.js.org/basics/introduction/
 
     ただ、いきなりプロジェクトに投入するのはどうなんだ？ということで、どうとでもなる個人プロジェクトで試してみようという次第です。
 
-*** 追加する
+** 追加する
     今回使うプロジェクトの前提は以下のとおりです。
 
     - create-react-appの2.1以降
@@ -217,7 +211,7 @@ package.jsonにscriptを追加します。
 }
 #+end_src
 
-*** 動かしてみる
+** 動かしてみる
     ここまでの設定をすると、次のコマンドで =http://localhost:9001= にStorybookが立ち上がります。
 
     #+begin_src shell
@@ -226,7 +220,7 @@ package.jsonにscriptを追加します。
 
     まだstoryを一つも書いていないので当然ながらエラーになります。なのでstoryを書いてみます。
 
-*** Storyを書いてみる
+** Storyを書いてみる
     =list-item= というコンポーネントがあるという前提で、次のように書くことが出来ます。
 
 #+begin_src typescript
@@ -261,7 +255,7 @@ package.jsonにscriptを追加します。
 
 直前に書いた =yarn storybook= を立ち上げたままにしておくと、勝手に読み込んでリロードしてくれます。
 
-*** 導入は簡単、活用は大変
+** 導入は簡単、活用は大変
 ひとまずStorybookを導入してみましたが、これをちゃんと活用していくのは結構ハードルが高そうです。基底コンポーネント、Application固有のコンポーネント、とかがきっちり管理されていて初めてうまみがありそうな・・・。
 
 とにかく、しばらく運用してみてからさらなる判断をしていきたいと思います。

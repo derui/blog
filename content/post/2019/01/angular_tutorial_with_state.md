@@ -2,7 +2,7 @@
 title = "Angularのチュートリアルにngrxでstate管理を追加する"
 author = ["derui"]
 date = 2019-01-27T16:51:00+09:00
-lastmod = 2019-01-27T16:51:16+09:00
+lastmod = 2020-09-22T13:01:52+09:00
 tags = ["JavaScript", "Angular", "Programming"]
 draft = false
 +++
@@ -312,8 +312,7 @@ ngrxのstoreは、componentに直接DIして利用することが出来ます。
 
 storeの内部がcomponentに露呈してしまうことの問題は、Redux+Reactでcontainer以外のコンポーネントでstateを直接触ってしまうことと同じ問題を生むと思われます。つまり、想定していない場所でのstate参照＝依存を生んでしまいます。
 
-ngrxの場合は、原則observableであるということもあり、不要なsubscriptionが発生する可能性、つまりstoreの変更でどこがどう動くか？の把握が難しくなることも考えられます。
-まぁ、serviceを介してobservableを返しても同じ感じはしますが。serviceから返される方が、一層分抽象層をはさむ分、stateの構造変化とかにも強くなるかと思います。
+ngrxの場合は、原則observableであるということもあり、不要なsubscriptionが発生する可能性、つまりstoreの変更でどこがどう動くか？の把握が難しくなることも考えられます。まぁ、serviceを介してobservableを返しても同じ感じはしますが。serviceから返される方が、一層分抽象層をはさむ分、stateの構造変化とかにも強くなるかと思います。
 
 ただ、Angularにおけるcomponentは、ReactのComponentとは扱いが異なるような気がします。
 Reactのcomponentは基本的にFunctionalに作っていくケースが多いですが、Angularはすべてclassですし、DIが最初から有効なので、Propsでのバケツリレーも不要です。今回のチュートリアルのような構成の場合、propsで受け渡すことも出来ません。
@@ -343,8 +342,7 @@ updateHero(hero: Hero): Observable<any> {
 
 updateは本質的に非同期になりそうですが、 `store.dispatch` の戻り値がvoidであるため、原則dispatchの処理が終わったら〜という処理は書けません。もし処理途中の表現が必要なのであれば、stateに状態を表すpropretyをはやして、それをselectすることになるかと思います。
 
-component側では、内部に持っていたりしたstateを、serviceから取得したObservableを見るように書き換えていきます。component側は量が多いので、リポジトリを見てください。
-概ねやっていることは、asyncにしたりobservableに合うように書き換えているというような具合です。
+component側では、内部に持っていたりしたstateを、serviceから取得したObservableを見るように書き換えていきます。component側は量が多いので、リポジトリを見てください。概ねやっていることは、asyncにしたりobservableに合うように書き換えているというような具合です。
 
 
 ## やってみての感想 {#やってみての感想}
@@ -361,8 +359,7 @@ Angularを初めて触り、ngrxの適用までをやってみました。いく
     -   Reactでいうcontainer componentを使うより、DIするのがAngularの基本？
 
 ただ、AngularはAll in oneなライブラリなので、全体を通して一貫性を重視しているように思います。
-generateをポコポコ打ってサラサラ書けば出来る、というのはあくまで入り口でしかないです。
-しかし、開発している間も大体同じようにして出来ますし、コマンドを提供しているので、人によってルールが違う、というのも起こりづらそうです。
+generateをポコポコ打ってサラサラ書けば出来る、というのはあくまで入り口でしかないです。しかし、開発している間も大体同じようにして出来ますし、コマンドを提供しているので、人によってルールが違う、というのも起こりづらそうです。
 
 React/Vueとも違う感じですが、全体がTypeScriptで出来ているため、Reactのように型定義と合わないとかが原理的に起こらないですし、設定ミスを排除しやすいのも、企業向けに感じます。
 

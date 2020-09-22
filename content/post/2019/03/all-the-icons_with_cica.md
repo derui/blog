@@ -2,7 +2,7 @@
 title = "all-the-iconsとCicaの組み合わせでアイコンがずれる"
 author = ["derui"]
 date = 2019-03-09T17:38:00+09:00
-lastmod = 2019-03-09T17:38:18+09:00
+lastmod = 2020-09-22T13:00:48+09:00
 tags = ["Emacs"]
 draft = false
 +++

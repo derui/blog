@@ -2,13 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2019/07
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2019/07
-:END:
-
-** DONE Excelのページ指定印刷をPowerShellでやる方法                   :Emacs:
+* DONE Excelのページ指定印刷をPowerShellでやる方法                    :Emacs:
 CLOSED: [2019-07-10 水 15:14]
 :PROPERTIES:
 :EXPORT_FILE_NAME: print_excel_only_pages
@@ -21,7 +18,7 @@ CLOSED: [2019-07-10 水 15:14]
 
 <!--more-->
 
-*** 要望
+** 要望
 今回解決したいのは、次のような問題でした。
 
 - 色々な事情で、Excelから紙で印刷いないといけない
@@ -34,7 +31,7 @@ CLOSED: [2019-07-10 水 15:14]
 
 とにかく問題としては、 =Excelを開く→最初のページだけ印刷する= という業務が多く、かつ時間がかかる、と。電子承認とかそういう方向に行きたいらしいですが、まーいろいろ事情があるようで。
 
-*** 方針の検討
+** 方針の検討
 とりあえず抜本的ではないが、ある程度作る労力と、結果の省力化に貢献できるものとして、次のようなツールを作ることにしました。
 
 - Excelマクロの実行が必須
@@ -43,14 +40,14 @@ CLOSED: [2019-07-10 水 15:14]
 - フォルダ内のExcelを一気に印刷できる
 - 任意のフォルダでやりたい
 
-*** 困ったこと
+** 困ったこと
 人事／総務の方々は、ITレベルが様々なので、Windows標準で入っているものを使う、ということで、 =PowerShell= を使うことにしました。
 
 ところが、いろいろ調べて（ググって）みても、 =ExcelからBookを印刷する= というものはあっても、 =指定したページだけ印刷する= ということをやっている人がまずいないっぽいという・・・。
 
 [[https://stackoverflow.com/questions/47602222/printing-all-excel-files-in-a-folder-using-powershell][フォルダ内のExcelを印刷するという回答]]
 
-*** 色々試す
+** 色々試す
 
 色々試した所、次のサイトが気づきになりました。
 
@@ -104,14 +101,14 @@ filter printExcel($StartPage, $EndPage, $FileName) {
 
 ちなみに、ActivePrinterをPDFとかにして、OutputFileNameを指定すると、指定したファイルにPDFが吐かれるので、そういう応用も効く感じです。
 
-*** Windows + Officeを扱うときにPowerShellという選択肢
+** Windows + Officeを扱うときにPowerShellという選択肢
 実際には、このツールはXAMLを利用したGUIも付けた状態にしていますが、実作業時間としては半日くらいで作っています。PowerShell自体は、型の明記が出来たり、連想配列が最初からサポートされていたりと、割と使いやすい印象でした。スコープの概念が若干わかりづらかったですが。
 
 ExcelとかWordとかと戦わないといけないが、長く（多分・・・）使わないツール、とかは、PowerShellで書いていくのもいいんじゃないでしょうか。コードなので問題なくGitとかでも管理できます。
 
 大量にあるExcelから指定のページだけをひたすら印刷しないといけない、みたいなときにこの記事が役に立てば。
 
-** DONE OpenAPI3 Generatorで使える値の調べ方                           :Java:
+* DONE OpenAPI3 Generatorで使える値の調べ方                            :Java:
 CLOSED: [2019-07-24 水 20:15]
 :PROPERTIES:
 :EXPORT_FILE_NAME: openapi3_values
@@ -125,21 +122,21 @@ CLOSED: [2019-07-24 水 20:15]
 
 それをどう見ればいいか、のメモ書きです。
 
-*** まず見るリポジトリ
+** まず見るリポジトリ
 [[https://github.com/OpenAPITools/openapi-generator.git]]
 
 OpenAPI3のSpecifiationから、Server/Clientの生成をするための公式ツールです。jarが提供されているので、Javaが動けばだいたい動きます。
 
 Swaggerのときも同じものがありましたが、OpenAPIに分化してからorganizationも分離しています。このGeneratorは各種言語のClient/Serverを生成するため、各言語用のテンプレートが置かれています。
 
-*** 各言語のテンプレート
+** 各言語のテンプレート
 [[https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator/src/main/resources]]
 
 リポジトリ上のリソース内に、各言語/フレームワークごとに分かれています。ここにテンプレートがありますが、このテンプレートの中を見ても、使われてる変数はわかりますが、 **どういう値を使えるか** はわかんないです。
 
 実際、ここはテンプレートだけなので、これを利用して生成している場所は別にあります。
 
-*** 各言語の生成箇所
+** 各言語の生成箇所
 各言語ごとのCLIはここで定義されています。ただ、これを見ても、どのテンプレートを使うんだ？ということしかわかりません。
 
 [[https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator/src/main/java/org/openapitools/codegen/languages]]
@@ -150,7 +147,7 @@ Swaggerのときも同じものがありましたが、OpenAPIに分化してか
 
 この中の、 =generateApis= というメソッドの中で定義されています。基本的にOpenAPI3のYAMLから取得できる情報はここから取得できます。なので、ここを見ると、自分のテンプレートで使いたい値が見つかる・・・かもしれません。
 
-*** メモ書きもしていく宣言
+** メモ書きもしていく宣言
 簡単に見つかるだろー、ってなったら見つからなかったのと、デフォルトの提供されているテンプレートだと思ったものと違う可能性もあるので、テンプレートを編集するための第一手として。私を含め誰かの参考になれば・・・。
 
 #+begin_quote

@@ -2,7 +2,7 @@
 title = "polybarからi3blocksに乗り換えてみた"
 author = ["derui"]
 date = 2020-02-21T16:01:00+09:00
-lastmod = 2020-02-21T16:01:13+09:00
+lastmod = 2020-09-22T12:56:26+09:00
 tags = ["Linux"]
 draft = false
 +++

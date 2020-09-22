@@ -2,17 +2,13 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
+#+HUGO_SECTION: post/2018/10
 
-* Posts
-:PROPERTIES:
-:EXPORT_HUGO_SECTION: post/2018/10
-:END:
-
-** DONE Irisキーボード配列の現状                             :自作キーボード:
+* DONE Irisキーボード配列の現状                              :自作キーボード:
    CLOSED: [2018-10-07 日 11:43] SCHEDULED: <2018-10-07 日>
 :PROPERTIES:
 :EXPORT_FILE_NAME: iris_keymap_now
-:EXPORT_AUTHOR: derui
 :END:
 
 Irisキーボードを作ってから一週間くらい経ちました。その間、色々と試行錯誤して、ある程度決まってきたので、ここで一回紹介しておこうかと思います。
@@ -21,7 +17,7 @@ Irisキーボードを作ってから一週間くらい経ちました。その�
 
 なお、日頃の入力は全てIrisから行うようにしているので、キーマップ以外は慣れました。小さいは正義。
 
-*** Ergodox EZから無くなったキーたち
+** Ergodox EZから無くなったキーたち
 [[https://keeb.io/collections/frontpage/products/iris-keyboard-split-ergonomic-keyboard?variant=8034004860958][Irisキーボード]] は、Ergodox EZよりもおよそ20キー弱少ない、54（または56）キーしかありません。また、改めて自分のErgodox EZのキー配列を見直してみた所、ちょうど無くなったキー部分に次のようなものがありました。
 
 - カーソルキー
@@ -33,7 +29,7 @@ Irisキーボードを作ってから一週間くらい経ちました。その�
 
 少なくともこれらのキーは、今までと別の場所にマッピングしてやる必要があります。
 
-*** マッピング戦略
+** マッピング戦略
 さて、マッピングをしないといけないキーは色々ありますが、いくつか個人的に譲れないものとかがあるので、まずはそれをあげていきます。
 
 - 親指にShiftがある
@@ -55,7 +51,7 @@ Irisキーボードを作ってから一週間くらい経ちました。その�
 
 では、これらを考慮して設定していったキーマップを解説していってみます。
 
-*** レイヤー解説：Default layer
+** レイヤー解説：Default layer
     https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/keymap.c#L31
 
 特筆すべき点というのはそんなに無いですが、親指に当たるキーは基本的に *Multi Role* になっています。同時押しのときと単独でのクリック時の挙動が違う、ということになります。
@@ -145,7 +141,7 @@ tapping_termなどの恩恵は受けられませんか、これくらいであ�
 
 なお、かな/英数切り替えとレイヤー切り替えが同じキーに割り当たっている都合上、結構いい感じに誤爆するケースもあるので、この辺りはまだ調整の必要があります。
 
-*** レイヤー解説：LOWER/RAISE layer
+** レイヤー解説：LOWER/RAISE layer
 LOWER/RAISEは、キーマップをほぼ対象にしているだけなので、合わせて解説します。
 
 https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/keymap.c#L45
@@ -154,14 +150,14 @@ https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/k
 
 特に右親指は、Shift/Enterを利用するため、時には非常に忙しいです。その親指にさらに不可をかけるのはちょっと厳しいです。また、左の親指もSpaceを担当しているので結構厳しいです。なので、そのとき空いている親指を利用できるように、こうしています。
 
-*** レイヤー解説：HACHIKOUME layer
+** レイヤー解説：HACHIKOUME layer
 https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/keymap.c#L72
 
 蜂蜜小梅配列をハードウェアレベルである程度実現するためのレイヤーです。が、ほぼ実装は [[https://qiita.com/derui/items/060eebf33716d703b90c][以前書いた記事]] と同じです。
 
 キー配列として異なるのは、シフトキーの位置ですが、これはErgodox EZ時点でのEnter/Spaceの位置と合わせるためにこうしています。なお、Irisではどうも.cファイルを分けられない？ようなので、全部１ファイルに収めています。
 
-*** レイヤー解説：ADJUST layer
+** レイヤー解説：ADJUST layer
 https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/keymap.c#L87
 
 最後はADJUSTです。このレイヤーは、LOWERとRAISEの両方を有効にした場合に有効になります。ADJUSTでは、基本的にはmodifierキー（Ctrl/Alt/Shift/GUI）とカーソルキーを配置しています。
@@ -170,7 +166,7 @@ https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/k
 
 また、数字キーもホームポジション付近に来るようにしているので、このレイヤーまでフル活用すると、ほぼほぼホームポジションから指を動かすこと無く入力していくことが出来ます。親指をきついのでそんなにやりませんが・・・。
 
-*** 課題と展望
+** 課題と展望
 ある程度入力しやすくはなってきましたが、まだ課題はあります。
 
 特に、蜂蜜小梅配列時とデフォルト時でかな/英数切り替えの位置が異なる、というのが目下一番の悩みです。かなり親指を忙しいので、何らかの代替手段を考えたいところです。
@@ -179,11 +175,10 @@ https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/k
 
 本日は以上です。
 
-** DONE Spring Boot + Gradle + AssertJでAssertJ generatorを実行するTips :java:
+* DONE Spring Boot + Gradle + AssertJでAssertJ generatorを実行するTips :java:
    CLOSED: [2018-10-23 火 09:50] SCHEDULED: <2018-10-23 火>
 :PROPERTIES:
 :EXPORT_FILE_NAME: generate_assertions_under_spring_boot
-:EXPORT_AUTHOR: derui
 :END:
 
 最近別のプロジェクトに0.5で参加することになりました。人生初の0.5です。おかげで？ガッツリ開発するケースが少なくなりそうで、それはそれで・・・と思う日々です。
@@ -202,7 +197,7 @@ https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/k
 
 こんなことをやりたかったんです。
 
-*** 最初のbuild.gradle
+** 最初のbuild.gradle
 #+begin_src groovy
 buildscript {
     ext {
@@ -287,14 +282,14 @@ compileTestJava.dependsOn(assertjGen)
 
 さて、こんなbuild.gradleで、assertjOutputタスクを実行してみても、なんでか動きません。動かないというか、動くけどもファイルが出ません。何をやっても出ないのでいろいろ調査しました。
 
-*** Generatorのソースを見る
+** Generatorのソースを見る
 実行している =org.assertj.assertions.generator.cli.AssertionGeneratorLauncher= を見てみます。
 
 パッケージ名からクラスファイルを取得している部分は [[https://github.com/joel-costigliola/assertj-assertions-generator/blob/master/src/main/java/org/assertj/assertions/generator/util/ClassUtil.java#L102][ここ]] です。ClassLoaderから持ってきているので、classpathに入っているはずのpackageが見えないわけはないはず・・・。Generatorに渡している =configurations.assertj= に、project自身を追加しているので、見えるはずなんです。
 
 ということで、 =configurations.assertj= を可視化してみると、確かにプロジェクトのjarが入っています。・・・jar？
 
-*** bootJarとjarタスク
+** bootJarとjarタスク
 GradleにはJarタスクという、jarを作成するためのタスクがあります。ところで今回はSpring Bootを使っていますが、Spring Bootには、 *実行可能なJarを作る* という機能があります。
 
 試しに上記のbuild.gradleでbuildを実行してみると、やたらでかいjarが =build/libs/= にできます。さて、このjarはJarタスクではなく、 =bootJar= タスクで作成されています。
@@ -315,7 +310,7 @@ jar {
 もしかしたら、bootJarのrepackageオプションを利用すれば、うまく実行できるのかもしれませんが、今回はそこまで深堀しませんでした
 #+END_QUOTE
 
-*** 結局どうしたか
+** 結局どうしたか
 結局カスタムassertionでやりたいことは、ある程度は [[http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#soft-assertions][Soft assertion]] で代替できそうだったので、assertjGenはバッサリ削除しました。これがAnnotationベースとかだったらうまく動いたんでしょうが・・・。
 
 しかし、いろいろと調べる過程で、AssertJの使い方とかGradleの使い方とかを知ることができたので、それはそれでよかったと思います。

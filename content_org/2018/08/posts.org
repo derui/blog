@@ -71,5 +71,5 @@ Qiitaの方はmarkdownで書いている＋Webから登録する方が色々楽�
 * Footnotes
 * COMMENT Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

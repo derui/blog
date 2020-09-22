@@ -371,5 +371,5 @@ lint自体は、webpackの設定に組み込んで、webpack-dev-serverを実行
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

@@ -3,7 +3,7 @@ title = "Irisキーボード配列の現状"
 author = ["derui"]
 date = 2018-10-07T11:43:00+09:00
 publishDate = 2018-10-07T00:00:00+09:00
-lastmod = 2018-10-07T11:43:41+09:00
+lastmod = 2020-09-22T10:22:39+09:00
 tags = ["自作キーボード"]
 draft = false
 +++

@@ -1,0 +1,7 @@
+[build]
+publish = "public"
+command = "hugo --gc -b 'https://blog.deltabox.site/' --minify --themesDir themes"
+[context.production.environment]
+  HUGO_VERSION = "0.78.1"
+[context.deploy-preview.environment]
+  HUGO_VERSION = "0.78.1"

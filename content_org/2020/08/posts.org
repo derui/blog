@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE lambda-termでmulti byteを一文字ずつ表示する                   :OCaml:
 CLOSED: [2020-08-01 土 11:34]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: lambda-term_print_multibyte_per_character
 :END:
 気づいたら８月になっていました。今年の梅雨はかなり長かったですね・・・。過ごしやすいのは結構なんですが、野菜が高くなるのでこれも困ります。
@@ -77,7 +77,6 @@ lambda-termでは、 ~LTerm_draw.draw_string~ と ~LTerm_draw.draw_char~ とい�
 ** DONE Windows10 + WSL2で環境を整えた                        :Windows:Emacs:
 CLOSED: [2020-08-08 土 16:20]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: dev_env_on_windows_and_wsl2
 :END:
 
@@ -245,5 +244,5 @@ WSL1の情報がどれだけ流用できるのか？が不明ですが、xhost�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

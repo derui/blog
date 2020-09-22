@@ -2,7 +2,7 @@
 title = "OCaml製プログラムでperformance profileをする"
 author = ["derui"]
 date = 2020-09-22T09:14:00+09:00
-lastmod = 2020-09-22T09:14:47+09:00
+lastmod = 2020-09-22T10:21:33+09:00
 tags = ["OCaml"]
 draft = false
 +++

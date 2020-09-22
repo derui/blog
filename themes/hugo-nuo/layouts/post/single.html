@@ -20,8 +20,7 @@
       </p>
     </footer>
     {{ if ne .Params.comments false }}
-      {{ if .Site.Params.Gitment }}{{ partial "gitment.html" . }}
-      {{ else if .Site.DisqusShortname }}{{ template "_internal/disqus.html" . }}
+      {{ if .Site.DisqusShortname }}{{ template "_internal/disqus.html" . }}
       {{ else }}{{ end }}
     {{ end }}
   </section>

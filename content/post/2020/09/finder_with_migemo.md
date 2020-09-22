@@ -2,7 +2,7 @@
 title = "Migemoを使って絞り込みできるfzfっぽいものを作っています"
 author = ["derui"]
 date = 2020-09-09T21:00:00+09:00
-lastmod = 2020-09-09T21:00:03+09:00
+lastmod = 2020-09-22T10:50:58+09:00
 tags = ["OCaml"]
 draft = false
 +++

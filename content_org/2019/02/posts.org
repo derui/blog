@@ -269,5 +269,5 @@ package.jsonにscriptを追加します。
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

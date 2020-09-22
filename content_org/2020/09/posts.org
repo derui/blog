@@ -1,14 +1,14 @@
-#+STARTUP: content logdone inlneimages
+#+startup: content logdone inlneimages
 
-#+HUGO_BASE_DIR: ../../../
-#+HUGO_AUTO_SET_LASTMOD: t
+#+hugo_base_dir: ../../../
+#+hugo_auto_set_lastmod: t
 
 * Posts
 :PROPERTIES:
 :EXPORT_HUGO_SECTION: post/2020/09
 :END:
 
-** DONE Migemoを使って絞り込みできるfzfっぽいものを作っています       :OCaml:
+** DONE Migemoを使って絞り込みできるfzfっぽいものを作っています                              :OCaml:
 CLOSED: [2020-09-09 水 21:00]
 :PROPERTIES:
 :EXPORT_AUTHOR: derui
@@ -72,7 +72,7 @@ Migemoっている風景は以下。
 
 OCamlはライブラリがないなら作ってしまえばいいじゃない、という感じなので、自前で色々作る練習にもなりますよ。
 
-** DONE OCaml製プログラムでperformance profileをする                  :OCaml:
+** DONE OCaml製プログラムでperformance profileをする                            :OCaml:
 CLOSED: [2020-09-22 火 09:14]
 :PROPERTIES:
 :EXPORT_AUTHOR: derui
@@ -126,5 +126,5 @@ https://github.com/ocaml-bench/notes/blob/master/profiling_notes.md
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

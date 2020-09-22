@@ -2,7 +2,7 @@
 title = "cmigemoの代わりに自作のmigemoを使うようにしてみた"
 author = ["derui"]
 date = 2020-05-05T10:52:00+09:00
-lastmod = 2020-05-05T10:53:03+09:00
+lastmod = 2020-09-22T10:41:38+09:00
 tags = ["JavaScript"]
 draft = false
 +++

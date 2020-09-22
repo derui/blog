@@ -77,10 +77,6 @@
         <a href="//www.quora.com/profile/{{ .Site.Params.quora }}" title="Quora"><span class="icon icon-quora"></span></a>
       </li>{{ end }}
 
-      {{ if isset .Site.Params "dribbble" }}<li class="social-item">
-        <a href="//dribbble.com/{{ .Site.Params.dribbble }}" title="Dribbble"><span class="icon icon-dribbble"></span></a>
-      </li>{{ end }}
-
       {{ if isset .Site.Params "behance" }}<li class="social-item">
         <a href="//www.behance.net/{{ .Site.Params.behance }}" title="Behance"><span class="icon icon-behance"></span></a>
       </li>{{ end }}
@@ -97,28 +93,8 @@
         <a href="//codepen.io/{{ .Site.Params.codepen }}" title="Codepen"><span class="icon icon-codepen"></span></a>
       </li>{{ end }}
 
-      {{ if isset .Site.Params "weibo" }}<li class="social-item">
-        <a href="//weibo.com/{{ .Site.Params.weibo }}" title="Weibo"><span class="icon icon-weibo"></span></a>
-      </li>{{ end }}
-
-      {{ if isset .Site.Params "wechat" }}<li class="social-item">
-        <a href="{{ .Site.Params.wechat }}" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>{{ end }}
-
       {{ if isset .Site.Params "linkedin" }}<li class="social-item">
         <a href="//www.linkedin.com/in/{{ .Site.Params.linkedin }}" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>{{ end }}
-
-      {{ if isset .Site.Params "zhihu" }}<li class="social-item">
-        <a href="//www.zhihu.com/people/{{ .Site.Params.zhihu }}" title="Zhihu"><span class="icon icon-zhihu"></span></a>
-      </li>{{ end }}
-
-      {{ if isset .Site.Params "douban" }}<li class="social-item">
-        <a href="//www.douban.com/people/{{ .Site.Params.douban }}" title="Douban"><span class="icon icon-douban"></span></a>
-      </li>{{ end }}
-
-      {{ if isset .Site.Params "bilibili" }}<li class="social-item">
-        <a href="//space.bilibili.com/{{ .Site.Params.bilibili }}" title="Bilibili"><span class="icon icon-bilibili"></span></a>
       </li>{{ end }}
 
       <li class="social-item">

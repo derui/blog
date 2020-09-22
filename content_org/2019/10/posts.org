@@ -218,5 +218,5 @@ ocaml-cross-windowsは、コミュニティによって運営されているた�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

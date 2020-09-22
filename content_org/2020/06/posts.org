@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE 最近はpure CSS + PostCSSを使っている話                          :CSS:
 CLOSED: [2020-06-10 水 21:07]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: pure_css_with_postcss
 :END:
 緊急事態宣言は解除されましたが、相変わらず在宅勤務です。また満員電車とかに慣れるための修練が必要になりますね・・・
@@ -81,5 +81,5 @@ Sassに疲れた、とか機能を使い切れなくて悔しい、とか感じ�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

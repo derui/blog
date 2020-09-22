@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE cmigemoの代わりに自作のmigemoを使うようにしてみた        :JavaScript:
 CLOSED: [2020-05-05 火 10:52]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: use_selfmade_migemo
 :END:
 
@@ -103,5 +103,5 @@ ocamlformatをかけたのでめっちゃ差分が出てるけど・・・
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

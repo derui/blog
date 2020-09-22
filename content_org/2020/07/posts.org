@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE shellのpipeを使いつつ入力とかを受け付ける方法                 :Linux:
 CLOSED: [2020-07-12 日 13:54]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: pipe_with_terminal_interactive
 :END:
 ちょっと最近やり始めた（正確に言うとやり直し始めた）ツールづくりで、どうやったかを毎回調べてしまうので、備忘録的に書いておきます。
@@ -62,5 +62,5 @@ http://tldp.org/HOWTO/Text-Terminal-HOWTO-7.html#ss7.3
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

@@ -580,5 +580,5 @@ React/Vueとも違う感じですが、全体がTypeScriptで出来ているた�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

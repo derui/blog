@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE Enzymeの代わりにtesting-libraryを使うようにしてみた      :JavaScript:
 CLOSED: [2020-04-05 日 13:47]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: use_testing-library_instead_of_enzyme
 :END:
 
@@ -128,7 +128,6 @@ testing-libraryを使うと、propsの ~onXxx~ を実行して〜というのは
 ** DONE qmk_firmwareの日本語配列からかな入力をする                     :雑記:
 CLOSED: [2020-04-29 水 12:01]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: use_kana_from_qmk
 :END:
 すっかり在宅に慣れてきましたが、ちょっと出かけることも出来ないというのが割とストレスですね・・・。
@@ -201,5 +200,5 @@ qmk_firmwareでカナ入力を実装している方の参考になれば幸い�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

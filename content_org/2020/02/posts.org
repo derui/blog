@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE polybarからi3blocksに乗り換えてみた                           :Linux:
 CLOSED: [2020-02-21 金 16:01]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: polybar_to_i3blocks
 :END:
 
@@ -96,7 +96,6 @@ polybarの方が優れていたのが、電源周りのmoduleが用意されて�
 CLOSED: [2020-02-07 金 19:45]
 :PROPERTIES:
 :EXPORT_FILE_NAME: domain_modeling_made_functional
-:EXPORT_AUTHOR: derui
 :END:
 
 個人的に作っているツールで、OCamlでどうやってDDDをやっていくか？ということを考える中で、 [[https://pragprog.com/book/swdddf/domain-modeling-made-functional][Domain Modeling Made Functional]]というそのものズバリな本の存在を知りました。そこまで高くなかったので購入して読んでみたので、感想を書いてみます。
@@ -182,7 +181,6 @@ DDDをJavaとかC#、他の言語ではやっているけど、関数型言語�
 CLOSED: [2020-02-29 土 16:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: hygen_io_to_reduce_boilerplate
-:EXPORT_AUTHOR: derui
 :END:
 
 閏年の閏日ということなので（？）、記事を書いておきます。特別な日にでも書いておかないとアウトプットがないので・・・。
@@ -422,5 +420,5 @@ reducerの生成では、あえてaction typeのcase文を追加するような�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

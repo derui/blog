@@ -267,5 +267,5 @@ iris、crkbdと来たので、恐らくしばらくはキーマップの整備�
 
 * COMMENT Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

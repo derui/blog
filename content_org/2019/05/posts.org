@@ -297,5 +297,5 @@ Easy modeをつける是非は、最終的には開発者側の判断でしょ�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

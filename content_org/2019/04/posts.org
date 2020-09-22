@@ -180,5 +180,5 @@ project管理系のstandardっぽいパッケージです。今まで入れず�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

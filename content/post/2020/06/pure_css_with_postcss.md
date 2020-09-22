@@ -2,7 +2,7 @@
 title = "最近はpure CSS + PostCSSを使っている話"
 author = ["derui"]
 date = 2020-06-10T21:07:00+09:00
-lastmod = 2020-06-10T21:13:38+09:00
+lastmod = 2020-09-22T10:41:26+09:00
 tags = ["CSS"]
 draft = false
 +++

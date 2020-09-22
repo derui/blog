@@ -126,5 +126,5 @@ ppx_letは、対応する型に対して、 ~Let_syntax~ というmoduleが定�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

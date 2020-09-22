@@ -88,5 +88,5 @@ http://extra-vision.blogspot.com/2016/07/emacs.html
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

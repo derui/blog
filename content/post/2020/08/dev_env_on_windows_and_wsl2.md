@@ -2,7 +2,7 @@
 title = "Windows10 + WSL2で環境を整えた"
 author = ["derui"]
 date = 2020-08-08T16:20:00+09:00
-lastmod = 2020-09-09T20:32:37+09:00
+lastmod = 2020-09-22T10:41:00+09:00
 tags = ["Windows", "Emacs"]
 draft = false
 +++

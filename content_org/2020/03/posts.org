@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -11,7 +12,6 @@
 ** DONE ProtocolBufferを使ってWebSocketでRPCをする :JavaScript:ProtocolBuffer:
 CLOSED: [2020-03-15 日 13:59]
 :PROPERTIES:
-:EXPORT_AUTHOR: derui
 :EXPORT_FILE_NAME: rpc_with_protocolbuffer_and_websocket
 :END:
 
@@ -169,5 +169,5 @@ Commandを ~enum~ としているのは、OCamlで代数的データ型として
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

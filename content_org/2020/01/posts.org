@@ -2,6 +2,7 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
+#+AUTHOR: derui
 
 * Posts
 :PROPERTIES:
@@ -12,7 +13,6 @@
 CLOSED: [2020-01-13 月 12:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: protocolbuffers_and_json_in_ocaml
-:EXPORT_AUTHOR: derui
 :END:
 
 以前の記事で、ProtocolBuffersでOCaml/TypeScript間の定義を作成して色々やっていたのですが、いくつか問題が出てきたので書いてみます。
@@ -99,13 +99,8 @@ proto3では、JSONとの相互変換が仕様としてありますが、protoco
 
 システム間におけるデータ構造をどうするか？というのについては、これからも色々試していきたいと思います。
 
-** TODO polybarからi3blocksに乗り換えてみた                           :Linux:
-:PROPERTIES:
-:EXPORT_FILE_NAME: polybar_to_i3blocks
-:END:
-
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

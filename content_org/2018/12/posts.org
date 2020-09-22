@@ -185,5 +185,5 @@ QWERTY配列とローマ字入力では、やたら指と手が跳躍し、単�
 
 * COMMENT Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

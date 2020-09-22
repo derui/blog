@@ -3,7 +3,7 @@ title = "crkbdを作った"
 author = ["derui"]
 date = 2018-12-01T10:12:00+09:00
 publishDate = 2018-11-18T00:00:00+09:00
-lastmod = 2018-12-01T10:12:08+09:00
+lastmod = 2020-09-22T11:22:07+09:00
 tags = ["自作キーボード"]
 draft = false
 +++

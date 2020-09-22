@@ -238,5 +238,5 @@ nameを指定した場合、一回しかscopeに入ることが出来ない、�
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:
-# org-hugo-auto-export-on-save: t
+# eval: (org-hugo-auto-export-mode)
 # End:

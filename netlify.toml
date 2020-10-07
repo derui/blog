@@ -3,7 +3,7 @@ publish = "public"
 command = "cd themes/hugo-nuo; yarn build; cd ../../; hugo --gc -b 'https://blog.deltabox.site/' --minify --themesDir themes"
 [context.production.environment]
   HUGO_VERSION = "0.75.1"
-  NETLIFY_USE_YARN = true
+  NETLIFY_USE_YARN = "true"
 [context.deploy-preview.environment]
   HUGO_VERSION = "0.75.1"
-  NETLIFY_USE_YARN = true
+  NETLIFY_USE_YARN = "true"

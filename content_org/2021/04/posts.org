@@ -1,0 +1,246 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_auto_set_lastmod: t
+#+HUGO_SECTION: post/2021/04
+#+AUTHOR: derui
+
+* DONE Emacsのinit.elをorgで書く方法と、変更時に楽をしてみる          :Emacs:
+CLOSED: [2021-03-13 土 13:25]
+:PROPERTIES:
+:EXPORT_FILE_NAME: init-el-with-org
+:END:
+ふと気づいたら、転職して一年経過していました。一年のほとんどがコロナ影響下にあったのは、まーいい経験になったなーと。
+
+さて、最近Emacsのinit.elをorgで書くようにしてみたのと、ちょっとした工夫をしてみたので、それについて書いてみます。
+
+<!--more-->
+
+** なぜinit.elをorgファイルにするのか
+*やってみたかったから*
+
+身も蓋もない理由ですが、とりあえずは上の理由が一番に挙げられます。しかし、ちゃんとした利点もあります。
+
+- org-modeの強力な編集機能を使える
+  - コードブロックの周辺にコメントとして残すよりも表現力が高いですし、リンクとかもさっくり貼れます
+- 折り畳みが自然にできる
+  - org-modeなので
+- 部分での管理が楽
+
+
+まぁいくつか理由はありますが、orgファイルにすることで、多少でも見通しがよくなるので。
+
+** init.elをinit.orgに変更する方法
+org-modeには、[[https://orgmode.org/worg/org-contrib/babel/][babel]]という、色々な言語のコードブロックを、org-modeの中で実行するための枠組みを提供するlispが含まれています。
+
+こいつを使うと、org-modeに書いたemacs lispを簡単にinit.elにすることができます。というかorg-mode公式で紹介していたりします。
+
+私のデフォルトのinit.elは、今これしか書いてません。
+
+https://github.com/derui/dot.emacs.d/blob/master/init.el
+
+#+begin_src emacs-lisp
+  (require 'org)
+  ;; Do always overwrite init.el from generated source from init.org
+  (org-babel-tangle-file (expand-file-name "init.org" user-emacs-directory)
+                         (expand-file-name "init.el" user-emacs-directory))
+  (load (expand-file-name "init.el" user-emacs-directory))
+  (message "Once kill emacs for apply new init.el written from init.org")
+  (kill-emacs)
+#+end_src
+
+~org-babel-tangle-file~ という関数で、orgファイルにあるコードブロックを、指定したファイルに書き出すことができます。対象のorgファイルにemacs lispしか書いていなければ、吐き出されるのもemacs lispになります。
+
+まー、私が書くよりも、すでに色んなところでこれよりも細かく記述されているので、参考サイトに挙げたサイトを見てみることをオススメします。
+
+** orgからinit.elを生成した場合の注意点
+さて、これで起動するとinit.orgからinit.elが生成できるわけですが、最初に生成した場合、色々と問題が発生するケースがあります。
+
+- straight.elとかで最新のorgを入れていたりする場合、大抵上手く動きません
+- 上が影響して、他のパッケージも上手く動かない場合があります
+
+
+そのため、私のinit.elでは、起動して読み込み終わった直後に死ぬようにしてあります。初回だけすぐ終了してしまいますが、どうせ一回終了しないと正しく起動しないので・・・。
+
+** init.elの初期化めんどくさい問題
+一度生成されたinit.elは、当然ながらinit.orgを読み込むようには(大抵)なっていません。そうなると、init.orgの内容をちゃんと反映させる場合、以下のような手順を踏む必要があります。
+
+1. init.orgを編集する
+2. init.elの内容を元にもどす
+   ~git checkout~ などで
+3. Emacsを再起動するか、init.elを読み込む
+
+
+特に2がめんどくさいです。ぶっちゃけ、init.orgを更新したらinit.elを初期化しておいてもらいたいです。
+
+ということで、以下のような設定を追加しています。(実際は、 ~after-save-hook~ ではなく、自作関数を登録する専用のhookを用意しています)
+
+#+begin_src emacs-lisp
+  (defvar my:init.el-content
+    '(progn
+       (require 'org)
+       ;; Do always overwrite init.el from generated source from init.org
+       (org-babel-tangle-file (expand-file-name "init.org" user-emacs-directory)
+                              (expand-file-name "init.el" user-emacs-directory))
+       (load (expand-file-name "init.el" user-emacs-directory))
+       (message "Once kill emacs for apply new init.el written from init.org")
+       (kill-emacs))
+
+    "init.el contents"
+    )
+
+  (leaf *for-init-org
+    :after org
+    :config
+    (defun my:restore-init.el ()
+      (when (string=
+             (expand-file-name "init.org" user-emacs-directory)
+             (buffer-file-name))
+        (with-temp-buffer
+          (insert ";; -*- coding: utf-8 -*-")
+          (newline)
+          (insert (prin1-to-string my:init.el-content))
+          (write-file (expand-file-name "init.el" user-emacs-directory) nil))))
+
+    (add-hook after-save-hook #'my:restore-init.el))
+#+end_src
+
+こうすると、init.orgを編集している場合だけ、保存するとinit.elが初期化されてくれます。 ~my:init.el-content~ には、デフォルトのinit.elの内容を入れてあります。lispの特徴を生かして、文字列ではなく、普通のlisp programとして書けるようにしてあります。
+
+保存されるたびに書き換えているので、ちょっと無駄がありますが、まぁそこまで頻繁な編集を現在は行っていないので、そこまで問題にはなっていません。
+
+** init.elに飽きたらorgファイルでの管理、やってみよう
+というわけで、orgファイルでinit.elを管理する、という内容を書いてみました。これは結構色んな方がやっているので、参考にしてみるとよいと思います。
+
+Vim/Visual Studio Codeに押されているEmacsですが、すでに1x年使ってしまっている身としては、今更移行するメリットが無いので、まだまだEmacsに付き合っていこうと思います。では。
+
+** 参考にしたサイト
+
+- https://orgmode.org/worg/org-contrib/babel/
+  - org-babelのサイト
+- [[https://taipapamotohus.com/post/init_org/][Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する]]
+  - init.el自体を書きかえるのではなく、init.orgから別の場所に生成して、それをinit.elから読み込むスタイル
+- [[http://blog.lambda-consulting.jp/2015/11/20/article/][俺、ちゃんと全部管理してます（org-modeでinit.elを管理する）]]
+  - 上でもリンクされている
+
+* TODO ディスプレイの置き方を変えてみた                                :雑記:
+:PROPERTIES:
+:EXPORT_FILE_NAME: display-placement
+:END:
+今年は桜を見に行きました。以外と近くの公園が綺麗に咲いていたので、特に留まるとかはせずに歩きながら、ですが。酒を飲んだりする花見、なんてやったことないなぁ・・・。
+
+相変わらず在宅ワークの日々ですが、ディスプレイの配置を6、7年振りに変更しました。その話をさらーっと書いてみます。
+
+<!--more-->
+
+** まずは現状を
+今のディスプレイ配置ですが、こんな感じになりました。手前にあるAlienwareは気にしない方向で。ディスプレイのサイズですが、24.5inchです。いずれ27inchにしたい。
+
+[[file:20210411_1.jpg][file:resized_20210411_1.jpg]]
+
+モニターアームとしては、以下を利用しています。エルゴトロンのOEMであるAmazon Basicのやつです。
+
+#+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=derui09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B07PY4TX8B&linkId=04cb6157776d58f499f58a529cdb8b45"></iframe>
+#+end_export
+
+ただ、デュアルディスプレイ用のものではなく、シングル用のを二つ購入しています。これは後述します。
+
+** なぜこの配置か？
+以前は、通常あるデュアルディスプレイの配置にしていました。外部サイトの画像ですがこんな感じ。
+
+#+begin_export html
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.nanigoto.com%2Fdisplay%2F&psig=AOvVaw3Ko3TactVj_sWeJyf5qfLY&ust=1618187678129000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCrzf_49O8CFQAAAAAdAAAAABAI][https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.nanigoto.com%2Fdisplay%2F&psig=AOvVaw3Ko3TactVj_sWeJyf5qfLY&ust=1618187678129000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCrzf_49O8CFQAAAAAdAAAAABAI">
+#+end_export
+
+デュアルディスプレイ用のアームとかであるような、視線が二つのディスプレイの間にあるような感じでした。実際、初めてデュアルディスプレイにしてからずっとこの形でした。しかし、在宅が始まってから、この配置だとちょっと都合が悪いケースが増えてきました。
+
+- MacBook(社から支給されている)と繋げているのは左側だけ
+- メインの作業領域が(広いので)繋げたディスプレイになっている
+- 仕事中、首がずっと左側を向いている状態になっている
+
+
+また、仕事中でなくとも、エディタがあるのは大抵どちらか一方なので、結構な時間そちらの方に首が向いている形になっていました。同じ方向に首を曲げ続ける、というのは結構な負荷になっていたとは思いますが、今までは在宅とかなかったので、そこまで長時間その体勢になっているということはありませんでした。
+
+しかし、在宅で長時間その体勢になるようになったことで、結構体に対する負荷がかかってきていることに気付いたので、ちょっと試行錯誤した結果が前掲した画像のスタイルになったわけです。
+
+*** 配置の制約と検討
+メインの作業領域はどうせ一つの画面に集約されるので、そのディスプレイは自分の正面に配置することがほぼ確定します。そうなると、24inchだと約60cmくらいの領域が正面を占めます。そうなると、もう一つのディスプレイをどう配置するのか？という問題になってきます。
+
+配置にあたって、私の机やスタイル上、以下のような制約を設けています。
+
+- 机の右端にPS5が置いてある
+- 正面のディスプレイは仕事/Alienwareからの出力で使う
+  - なのでHDMI端子が埋まってる
+- DisplayPortはデスクトップが全部使ってる
+
+
+
+上の制約を満たしつつ、私の机のサイズを勘案すると、配置は概ね以下のいずれかにすることに決めました。
+
+- 縦に２画面並べる
+- 横に角度を付けて置く
+
+
+ただ、縦に並べる、ということも考察してみたんですが、それを成立させるためのアームがわりと特殊なものになる(=汎用性が無い)ため、早々と検討リストから脱落しました。そうなると横に角度を付けて配置する、という話になります。
+が、24inchとはいえ、横にしたまま配置するとかなりの威圧感があります。かつ、全体を視線に入れるためには、結局かなり首を曲げなければなりませんでした。もう自分の椅子ごと向いた方が早いくらい。
+
+さてではどうしようか・・・
+
+
+*** 縦にするというパターン
+情報収集とかで見るwebサイトなどは、縦にした方がサイトとかの情報量は多くなる傾向があります。デザイン上横幅が決まっているサイトだとスペースが空いてしまうし、文字が折り返されたとしても、長すぎると始点を見失うので、横に長すぎても情報の閲覧という意味ではそこまで強みがあるわけでもありません。
+
+そうなると、縦にする、ということが選択肢に上がってきます。特にモニターアームを使うことが前提(机のスペース問題上、スタンドを置くというのはちょっと無理なので)であったので、縦にする分には問題はありません。
+
+また、PS5をやるときは、ディスプレイを横に回してしまえば無問題です。どうせゲームをやるときはそっちに体を向けるので、角度が付いていることも問題ではなくなります。
+
+** シングルのモニターアームを二つ使う
+さて、そうなると今度は、それができるモニターアーム探しですが・・・。これがわりと難しいです。
+24inchのディスプレイの幅は約56cmあります、それが正面にあるということは、少なくともアームの長さが60cmはないと、正面にあるディスプレイの横に置けなくなります。が、一般的なデュアルディスプレイ用のアームだと、これを満たしそうなものがありませんでした。
+あっても、今度はディスプレイがかなり前に来たりして、非常にやりづらい感じになってしまいました。
+
+実際、以前使っていたアームだとその配置にするのが不可能でした。
+
+そこで、配置に関する記事を漁っていたところ、 *シングルのアームを二つ使えばいい* という、目からウロコのアイデアを頂きました。そりゃそうか、という感じですね。Amazon basicのアームは、ちょうど二個一で注文できたので、それを注文して設置をしました。結果が最初の画像です。
+
+この配置にすることで、
+
+- メインは、首を曲げずに正面に設置できる
+- サブは縦にして、情報を表示できる
+  - 縦に長いのを利用して、ターミナルとブラウザを縦にしたりして、とかもやりやすいです
+- PS5をやるときはクルッと横向きにできる
+  - 油断するとディスプレイ同士がぶつかりそうなサイズ感なので、ちょっと注意は必要ですが
+
+
+という、前述の制約を満たしつつ、配置を改善することができました。やったぜ。
+
+*** シングルを使う利点
+Amazon Basicのアームは、耐荷重が11kgとかあります。また、27inchとかでも普通に利用できます。デュアルディスプレイ用だと、ディスプレイが大きくなると配置上の自由度はかなり小さくなりますが、シングルなら設置場所を調整することも容易です。
+
+下手にデュアルディスプレイ用を使うよりも、シングルを二つ利用するほうがいいな・・・という認識になりました。いいよこれ。
+
+** おまけ: Swayで縦ディスプレイを使う
+私のメイン環境はSway、つまりWayland nativeに完全移行していますが、Swayだと縦ディスプレイにしても何の問題もなく表示してくれます。表示する場合、swayのconfigで、outputにtransformを指定するだけでできます。
+
+#+begin_src conf
+  output DP-1 {
+    pos 1920 0
+    mode 1920x1080@119.982002Hz
+    transform 270
+  }
+#+end_src
+
+transformがミソで、デフォルトの状態を0としたときに、右回りに回転する角度を指定する形です。ここを指定したり、 ~swaymsg~ を使ったりすれば、ディスプレイのローテートに合わせて自動的に向きを変える・・・なんてこともできそうです。
+
+** マルチディスプレイはいいぞ
+6、7年振りに配置を刷新した話でした。まだこの配置にしてから一週間くらいしか経過していませんが、すでに大分しっくりきています。なんかしっくりこないなー、という方は、配置を変えることを検討してみてはどうでしょうか？
+
+個人的には、27inchの4KディスプレイでWQHDにして使ってみたいなー、というのが最近考えているところです。今のディスプレイはまだ1年くらいしか使っていないので、まーまだ先ですが・・・。
+
+ただ、複数ディスプレイは生産性に直結するので、やったことがない方は、安いディスプレイでも構わないので試してみてほしいです。戻れなくなりますよ。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

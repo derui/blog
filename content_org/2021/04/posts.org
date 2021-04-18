@@ -123,7 +123,8 @@ Vim/Visual Studio Codeに押されているEmacsですが、すでに1x年使っ
 - [[http://blog.lambda-consulting.jp/2015/11/20/article/][俺、ちゃんと全部管理してます（org-modeでinit.elを管理する）]]
   - 上でもリンクされている
 
-* TODO ディスプレイの置き方を変えてみた                                :雑記:
+* DONE ディスプレイの置き方を変えてみた                                :雑記:
+CLOSED: [2021-04-18 日 12:47]
 :PROPERTIES:
 :EXPORT_FILE_NAME: display-placement
 :END:

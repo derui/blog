@@ -43,7 +43,6 @@
     width: 8rem;
     height: 8rem;
     object-fit: cover;
-    font-family: 'object-fit: cover;'; // Polyfill for object-fit
     border-radius: var(--radius);
 
     & + .post-summary {

@@ -1,9 +1,10 @@
 +++
 title = "Linuxで音楽を聞く時に使っているもの"
 author = ["derui"]
-lastmod = 2021-06-13T09:16:54+09:00
+date = 2021-06-13T00:00:00+09:00
+lastmod = 2021-06-19T15:25:40+09:00
 tags = ["Linux", "雑記"]
-draft = true
+draft = false
 +++
 
 大分前に購入していたけど、ほとんどやっていなかった[shapez.io](https://store.steampowered.com/app/1318690/shapezio/?l=japanese)というゲームを久し振りにやったら、ずっと黙々とやってしまいました。これは時間が溶ける系統や・・・。

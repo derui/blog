@@ -87,7 +87,8 @@ org-journalほどは機能があるわけではないけど、必要最低限の
 
 EmacsでRoam Researchを利用してみたいな、という場合には検討してみちゃーどうでしょうか？
 
-* TODO Linuxで音楽を聞く時に使っているもの                       :Linux:雑記:
+* DONE Linuxで音楽を聞く時に使っているもの                       :Linux:雑記:
+CLOSED: <2021-06-13 日>
 :PROPERTIES:
 :EXPORT_FILE_NAME: audio-player-in-linux
 :END:

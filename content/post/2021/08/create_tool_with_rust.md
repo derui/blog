@@ -2,7 +2,7 @@
 title = "Rustで超簡単なツールを作ってみた"
 author = ["derui"]
 date = 2021-08-07T10:08:00+09:00
-lastmod = 2021-08-07T10:08:05+09:00
+lastmod = 2021-08-15T09:53:13+09:00
 tags = ["Rust"]
 draft = false
 +++

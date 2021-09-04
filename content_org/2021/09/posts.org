@@ -1,0 +1,46 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_auto_set_lastmod: t
+#+HUGO_SECTION: post/2021/09
+#+AUTHOR: derui
+
+* DONE completion-category-overridesで使う値を取得する                :Emacs:
+CLOSED: [2021-09-04 土 13:01]
+:PROPERTIES:
+:EXPORT_FILE_NAME: get_category_completion_category
+:END:
+今回は超小ネタです。
+
+<!--more-->
+
+最近はEmacs上でのcompletionとして、[[https://github.com/oantolin/orderless][orderless]]などの標準のcompletion-readなどに則ったものを利用してます。Emacsの標準補完は、実はかなり柔軟性に富んでいて、様々なカスタマイズが可能になっています。
+
+completion-readのカスタマイズでは、 ~completion-category-overrides~ という変数で、completion-readによるマッチング方法を *categoryごとに* 変更することができます。
+
+このcategory、 ~completion-metadata~ という関数で取得できるmetadataから取得することができます。
+
+#+begin_src emacs-lisp
+  (completion-metadata-get
+   (completion-metadata "" table nil)
+   'category)
+#+end_src
+
+このtableとは、(私の理解だと)completion-readの第二引数として渡す関数です。この関数は、第３引数としてactionを取り、このactionに ~'metadata~ というシンボルが渡された場合は、metadataを返す必要があります。
+
+completion-metadata-getはこれらのmetadataから、特定の情報を取得するものです。なので、あるパッケージの補完をカスタマイズしたいときは、これを調べればカスタマイズできます。
+
+・・・が、場合によってはcompletion-readの呼び出しでlambdaを利用していて、 ~completion-metadata~ が使えないケースがあります。
+
+#+begin_quote
+実際、org-roam-node-findではlambdaで渡されており、categoryを知るためには結局その中身まで見る必要がありました
+#+end_quote
+
+そういう場合は、しかたがないのでパッケージの中を ~completion-read~ で検索してみると大体見付かります。
+
+そんな場合もあるんだよ、というメモでした。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

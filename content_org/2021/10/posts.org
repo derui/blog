@@ -108,7 +108,8 @@ CLOSED: [2021-10-09 土 10:41]
 
 でも電動昇降デスクを一人で組み立てるのは二度と一人でやりません。超疲れた。
 
-* TODO GraphQL + Kotlin + SpringBootの構成を試してみた(graphql-spring-boot-starter) :Kotlin:
+* DONE GraphQL + Kotlin + SpringBootの構成を試してみた(graphql-spring-boot-starter) :Kotlin:
+CLOSED: [2021-10-24 日 11:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: graphql_kotlin_springboot_with_graphql-spring-boot-starter
 :END:

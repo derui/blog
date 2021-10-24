@@ -1,9 +1,10 @@
 +++
 title = "GraphQL + Kotlin + SpringBootの構成を試してみた(graphql-spring-boot-starter)"
 author = ["derui"]
-lastmod = 2021-10-16T10:53:06+09:00
+date = 2021-10-24T11:56:00+09:00
+lastmod = 2021-10-24T11:56:03+09:00
 tags = ["Kotlin"]
-draft = true
+draft = false
 +++
 
 仕事の方で、GraphQLをちょっと検討しだした + 個人的にも興味は持っていたので、本格的に触ってみることにしました。

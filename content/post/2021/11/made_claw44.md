@@ -2,7 +2,7 @@
 title = "Claw44を作った"
 author = ["derui"]
 date = 2021-11-03T11:17:00+09:00
-lastmod = 2021-11-23T10:03:37+09:00
+lastmod = 2021-11-23T10:13:03+09:00
 tags = ["雑記"]
 draft = false
 +++

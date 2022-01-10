@@ -1,0 +1,467 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_auto_set_lastmod: t
+#+HUGO_SECTION: post/2021/01
+#+AUTHOR: derui
+
+* DONE Rust + YewでTypeScript + Reactをリライトしてみた          :Rust:OCaml:
+CLOSED: [2022-01-10 月 13:56]
+:PROPERTIES:
+:EXPORT_FILE_NAME: rewrite_with_rust_and_yew
+:END:
+あけましておめでとうございます。鏡開きギリギリなのでまだそう言っていいはず・・・。気付いたら転職して大体2年経過していたり、引越してから一年過ぎていたりして、時間の流れははえーなぁ、と思う日々です。
+
+大体一ヶ月くらいセコセコとやって、年末年始も(珍しく)実家で作業していたりしたやつが、基本部分は動くようになったので、それについて書いてみます。
+
+<!--more-->
+
+** きっかけ
+きっかけは単純で、色々見ていたときに、 ~yew~ というフレームワークを見つけたから、です。
+
+https://yew.rs/
+
+どういうものかというと、
+
+- Rust製
+- React.jsを強く指向したコンポーネントライブラリ
+- 周辺にstate管理(だけじゃないけど後述)、ルーターなども整備していて、必要最小限は揃っている
+
+
+というものです。超荒く言うと、 *Rustで全部やっちゃおうぜ* というやつですね。js_of_ocamlとかBucklescriptとかで実際似たようなことをやっていた身としては馴染があります。あっていいのか。
+結論的には、いつもの *やってみたかった駆動開発* です。
+
+** リポジトリ
+https://github.com/derui/simple-planning-poker/tree/yew
+
+#+begin_quote
+すでにこのリポジトリが盛大な実験場となっているのは気にしないでください
+#+end_quote
+
+この記事の時点だと、必要最小限成立する程度の機能までしかできてません。一応道筋は見えているので、実装自体は簡単ではありますが。
+
+** 構成
+
+利用しているライブラリはCargo.tomlを見たらだいたいわかるようになっていますが、それ以外の構成も含めて、利用しているツールなど。
+
+- Rustは最新安定版
+- yarn v3
+  - ずーっとv1使ってきましたが、アップグレードしてみました
+- Webpack 5
+- [[https://github.com/rustwasm/wasm-pack][wasm-pack]] + [[https://github.com/wasm-tool/wasm-pack-plugin][wasm-pack-plugin]]
+- メインのprojectとサブprojectとして分離
+  - ルートのCargo.tomlには、projectsの定義のみ入れています
+- ライトなCleanArchitecture的思想
+  - ただし、これはプロジェクト構成を失敗した感も・・・
+- yew-agent/yew-routerを利用してルーティングとか
+- wasm-bindgen + gloo + wasm-bindgen-future
+- Firebase(realtime database/auth)を利用
+  - 当然Rustから呼んでます
+- TSな部分は、依存をglobalに展開 + Firebaseの初期化のみ
+
+
+という形になっています。ぶっちゃけ途中はテストも書かずにひたすら移植作業していたので、実際に動くのかどうか？は実際に動かしながら試してみた・・・というあんまりよくない形になっています。が、テスト書きながらだと多分この2倍かかった気がするので、とりあえずどういうものなのか？を確かめるという目的を達成するためにはこれでよかったかな、と。
+
+** yewでどうやって書くのか？
+Rustがどういうものか、とかは全部すっとばします。Rust公式に良質なドキュメントがあるのでそちらをどうぞ。
+また、初期セットアップも全部すっとばします。公式ドキュメントを見たほうが早いです。
+
+超簡単なサンプルとしてはこんな感じになります。
+
+#+begin_src rust
+  #[derive(Properties, PartialEq)]
+  pub struct Property {
+      counter: u32,
+  }
+
+  #[function_component(Component)]
+  pub fn component(props: &Property) -> Html {
+      html! {
+          <div><span> {"Counter: "} </span><span> {props.counter}</span></div>
+      }
+  }
+
+  #[function_component(Main)]
+  pub fn main() -> Html {
+      let state = use_state(|| 0);
+
+      let onclick = {
+          let state = state.clone();
+
+          Callback::from(|_| state.set(*state + 1))
+      };
+
+      html! {
+          <Component counter={*state} />
+          <button onclick={onclick}>{"Click"}</button>
+      }
+  }
+#+end_src
+
+yewは、 ~struct component~ と ~functional component~ という二通りの実装が可能です。この辺もReactのClass ComponentとFunctional Componentとよく相似していますね。
+
+メインになるのは ~html!~ マクロと ~function_component~ マクロです。両方ともproc macroです。html!マクロ中では、おおむねReactに似た書き味で記述することができます。
+
+Propertyも指定できますが、このpropertyは ~Properties~ をderiveしたものでなければならない、という制約があります。このあたりは、まぁもうおまじない的に書いてしまえばいいかな、というところですね。PartialEqも要求されますが、これは差分が無い場合はレンダリングしない、という処理をするために必要となります。
+
+
+**** Struct Component or Functional Component?
+ここまでで、Struct Componentがあると言っておきながら記述していません。今回の実装では、Struct Componentを利用する必要性がなかったから、という感じですが。
+
+yewにおいても、Struct Componentはinternalな実装として利用するだけにし、ユーザーからは functional componentだけ利用するようにすべきだ、といった主張もあったりするようです。現状ではそこまで強烈な非互換性は導入しない方向になっています。が、yew自体まだ1.0になっていないので、これからどうなっていくのかはわかんないですね。
+
+*** HookとカスタムHook
+さて、yewにはReact.jsで導入された ~hook~ がほぼ同じ感覚で利用できるように実装されています。制約なども大体一緒です。
+
+yewでfunctional componentを利用する場合は、大体これを使うことになります。
+
+#+begin_quote
+React.jsのHookと大体一緒、ということは、実装における注意点とかもほとんど一緒です。ナチュラルに書くと、依存やらなんやらも全部ゴッチャになってしまうので、そこらへん気にする場合はcontextで依存を渡すとかそういうことをする必要があります。
+#+end_quote
+
+カスタムHookは、シンプルなfunctionとして定義するだけでOKです。 ~use_~ をprefix的につけるようにする、というconventionもReact.jsから輸入されています。
+
+#+begin_src rust
+  pub fn use_hoge() -> u32 {
+      let state = use_state(|| 0);
+
+      // ...なんか色々やる
+
+      (*state).clone()
+  }
+#+end_src
+
+*** State管理
+さて、React.jsでも色々ありますが、yewでもstate管理は結構難しかったです。React.jsの場合、原則的にはFluxに従いつつ・・・という流れができているのですが、yewではそこまで強いものはありません。単一コンポーネントであれば ~use_state~ でいいんですが、複数のコンポーネントとかroutingとかある場合に、hookだけでやるのは自殺願望でしかないと思ってます。
+なので、なんらかのstate管理は必要になります。
+
+yewには、この用途 + αで利用することを想定されている、yew-agentというパッケージがあります。
+
+- bi-directionalなmessage driven
+- Actor model
+
+
+という形で動作するagentを定義することができ、基本的には複数コンポーネントを跨ぐようなstateはこれで管理することになります。また、 *自分を更新するためのメッセージ* と、 *リスナーに送信するためのメッセージ* という区別があります。
+
+・・・ところが、現状公式のドキュメントでは、この辺があまり充実していないというかほとんどサンプルがありません。
+なので、かなり苦しみながらとりあえず学んだことを書いてみます。
+
+**** futureが絡む場合のmessage
+現代的なアプリケーションであれば、望むと望まざるに関わらず、Promiseとの戦いを避けることはできません。firebaseなんて使ってるので、もう避けることは不可能です。
+
+TypeScript/JavaScriptであれば、ほぼasync/awaitだけで記述する感じになります。Rustでもasync/awaitを使えます。・・・が、RustのFutureは、TS/JSのPromiseよりも遥かに難しいです。なぜ難しいのか？はまだ上手く言語化できませんが、
+
+- lifetime/所有権との戦い
+- awaitを忘れると消費されない、という仕組み
+  - 忘れると大抵怒ってくれるんですが、特定の書きかたでは怒ってくれず、頭にハテナマークを出しながらデバッグすることになります
+- WASMの場合の制約
+  - 元々マルチスレッドが前提の作りなのが、JSのPromise制約 = UIスレッドでは一つのスレッドしか動かない、というやつとミスマッチします
+
+
+Rust自体、動的なallocをほとんど許さないという前提にあるため、通常のTS/JSにあるような、軽い気持でasync/awaitすると一気に厳しくなります。
+
+例えば・・・
+
+#+begin_src rust
+  #[derive(Clone)]
+  struct Hoge {
+      state: String
+  }
+
+  enum Input {
+      Foo(String)
+  }
+
+  enum Message {
+      Update(String)
+  }
+
+  impl Agent for Hoge {
+
+      fn update(&mut self, msg: Self::Message) {
+          match msg {
+              Message::Update(v) => {
+                  self.state = v;
+              }
+          }
+      }
+
+      fn handle_input(&mut self, msg: Self::Input, _id: HandlerId) {
+          let this = self.clone();
+          let fut = match msg {
+              // asyncブロックの中でsend_messageしている。
+              // lifetimeと所有権の都合上、 cloneしたものにしないととてもじゃないが無理。
+              Input::Foo(v) => async move {
+                  let result = hoge_hoge().await;
+                  // updateが起動する
+                  this.link.send_message(Message::Update(result))
+              }
+          }
+
+          spawn_local(fut)
+      }
+  }
+#+end_src
+
+みたいに、 *Futureの中でsend message* とした場合、これが更新されるのはどこになるでしょうか・・・？はい。これは *cloneされたstructが更新される* となります。これをやってしまうと、確かにupdateは呼ばれているのに、データを取得すると全然来ない・・・という形になってしまいます。
+
+この場合、 ~send_future~ を利用する必要があります。send_futureを利用すると、updateメソッドがきちんとselfに対して呼びだされるため、globalな状態がきちんと更新されます(他の方法もあるかもしれませんが・・・)。
+
+**** JSに渡したClosureから他のAgentにメッセージを渡す
+いくつかのケースでは、Agent同士で通信する必要がでるケースがあります。今回のやつだと、 *Firebase側で他のユーザーが変更したら、その情報を自分自身にも反映しなおす* という処理をする必要があります。
+
+選択肢としては、このsubscriptionもglobal stateに含めてしまう・・・という選択肢もありますが、複数作成することができなくなるのと、責務が増えすぎるので、他のagentにするかなと思います。
+
+以下は実際のソースから抜粋して改変したものになります。 ~on_value~ というのは、Realtime Databaseの ~onValue~ です。このClosureは、stackの生存期間ではないので、heapにあることを明示するため、Closureという特殊な形で渡す必要があります。
+
+#+begin_quote
+Closureはwasm-bindgenで定義されています。
+#+end_quote
+
+#+begin_src rust
+  pub enum GameObserverAction {
+      SubscribeTo(String),
+  }
+
+  impl Agent for GameObserver {
+      fn update(&mut self, _msg: Self::Message) {}
+
+      fn handle_input(&mut self, msg: Self::Input, _id: HandlerId) {
+          match msg {
+              GameObserverAction::SubscribeTo(game_id) => {
+                  if let Some(unsubscribe) = &self.game_unsubscriber {
+                      unsubscribe
+                          .call0(&JsValue::null())
+                          .expect("should remove subscription");
+                  }
+
+                  let mut dispatcher = GlobalStatus::dispatcher();
+                  let key = format!("games/{}", game_id);
+                  let reference = reference_with_key(&*self.database.database, &key);
+                  let callback = Closure::wrap(Box::new(move || {
+                      dispatcher.send(Actions::ForGame(GameActions::ReloadGame));
+                  }) as Box<dyn FnMut()>);
+                  let unsubscribe = on_value(&reference, &callback);
+                  self.game_unsubscriber = Some(unsubscribe);
+                  self.game_subscriber = Some(callback);
+              }
+          }
+      }
+
+      fn destroy(&mut self) {
+          if let Some(unsubscribe) = &self.game_unsubscriber {
+              unsubscribe
+                  .call0(&JsValue::null())
+                  .expect("should be able to call");
+          }
+      }
+  }
+
+#+end_src
+
+この辺、JSならGCに任せて何も気にせず渡してしまえばいい・・・ってやつなので、見た目にもかなり面倒になってますね。
+
+**** serdeの制約
+agentでは、 ~Request/ResponseはSerialize/Deserializeできなければいけない~ という制約があります。(Request/Responseと書いていますが、agent上はInput/Outputです)
+
+これが結構厳しい制約であり、Domain model内でこれに対応していない型とかがあると、domain modelをそのまま受け渡したり、ということができません。これに関しては、あきらめてフロント用のSerializableなデータ型を定義して、それをstateとして持つなり、Responseから返すとかそういう感じにするのがよいかと。
+
+**** selectorとかは？
+Reduxに馴染んでいたり、recoilとか使っていた場合、 *Selectorは？* という疑問が湧くでしょう。そんなものはyewにはないし、個人的にはほぼ不要と考えます。必要ならStructに定義してしまえばそれで済みますし。
+
+今回はcomponentの中で表示用のロジックを書いたりしましたが、個人的にも、そこまで共通の表示処理が必要・・・となった場合、selectorとかじゃなくてまずconverterを書くので、selectorが必要という印象はありませんでした。
+
+*** Dependency Injection
+https://ryym.tokyo/posts/rust-di/
+
+CleanArchitectureなどを利用する場合、どこかでDependencyをinjectionする必要があります。RustでのDIについては、↑の記事を参考にして実装しています。
+
+#+begin_src rust
+  pub trait JoinService {
+      fn join(
+          &self,
+          user: &User,
+          signature: InvitationSignature,
+      ) -> LocalBoxFuture<'_, Option<DomainEventKind>>;
+  }
+
+  pub trait JoinServiceDependency:
+      HaveGameRepository + HaveGamePlayerRepository + HaveUuidFactory
+  {}
+#+end_src
+
+たとえばJoinServiceという、domain serviceを表すtraitについては、上記の用に HaveXxx というtraitを実装していることを要求することで、これらのtraitを実装しているstructであればOK、という形にできます。
+
+とはいえ、かなり迂遠(かつ、後述の理由もある)なので、正直やりやすいかどうか？でいえばあんまりやりやすくはないです。
+
+**** Rustのtrait + futureの制約
+この記事の時点(2022/1/10)では、 *traitでasync functionを定義することはできません* 。これは、 ~async fn~ が糖衣構文に近いものであり、traitにおけるlifetimeとかの設定をうまく表現できないため(らしい)です。
+
+これを解決するため、 [[https://github.com/dtolnay/async-trait][async-trait]] というcrateがある、んですが・・・。今回はこれも試したうえで、利用していません。
+
+なぜかというと、
+
+- wasm-bindgen-futureと組み合わせることができない or 凶悪に難しい
+
+
+ためでした。正直、そこまでめんどくさいものになる位なら、BoxFutureとかを利用するようにした方がよっぽど後が早かったです。実際には、async fnで書く方が色々楽ではあるので、 *実装だけstructにasync fnで書いて、traitの実装ではそれを呼び出すだけ* とかがオプションかな、と。
+
+** 特に難しい/めんどくさい部分
+
+*** いかに空のhtmlを返さないか
+yewではVirtual DOMを利用しているのですが、WASMを介していることもあり、 *DOM APIを直接呼び出していません* 。差分を計算し、それに対する最小限のDOM APIを実行するようにしている・・・という形になっています。
+
+それが仇になっているかどうかは置いといて、 ~html! {}~ という空のHTMLを返却したときの挙動がかなり不安定になりがちでした。yewでは、yew-routerによってroutingが切り替わったときや、初回アクセスしたときとかは、そもそも表示するために必要なデータが存在しないため、その先に進めない or 進むとえらいめんどくさい、というケースがあります。
+
+その場合、 ~html! {}~ を返すのですが、そうすると
+
+1. ~html! {}~ の差分として、表示されている全ノードが消える
+2. 次のmicrotaskで表示できるようになったので、再度全ノードが追加される
+
+
+という、削除→追加が順々に走ってしまい、routingを挟む度に画面がチカチカします。やってみた限りでは、空のhtmlを極限まで返却しないように・・・とすべきなんですが、必要なデータがOptionになっていて、それが複数個あると、デフォルト表示をするのがとてもめんどくさいです・・・。
+やるとしたら、デフォルト表示用のpresentation componentを定義してやる、というのが必要そうでした。
+
+*** callbackがめんどくさい
+yewでは、Rustのlifetime/所有権から逃れることはできません。そして、それはイベントハンドラも例外ではありません。
+
+#+begin_src rust
+  // JSだと () => props.onclick()
+
+  let onclick = {
+      let callback = props.onclick.clone();
+
+      Callbacl::from(move |_| callback.emit())
+  };
+#+end_src
+
+大体、こういう風に記述する必要があります。まぁ上の場合だとcallbackをそのまま渡してしまってもいいんですが、どちらにせよcloneは必要です。
+container componentから下のコンポーネントに渡していく場合でも、毎回こういう記述が必要なので、正直めんどくさいです。
+
+*** panicすると色々止まる
+Rustから呼び出したJSでエラーになったり、Rust側で不用意にpanicしてしまうと、その時点で *yewのハンドラとかが止まってしまいます* 。再度有効にする手段なないっぽくて、リロードするしかないという・・・。
+
+多分panicのhookとかをなんとかしたりすればいけるのかもしれませんが、DDDとかでよく利用する、 *ドメインモデルで不正な状態になったら例外を投げる* とかとは相性がよろしくないです。
+
+** webpackを使うときのtips
+
+*** hot reload超遅いのを改善する
+webpack + wasm-pack-pluginを使うと、hot reloadにも対応してくれているので、快適・・・と言いたいところなのですが、実態としては、
+
+1. wasm-packのビルドで2〜4秒
+2. webpackの再コンパイルで *20秒*
+
+
+かかるので、更新するたびに25秒くらい待つ必要があります。特に2番目が致命的で、TypeScriptだけを利用しているときと比較すると、圧倒的に待ちが発生してしまいます。
+
+これを改善する方法として、 *WASMはwebpackに任せない* という手段を取ることができます。具体的には、以下のようにwasmを直接読み込むだけのjsを用意します。
+
+#+begin_src js
+  import wasmFile from '../rust/planning_poker/pkg/index_bg.wasm';
+  async function loadWasm() {
+    let wasm = (await import("../rust/planning_poker/pkg/index")).default;
+
+    await wasm(wasmFile);
+  }
+
+  loadWasm();
+#+end_src
+
+本番用に、dynamic importするやつも用意します。
+
+#+begin_src js
+  import("../rust/planning_poker/pkg").catch(console.error);
+#+end_src
+
+webpack.config.jsにこんな感じの設定を追加します。
+
+#+begin_src js
+  const modules = isProduction ?
+        {
+          rules: [
+            {
+              test: /index.ts$/,
+              use: 'ts-loader',
+              exclude: /node_modules/,
+            },
+          ],
+        } : {
+          rules: [
+            {
+              test: /index.ts$/,
+              use: 'ts-loader',
+              exclude: /node_modules/,
+            },
+            {
+              test: /\.wasm$/,
+              type: "asset/resource"
+            }
+          ],
+        };
+
+  module.exports = {
+    resolve: {
+      alias: {
+        ...
+        "./load-wasm": path.join(__dirname, 'src', 'ts', isProduction ? 'load-wasm.prod' : 'load-wasm')
+      },
+    },
+    module: modules,
+
+    plugins: [
+      new WasmPackPlugin({
+        crateDirectory: path.resolve(__dirname, "src/rust/planning_poker"),
+        extraArgs: isProduction ? '--no-typescript --target bundler' : '--no-typescript --target web',
+      }),
+    ],
+    experiments: {
+      asyncWebAssembly: true
+    }
+  };
+#+end_src
+
+こうすることで、開発中は *WASMをwebpackでハンドリングしなくなる* ため、修正毎に20秒の待ち時間が発生する・・・といったことはなくなります。また、本番ビルドの場合は、より効率的(たぶん)な方法でコンパイルできます。本番用なので、ある程度時間がかかってもいいや、という感じですね。
+
+** よかった点
+
+*** Rustの学習ができた
+そりゃそうだろ、という事ですが、Rust自体は以前にちょっとしたツール程度しか作ったことがなく、まとまった規模は初めてでした。大分所有権のいなしかたとかを覚えはしましたが、cloneって書きすぎた感は否めません。
+
+*** 安全？に作れた
+Rustは安全な並行性を提供しているので、それを利用することで、race conditionとは無用・・・と言いたいところですが、agentsでfutureを利用したりするときの制約を考えると、やりかたを間違えると普通にborrowのエラーとかが発生します。
+
+ロジック周りについては、あんまり心配せずに実装できました。が、それも別に、どの静的型付言語を使ってもそこまで変わんないんじゃないかっていう気もします。
+
+#+begin_quote
+ブラウザ or WASMにおける実装の制約により、鉄板(多分)のmutexがそもそも利用できません。なので、なんらかの方法で、共有stateの更新を一つにまとめる必要があります
+#+end_quote
+
+** 苦しみ楽しいけどもまだ早い
+大体一ヶ月、Rust難しいよーって言いながらここまで実装しましたが、正直今のTS/JSの成熟と比較すると、RustというかWASMでDOMを云々するのはちょっと色々早いな、という感想でした。yew自体、まだ実験段階、みたいなことを書いていますし。
+
+ただ、それでもやはりWASMの制約とUIスレッドの存在、そしてRustならではの各種制約を考えると、コンポーネントライブラリとしては、現状は安全性と生産性がトレードオフになってしまっている感があります。
+
+#+begin_quote
+WASMを経由するという仕組みである以上、Reactとかよりも高速になることはまずないです。ArrayBufferを経由させるためのオーバーヘッドもありますので
+#+end_quote
+
+- 単純に ~Rustのコード量 >> TypeScriptのコード量~ 
+- コンパイル速度は ~Rust << TS~
+  - 特にTSはtype checkingを排除したり、swcを使ったりすれば、10倍とかそういう違い
+- JSとの相互作用が必要になったときに考慮事項が増えて色々しんどい
+  - 全部Rustで書いて、JS側との相互作用が皆無、となったらまだマシかもしれないけど
+- エディタサポートがしんどい
+  - 通常のマクロとして実装されているのだが、通常のマクロとして実装されている以上、Rustのコードとして扱われるので、フォーマッタが効かないとか色々ある
+
+
+wasm-bindgenなどでは、非常によくbindが生成されていて、そこに関しては問題ないのです。
+が、通常TS/JSで考慮しないheap/stackというものを、常に考慮しながら実装しなければならない、というのは、正直脳にとっても馬鹿にならないオーバーヘッドだな、と思いました(C++とかでも同じことやってたはずなので、私が劣化したという話でもありますが)。
+
+ほとんどのRust + WASMを利用しているというユースケースで、WASMを高速 or 非同期なロジックの実行元としてしか利用していない、というのも結局こういうことなんだなー、と、自分で実際に書いてやってみたりして感じました。
+
+CLI/Server sideとかを書く分には、安全性とか並行性とかの利点が上回ると思いますが、UIは現状餅は餅屋ということかな、と。私はこう感じましたが、自分でやってみると異なる結論に至るかもしれませんので、時間のあるときに触ってみちゃーいかがでしょうか。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

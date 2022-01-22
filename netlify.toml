@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = "hugo --gc -b 'https://blog.deltabox.site/' --minify --themesDir themes"
+command = "bash -c deploy.sh"
 [context.production.environment]
   HUGO_VERSION = "0.92.0"
 [context.deploy-preview.environment]

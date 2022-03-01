@@ -5,7 +5,8 @@
 #+HUGO_SECTION: post/2021/03
 #+AUTHOR: derui
 
-* TODO 最近のEmacs設定                                                :Emacs:
+* DONE 最近のEmacs設定                                                :Emacs:
+CLOSED: [2022-03-01 火 22:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: recent_emacs_configurations
 :END:

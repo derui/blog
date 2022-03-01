@@ -1,9 +1,10 @@
 +++
 title = "最近のEmacs設定"
 author = ["derui"]
-lastmod = 2022-03-01T22:53:53+09:00
+date = 2022-03-01T22:54:00+09:00
+lastmod = 2022-03-01T22:54:21+09:00
 tags = ["Emacs"]
-draft = true
+draft = false
 +++
 
 あれ？もう三月？という程度には時間の流れが早くて色々ビビってます。

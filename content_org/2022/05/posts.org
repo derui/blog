@@ -2,7 +2,7 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/05
+#+HUGO_SECTION: post/2022/05
 #+AUTHOR: derui
 
 * DONE Subnauticaをやっている話                                        :Game:

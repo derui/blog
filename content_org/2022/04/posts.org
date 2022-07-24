@@ -2,7 +2,7 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/04
+#+HUGO_SECTION: post/2022/04
 #+AUTHOR: derui
 
 * DONE TypeScriptで超シンプルなDIコンテナっぽいのを作ってみた :TypeScript:Emacs:

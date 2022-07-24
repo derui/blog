@@ -2,7 +2,7 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/03
+#+HUGO_SECTION: post/2022/03
 #+AUTHOR: derui
 
 * DONE 最近のEmacs設定                                                :Emacs:

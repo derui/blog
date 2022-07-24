@@ -2,7 +2,7 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/06
+#+HUGO_SECTION: post/2022/06
 #+AUTHOR: derui
 
 * DONE React.js + recoilをSolid.jsで置き換えてみた    :JavaScript:TypeScript:

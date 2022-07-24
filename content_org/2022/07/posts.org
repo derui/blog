@@ -1,0 +1,193 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_auto_set_lastmod: t
+#+hugo_section: post/2022/07
+#+author: derui
+
+* TODO Cycle.jsでやってたらドハマリしまくった話                       :JavaScript:TypeScript:
+:PROPERTIES:
+:EXPORT_FILE_NAME: cyclejs_problems
+:END:
+今の会社は期初が8月なんです。なので今が期末なんですが、色々ありすぎてもう月末になってました。
+
+最近[[https://cycle.js.org/][cycle.js ]]を使って趣味プログラムを作ってみているのですが、その中で色々試していたらとてつもなくハマったので、顛末含めて書いておこうかと思います。
+
+#+html: <!--more-->
+
+
+
+** Cycle.js
+以前、solid.jsについての話をちょろっと書きましたが、それよりも古株なリアクティブフレームワークです。
+
+- 全てがストリームを前提にした抽象化がされている
+- DOM部分は[[https://github.com/snabbdom/snabbdom][snabbdom]]を利用している
+  - snabbdomは軽量かつ高速な仮想DOMライブラリです
+- 関数型プログラミングが各所で意識されている
+
+
+という感じです。以前はRxJS(うっ、頭が・・・)を前提としていたようですが、現在は[[https://www.npmjs.com/package/xstream][xstream]]というストリームライブラリをデフォルトにしつつ、RxJS/mostというストリームライブラリで利用できるようになっています。
+
+** ここが楽しいよCycle.js
+ひょんなことで知ったcycle.jsですが、触ってみて色々楽しいです。
+
+- コンポーネントという概念はあるが、全部関数
+  - React.jsにおけるhookのような魔法は一切ありません
+  - streamだけ気にしたらいいので、見通しがよくしやすい
+- driverという仕組みで副作用を追い出すことができる
+  - 今作っているやつは、d3.jsとか、snabbdomと相性が色々悪いやつがあるのですが、こういうやつをdriverに追い出すことで、色々やることができます
+
+
+さて、そんな楽しいCycle.jsですが、全然関係無いところでドハマリしまくりました。
+
+** ドハマリその1。d3.jsに推移的に依存しているやつが動かない
+最近のd3.jsなんですが、 *ESM用のファイルしか提供していません* 。これはお仕事で使っているAngularとかでも発生していてマジで悲しいところなんですが・・・。
+
+今回、テストランナーとして(一部で)話題になっている [[https://github.com/lukeed/uvu][uvu]] を利用しています。uvuはNative ESMでも利用できるようになっていて、作者としてもそっちを推奨しているっぽいです。
+
+・・・が、話には聞いていたのですが、このNative ESMがとにかく鬼門でした。特にJSだけでやっているならまだしも、TypeScript + pathsのエイリアスを利用していたので、さらにドハマリしました。
+
+最終的には自作loader + esbuild-registerでテストは動くようになったのですが、uvuの特徴である爆速実行の時間＜＜＜ビルドの時間、となってしまっているので、まだ改善したいところ。
+
+*** ts-node/registerを使ってみる
+とりあえず ~node -r~ とかで利用しようと検索すると、ts-nodeがまっさきに出てきます。なのでまずはこれを利用してみることにしました。
+
+→が、動かないです。色々把握した今ならそりゃそうだろうってなりますが・・・。
+
+*** esbuild-registerを使ってみる
+次に、uvuの作者が使っているというesbuild-registerを使ってみることにしました。
+
+→が、Native ESMでは動かないです。これはそもそもesbuild-register側がESMの解決に対応していないため、っぽいです。
+
+*** tsmを使ってみる
+さらに、uvuの作者が作ったtsmというライブラリを利用してみました。
+
+→動く。が、遅い・・・。という感じになってました。というかpathsを上手く解決できなかった。
+
+*** (採用)自作loader + esbuild-register
+https://kimuson.dev/blog/typescript/ts_node_esm_paths/
+
+課題として、 *pathsが解決できない* ということと、 *TypeScriptをimportできない* ということを解消するには、esmのloaderをなんとかするか、esbuild-registerを使えばとりあえずいける、ということまではわかりました。(かなり怪しいですが)
+
+なので、最終的には↑を参考にして、tsx/tsの場合はcommonjsとして読み込むように強制しつつ、esbuild-registerでbundleしてもらう、という道でなんとかなりました。
+
+ただ、esbuild-registerだとbundleを作成するため、d3.jsの依存があるとd3.jsも含めてbundleしてしまっているようで、かなり(tscより速いとはいえ)時間がかかります。bundleしないはずのswcを使ったりしたらいいのかもしれませんが、まだこの構成にしてから試せてないです。
+
+#+begin_src js
+import fs from 'fs';
+import path from 'path'
+import typescript from 'typescript'
+import { createMatchPath } from 'tsconfig-paths'
+
+const { readConfigFile, parseJsonConfigFileContent, sys } = typescript
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
+
+const configFile = readConfigFile('./tsconfig.json', sys.readFile)
+if (typeof configFile.error !== 'undefined') {
+  throw new Error(`Failed to load tsconfig: ${configFile.error}`)
+}
+
+const { options } = parseJsonConfigFileContent(
+  configFile.config,
+  {
+    fileExists: sys.fileExists,
+    readFile: sys.readFile,
+    readDirectory: sys.readDirectory,
+    useCaseSensitiveFileNames: true,
+  },
+  __dirname
+)
+
+const matchPath = createMatchPath(options.baseUrl, options.paths)
+
+const extensionsRegex = /\.ts$|\.tsx$/;
+
+export async function load(url, context, defaultLoad) {
+  if (extensionsRegex.test(url)) {
+    const { source } = await defaultLoad(url, { format: 'module' });
+    return {
+      format: 'commonjs',
+      source: source,
+    };
+  }
+  // let Node.js handle all other URLs
+  return defaultLoad(url, context, defaultLoad);
+}
+
+export async function resolve(specifier, context, defaultResolve) {
+  const matchedSpecifier = matchPath(specifier)
+  return defaultResolve(
+    matchedSpecifier ? `${matchedSpecifier}` : specifier,
+    context,
+    defaultResolve
+  )
+}
+#+end_src
+
+** ドハマリその2。jsdomでcycle.jsが動かない
+だいたい丸２日溶かしました。Cycle.jsが提供しているDOM driverという機構は、eventをstreamとして扱う機能があるのですが、何をどうやってもこのeventがjsdom上だと動きませんでした・・・。
+
+軽く見た感じだと、EventDelegatorというのが刺さっているので、jsdom側でfireできれば基本的には問題ないはず・・・だったんですが、どうにも動かせず
+
+#+begin_quote
+今考えると、bubbleされてなかったんじゃないかとかは色々ありますが
+#+end_quote
+
+最終的には、同じくCycle.jsが提供している ~mockDOMSource~ と、[[https://github.com/cyclejs/cyclejs/tree/master/time][@cycle/time]]、そして snabbdom-selectorを利用して書くことにしました。最終的にpromiseでラップしたら普通に動くし、visual testingしているわけでもないから十分かな・・・という。
+
+#+begin_src typescript
+test("allow user to submit if all value is valid", async () => {
+  await new Promise<void>(async (resolve, rej) => {
+    // Arrange
+    const Time = mockTimeSource();
+    const domain$ = Time.diagram("--x------|", { x: { target: { value: "domain" } } });
+    const cred$ = Time.diagram("---x-----|", { x: { target: { value: "cred" } } });
+    const submit$ = Time.diagram("----x----|", { x: { target: {} } });
+    const dom = mockDOMSource({
+      ".user-configuration__user-domain": {
+        input: domain$,
+      },
+      ".user-configuration__credential": {
+        input: cred$,
+      },
+      ".user-configuration__form": {
+        submit: submit$,
+      },
+    });
+
+    // Act
+    const sinks = UserConfigurationDialog({ DOM: dom as any });
+
+    const actual$ = sinks.DOM.map((vtree) => {
+      return select(".user-configuration__submitter", vtree)[0].data?.attrs?.disabled;
+    });
+    const expected$ = Time.diagram("a-ab-----|", { a: true, b: false });
+
+    // Assert
+    Time.assertEqual(actual$, expected$);
+
+    Time.run((e) => {
+      if (e) rej(e);
+      else resolve();
+    });
+  });
+});
+#+end_src
+
+例としては↑のようになりました。結構diagramの長さとかにも影響するので、長さを揃えないと大分使いづらくもあるのですが、まぁそれはそれで・・・という感じです。
+
+ほぼpureな状態でテストできるのも、Cycle.jsの魅力だと思うことにして、browser testingはまた別で考えよう・・・となりました。
+
+** d3.jsにハマる
+後はd3.jsに色んな意味でハマりました。enter/exitとかを把握するのがとても辛い・・・。また、d3.jsだけの世界を築いているため、仮想DOMとの相性が悪いとかも色々ありますが、まぁここはdriverに分離できる、ということに気付き、結構綺麗に分離できました。個人的にはhookよりよほど仕組みとしてわかりやすいです。
+
+** ESMはマジ難しい
+とりあえずドハマリしたのはESM周辺でした。TypeScriptとESMの相性の悪さは話には聞いていましたが、自分でぶつかると意味合いの理解もひとしおですね・・・。
+
+色々な方の情報を参考にさせてもらいましたが、もし同じようなことをしようとしている人の参考になれば。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

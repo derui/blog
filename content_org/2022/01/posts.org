@@ -2,7 +2,7 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/01
+#+HUGO_SECTION: post/2022/01
 #+AUTHOR: derui
 
 * DONE Rust + YewでTypeScript + Reactをリライトしてみた          :Rust:OCaml:

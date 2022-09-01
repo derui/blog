@@ -5,7 +5,8 @@
 #+hugo_section: post/2022/07
 #+author: derui
 
-* TODO Cycle.jsでやってたらドハマリしまくった話                       :JavaScript:TypeScript:
+* DONE Cycle.jsでやってたらドハマリしまくった話                       :JavaScript:TypeScript:
+CLOSED: [2022-09-01 木 22:22]
 :PROPERTIES:
 :EXPORT_FILE_NAME: cyclejs_problems
 :END:

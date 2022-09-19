@@ -134,6 +134,8 @@ CLOSED: [2022-09-10 土 10:19]
 
 前回はCDKを使い始めたという話になりましたが、今回はCDKで構成したものを、そのままローカルで動かしたいという要求に対してアプローチしてみました。
 
+#+html: <!--more-->
+
 ** こうやりたい
 CDKはお手軽にAWSにデプロイできますが、デプロイ = お金がかかることと同義なので、できればローカルで試せるだけ試してからやりたいところです。色々調べた感じでは、アプローチとしては二通りあるようでした。
 
@@ -148,10 +150,10 @@ CDKはお手軽にAWSにデプロイできますが、デプロイ = お金が�
 SAM CLIは、とりあえずローカルにインストールする必要があります。
 
 #+begin_src bash
-$ curl -LO <url>
-$ unzip -d aws-sam-cli <file>
-$ cd aws-sam-cli && sudo ./install
-$ sam --version
+  $ curl -LO <url>
+  $ unzip -d aws-sam-cli <file>
+  $ cd aws-sam-cli && sudo ./install
+  $ sam --version
 #+end_src
 
 こんなくらいでお手軽です。x86用とarm用でバイナリが分かれているので、その点だけ注意したらよさそうです。
@@ -160,7 +162,7 @@ $ sam --version
 SAM CLIは、本来はSAM = Serverless Application Modelに基づいたワークロードをサポートするためのツールなので、 ~template.yml~ というCloudFormationが要求されます。これはcdkから吐き出せるので、吐き出しときます。
 
 #+begin_src bash
-$ npx cdk synth --no-staging > template.yml
+  $ npx cdk synth --no-staging > template.yml
 #+end_src
 
 こうすることで、CloudFormationのファイルが作成できます。
@@ -169,11 +171,11 @@ $ npx cdk synth --no-staging > template.yml
 さて、ここまで来たら、SAM CLIからローカルAPIを立ててみます。
 
 #+begin_src bash
-$ sam local start-api
-Mounting <function> at http://127.0.0.1:3000/{proxy+} [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
-Mounting <function> at http://127.0.0.1:3000/ [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
-You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. You only need to restart SAM CLI if you update your AWS SAM template
-2022-09-03 08:40:23  * Running on http://127.0.0.1:3000/ (Press CTRL+C to quit)
+  $ sam local start-api
+  Mounting <function> at http://127.0.0.1:3000/{proxy+} [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
+  Mounting <function> at http://127.0.0.1:3000/ [DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT]
+  You can now browse to the above endpoints to invoke your functions. You do not need to restart/reload SAM CLI while working on your functions, changes will be reflected instantly/automatically. You only need to restart SAM CLI if you update your AWS SAM template
+  2022-09-03 08:40:23  * Running on http://127.0.0.1:3000/ (Press CTRL+C to quit)
 #+end_src
 
 こんな感じの表示が出たら、 ~http://localhost:3000~ にアクセスしてみます・・・が。ここで問題が発生するケースがあります。多分pythonとかnodeのコードをそのまま利用している場合は普通に動くと思いますが。
@@ -203,6 +205,176 @@ API Gatewayという巨大な仕様がベースになっていたり、色々や
 が、さしあたって使えるというレベルであれば、一旦構築してしまえば後はワークロードとして動作させられるかな、とは思います。が、Buildkitが利用できなかったりするため、multi-stageを利用していたりすると、cache戦略はかなり難しい印象です。
 
 ここらへんはもうすこし調べて、効率的にしてみたいなーとは思います。
+
+* DONE TypeScript + Native ESM + uvuでテストしたい                      :TypeScript:
+CLOSED: [2022-09-19 月 09:47]
+:PROPERTIES:
+:EXPORT_FILE_NAME: ts_as_native_esm_with_uvu
+:END:
+今年は残暑がそこまで厳しくなくて過ごしやすく、とてもいい感じです。この数年、残暑というか秋が無くていきなり夏から冬にいくような感じでしたし。
+
+最近弄っているTypeScriptで、Native ESM + uvuでテストを動かせるようにしてみたいのですが、とても苦戦したのでとりあえずメモを残しておきます。
+
+#+html: <!--more-->
+
+** やりたいこと
+- TypeScriptを使っている
+- テストランナーは [[https://github.com/lukeed/uvu][uvu]] を使っている
+- Native ESMでやりたい
+  - tsconfig.jsonの  ~module: "esnext"~ と、package.jsonの  ~type: "module"~ の状態で上手く動くようにしたい
+- Cycle.js + xstreamの環境。ビルドはviteで実施
+
+
+素直にvitest使えばいいじゃんという声が聞こえますが、仕事で効率を求めるならともかく、個人では色々触っておきたいので、jestと同じような書き味になるのがわかってるvitestには食指は動きません。
+
+** 困っていること
+以前も書きましたが、TypeScriptが挟まっているので、どうしても  ~TypeScript → JavaScript~ という変換を挟む必要があります。しかも、TypeScriptはimportしているライブラリなどについては *一切* 書き換えないことを保証しているため、 ~paths~ で絶対パスのインポートとかしていると100%ハマります。
+
+ここについては、  ~tsconfig-paths~ を利用すると同時に、NodeJSのESM loader(まだまだexperimental)を利用することで解消できます。ここまでは前回書きました。
+
+現在の問題としては、 *esbuild-registerがbundleしてしまうため、どうしてもテストの実行に時間がかかる* という点です。これ自体に問題はないのですが、テストのビルド時間と実行時間が、
+
+- テストの実行時間 :: 20ms前後
+- テストのビルド時間 :: 2s前後
+
+
+となってしまっています。uvuは必要最低限のrunnerなので、watchモードとか変更されたものだけ実行とかそういうのは用意されてませんので、このinitialコストは常に残りつづけます
+
+#+begin_quote
+作者のスタンス的に、そういうのはchokidarとかでできるだろ？というスタンスな模様。まぁそりゃそうではある。
+#+end_quote
+
+** 試していること
+元々esbuild-registerを利用しているところを、[[https://swc.rs/][swc]]を利用してみようとしてます。swcはバンドルせずに、単に変換するだけなので、毎回変換するとはいえ、結構速いんではないか？という想定です。
+
+一応動きはして、大体ビルド時間が半分くらいにはなったんですが、今度は  ~xstream~ に課題があることがわかりました。xstreamは *Fake ESM* と界隈で呼ばれている、babelなどでTypeScriptからtranspileされたものとして提供されています。これをNative ESMから利用すると、default importが全滅するという状態になってます。( ~xs.default~ としないと使えない)
+esbuildの場合は、1ファイル毎にbundleしていると思われるため、xstreamがCJSでもよしなにしてくれているのだと思いますが。
+
+#+begin_quote
+ただ、数十ファイルくらいしかないのに1秒かかるということは、一つあたり20msだとして、ほぼ直列で処理が走っているということでもあります。FFIはIO待ちではないのかな。
+#+end_quote
+
+ここをどうしたらいいのか？で止まってしまっています。一応、 babelのプラグインとして [[https://www.npmjs.com/package/babel-plugin-node-cjs-interop][node-cjs-interop]]というのがあるので、これを利用してswc→babelとしてやればそこまで問題ない・・・というところは確認できました。まぁbabelもかけるって時点で色々無駄なのですが。
+
+前述のplugin、swc版もあるのですが、どうもexperimentalの宿命か、swc自体のバージョンアップに伴なって仕組み自体が変更されたためか、現状npmにpublishされているものは、それなりに古いswcでしか動作しないようです。ここを動くようにしたPRを出す、とかやった方がいいかもしれないんですが・・・。
+
+** 過去のレガシーとの付き合い方
+この辺、仕様を先行して実践が進んでしまい、かつそれが広く利用されていたがために発生している、という形なのがまた難しいところです。ライブラリ側が対応するのが基本とはいえ、ライブラリによってはメンテナがすでに活動していないとかもありえると思いますし。
+
+現状は利用側が色々やってあげる必要があります。実際、viteなりwebpackなりを利用していれば、特に問題なくよしなにしてくれるので。でもこういうややこしさがバンドラとかにはあるんだぞ、というのを知るというのも大事かなーと思ったり思わなかったりしている今日この頃です。なんか他にいい方法ないかなーと探している感じです。
+
+* DONE CDKで構築したAPI GatewayにAPI keyを使うようにしたい                             :AWS:
+CLOSED: [2022-09-19 月 10:15]
+:PROPERTIES:
+:EXPORT_FILE_NAME: api_key_on_cdk
+:END:
+三連休が二回あるというのはいいなぁと思うものの、仕事できる日数が減るということもまた事実。ずっと仕事していたいというワーカホリックではないと思ってますが、意外とコミットしたい場合に時間が使えないというのは、それはそれでストレスです。
+
+今回は、CDKでAPI Gatewayを作ったとき、API keyをどうやってやればいいんだこれ・・・ってなったのを解決したので、それについて書きます。
+
+#+html: <!--more-->
+
+
+** こうやりましょう
+#+begin_src typescript
+export class CdkStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    const handler = new lambda.DockerImageFunction(this, "handler", {
+      functionName: "test-handler",
+      code: lambda.DockerImageCode.fromImageAsset("../"),
+    });
+
+    const restApi = new apigw.LambdaRestApi(this, "Endpoint", {
+      handler: handler,
+      apiKeySourceType: apigw.ApiKeySourceType.HEADER,
+      proxy: false,
+    });
+
+    const integration = new apigw.LambdaIntegration(handler, {
+      proxy: true,
+    });
+
+    const resource = restApi.root.addResource("api1");
+    resource.addMethod("POST", integration, { apiKeyRequired: true });
+    resource.addMethod("OPTIONS", integration, { apiKeyRequired: false });
+
+    new apigw.RateLimitedApiKey(this, "default", {
+      apiKeyName: "default",
+      apiStages: [
+        {
+          api: restApi,
+          stage: restApi.deploymentStage,
+        },
+      ],
+      resources: [restApi],
+      enabled: true,
+      throttle: {
+        rateLimit: 10,
+        burstLimit: 10,
+      },
+    });
+  }
+}
+#+end_src
+
+** 簡単な説明
+今回使ったものは、 ~LambdaRestApi~ のconstructです。こいつは、API Gatewayを使う上でこんな感じにしてくれます。
+
+- Lambda functionとGatewayの間におけるIAMの諸々
+- proxy設定
+
+
+ですが、今回作ろうとしているやつは、preflightが必要で、かつこのpreflightにはAPI keyを使えない・・・という話がありそうでした(実際にどうなのかは確認しきれてない)。なので、optionsにはAPI keyを利用させたくないのですが、  ~LambdaRestApi~ にはそういう設定はできず、全部のmethodに対してどう設定するか・・・しか行うことができません。
+
+そこで、まずせっかくやってくれてるものですが、まずproxy設定を削除します。
+
+#+begin_src typescript
+const restApi = new apigw.LambdaRestApi(this, "Endpoint", {
+  handler: handler,
+  apiKeySourceType: apigw.ApiKeySourceType.HEADER,
+  proxy: false, // ←ここ
+});
+#+end_src
+
+こうすると、 ~{proxy+}~ という定義が削除される代わりに、全部自分で定義してやる必要があります。ただ、今回の処理は基本的に全部lambdaに流れてきてもらって問題ないやつなので、proxyはしときたいです。
+
+その場合、integrationというものを設定する必要があります。これをやっているのがこれです。
+
+#+begin_src typescript
+const integration = new apigw.LambdaIntegration(handler, {
+  proxy: true,
+});
+#+end_src
+
+ここでproxyを設定することにより、 ~addMethod~ でhttp methodを追加するときに、どういうintegrationを行うのか？を設定できます。あとは、 ~addMethod~ のオプションでAPI keyを必要とするかどうか？を決定していきます。
+
+** APIキーの作り方
+APIキーは、幾つかの作り方があります。
+
+- APIのconstructから  ~addApiKey~ で追加する
+- ApiKeyのconstructを作ってAPIと関連づける
+- UsagePlanとセットで作る
+
+
+今回、あんまり叩かれすぎても困るので、UsagePlanと関連づけるようにしました。 ~RateLimitedApiKey~ を作ることで、 *UsagePlan* と *ApiKey* をペアで作成してくれます。
+
+この場合、ApiKeyとRestApiの接続するためには、まずstageで接続しないといけません(API Gatewayのマネコン上にあるstageと同じ)。これをやらないと、UsagePlanが上手く機能してくれません。ここが結構注意ですが、マネコンを見ながら想像していくのがまぁいいのかなぁ、という感じでした。
+
+** わかってしまえばわかるけど
+CDKをちょろちょろ触ってみて、最終的にCloudFormationになるということ、大体はAWSにおけるResource表現と変わらないということがわかると、terraformとかよりも書きやすい感じがします。
+
+terraformよりも明示的にわかりやすいのは、慣れ親しんだ言語自体で作成できるため、ループとか変数を使うために特殊なことをする必要がない、という点ですね。
+
+#+begin_quote
+terraformも最新だとまだわかりやすいですが、やっぱり色々と課題があると思ってます
+#+end_quote
+
+逆に、CDKはCFnを裏で実行するため、terraformよりも処理が圧倒的に遅いです。API Gatewayとlambdaを作るだけで、更新でも60秒とか必要になります。一応開発中はterraform同様にAPI実行していくということができるのですが。
+ただterraformだとrollbackとかしてくれず、中途半端な状態になるケースもありますが、CFnはそこらへんもハンドリングしてくれるので、トレードオフかなぁという。
+
+これから先どうなっていくのかはわかりませんが、その快適さはなかなかなものですので、一回触ってみるのはいかがでしょうか。
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:

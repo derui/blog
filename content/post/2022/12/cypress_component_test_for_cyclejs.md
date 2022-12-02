@@ -1,8 +1,9 @@
 +++
 title = "Cypressのcomponent testをcycle.jsのコンポーネントでも使えるようにしてみた"
 author = ["derui"]
+date = 2022-12-03T08:55:00+09:00
 tags = ["AWS", "TypeScript"]
-draft = true
+draft = false
 +++
 
 あれ？もう12月？ってくらいに早く一ヶ月が過ぎていきました。もう師走ですね。

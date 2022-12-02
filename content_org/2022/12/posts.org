@@ -4,7 +4,8 @@
 #+hugo_section: post/2022/12
 #+author: derui
 
-* TODO Cypressのcomponent testをcycle.jsのコンポーネントでも使えるようにしてみた                     :AWS:TypeScript:
+* DONE Cypressのcomponent testをcycle.jsのコンポーネントでも使えるようにしてみた :AWS:TypeScript:
+CLOSED: [2022-12-03 土 08:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: cypress_component_test_for_cyclejs
 :END:

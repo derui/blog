@@ -4,7 +4,8 @@
 #+hugo_section: post/2022/11
 #+author: derui
 
-* TODO JIRAの課題を依存関係で表示できるツールを作ってみた                :AWS:TypeScript:
+* DONE JIRAの課題を依存関係で表示できるツールを作ってみた    :AWS:TypeScript:
+CLOSED: [2022-12-03 土 08:10]
 :PROPERTIES:
 :EXPORT_FILE_NAME: jira_issue_viewer
 :END:

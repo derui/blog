@@ -1,0 +1,159 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_section: post/2023/02
+#+author: derui
+
+* DONE 直接importとalias import :TypeScript:
+CLOSED: [2023-02-25 土 17:52]
+:PROPERTIES:
+:EXPORT_FILE_NAME: named_import_vs_alias_import
+:END:
+気付いたら二月が終わろうとしているんですけどどういうことですか(困惑)
+
+最近、前作ったやつをリファクタリングしているときに、うーんと思っていたものがあったので、ちょっと書き連ねてみます。
+
+#+html: <!--more-->
+
+** ESMのインポート
+(ここは私の理解も怪しいですが)
+
+ES2015以降、 ~import~ と ~export~ によるモジュールのインポート・エクスポートが一般的になりました。元々のnodejsにあったrequireを、今でもwebのバンドラ経由で使っているというケースは、レガシーなアプリケーションを書いているのでもない限りはほぼ無くなったのではないかな、と思います。
+
+#+begin_quote
+特殊な用途でrequireを必要とするケースがあるっぽい感じはしますが
+#+end_quote
+
+さて、そんなimportですが、利用方法としては大きく２系統あると思います。
+
+#+begin_src typescript
+
+  // named exportされているmoduleの中からnamed importしてくる
+  import {readFile} from 'node:fs';
+
+  readFile(hogehoge)
+
+  // named exportされているもの(defaultも含むかな？)を全てfsという名前空間に入れて利用する
+  import * as fs from 'node:fs'
+
+  fs.readFile('hogehoge')
+#+end_src
+
+一つは、moduleでnamed exportされているものをそのまま利用する、という方法。VS CodeとかLSPでの補完の場合、ほぼほぼこのケースになると思います。
+もう一つは、昔のrequireみたいに、named exportしているものを、利用側でaliasを付けて利用する、というケース。LSPとかだとこのケースはほぼほぼ利用されません。
+
+#+begin_quote
+私が利用しているLSPサーバーは[[https://github.com/typescript-language-server/typescript-language-server][typescript-language-server]]になります
+#+end_quote
+
+観測範囲(お仕事含む)では、よほどのケースが無ければ最初のimport形式を利用しているのが多そうです。私も大体前者を利用してます。
+
+** named exportしているものを直接importする場合の弊害
+さて、ここまでだとそれで？感満載なのですが、最初の形式(以降named importと書きます)では、実装において課題になるケースがいくつかあったりするなーと最近感じています。
+
+例えば、OCaml(なぜか突然出てくる)だと、基本的に *1モジュール1データ型* というのが、最近のナウでヤングな方針です。その場合、大抵以下のように記述します。
+
+#+begin_src ocaml
+  type t = {...}
+
+  let make ~a ?b = {...}
+
+  let hoge_hoge t = ...
+#+end_src
+
+~type t~ というのはOCamlの習慣ですが、要はそのモジュールを代表する型を  ~t~ とおき、これ以外をうまいこと隠蔽することで、カプセル化だったりを推進できます。OCamlでは、ファイル = モジュールなので、 ~Hoge.t~ みたいな形でのアクセスが強制されるため、事実上identifierの被りは発生しません。
+そのため、同じ型だったり関数名だったりを各モジュールで利用できるため、実装に一貫性を出すことができますし、またそのモジュールにおいて冗長ではないシンプルな名前を付けることが可能になります。
+
+対してJavaScript/TypeScriptだと、割とこんな書き方になったりします(単純なmapperをイメージしてます)。
+
+#+begin_src typescript
+  // abc.ts
+  type Abc = {...}
+
+  export const abcToVMapper = function abcToVMapper(obj: T): V {
+    // TからVへの変換処理・・・
+    return ...
+  }
+#+end_src
+
+expression styleなのは個人の趣味です。ここで重要なのは、  *本質的には単純にmapToBという関数が、そのモジュールの名前を含んでいる* という点にあります。ESM Importの仕様上、このmoduleがどういう名前になるか？は利用側によってしか決定されないはずです。
+
+また、型名も冗長な名前です。 *abcというモジュールにおける型を定義していて、それに関する処理が含まれているはずなのに、なぜ冗長な名前が必要なのか* という疑問が湧いてきます。
+
+#+begin_src typescript
+  // abc.ts
+
+  export type T = {...}
+
+  export const mapToV = function mapToV(obj:T): V {
+    return ...
+  }
+#+end_src
+
+↑こんなんでもいいんではないでしょうか。
+
+** alias importを使うときの課題
+対して、alias importを利用する場合、提供側のモジュールは冗長な名前である必然性はまったくありません。利用側が適当な名前を付ければいいだけです。
+
+#+begin_src typescript
+  // abc.ts
+
+  export type T = {...}
+
+  export const create = function create() {
+    return ...
+  }
+
+  // user.ts
+  import * as Abc from "./abc";
+
+  const a: Abc.T = Abc.create();
+#+end_src
+
+こんな感じにできます。短く書きたい？私は仕事のコードで ~convertLongTypeNameToLongTypeName~ みたいな関数をexportするようなのを書いたことありますが、これが ~AbcConverter.toLongTypeName~ になった方が短くないですか？
+
+若干LSPとかのドキュメントがわかりづらくなるケースはありますが、推論などには一切問題は発生しないです。
+
+唯一あるとしたらtree shakingが効かなくなるじゃないか!って話だと思いますが、ライブラリならいざしらず、自分で書いたコードの一部がtree shakingされなくても別に困らなくないですか？
+
+#+begin_quote
+コードベースが超巨大なら問題になるケースはあると思いますが、その場合はそもそもルーティングの見直しとかlazy importを検討するとかの方が本質的だと思います。tree shakingを気にするのはライブラリ提供者くらいな気がします。
+#+end_quote
+
+実際、aliasは必要なケースがあるため、一個二個程度ならどうってことないですが、複数のモジュールが入り交じる場合、aliasが挟まった方がわかりやすくなるケースも往々にしてあると思います。
+
+** とはいえ書くのめんどくさいんだよ・・・
+補完に飼い馴らされた現代プログラマにとって、LSP/IDEが勝手に挿入してくれるやつからは逃れづらい・・・ってのはあると思います。そんなときは文明の利器で楽をしましょう。
+
+私はEmacsのスニペットとして↓を作って使ってみてます。yassnipetが動いている間にauto saveが挟まるとしんどいとか、corfuの選択とバッティングして辛いとか多少はありますが、概ね問題なく利用できます。
+
+#+begin_src text
+  # -*- mode: snippet; require-final-newline: nil -*-
+  # key: imp
+  # group: typescript
+  # binding: direct-keybinding
+  # expand-env: ((yas-indent-line 'auto) (yas-also-auto-indent-first-line 't) (yas-wrap-around-region 'nil)
+  # --
+  import * as ${1:$(s-upper-camel-case (car (reverse (s-split "/" yas-text))))} from "$1";
+  $0
+#+end_src
+
+自動的にそれっぽいmodule名にしてくれます。 ~s.el~ が必要ですけども。
+
+** 今回の話の範囲
+ちなみに、私は全領域でこういうことをやれ、という気持ちはまったくないです。AngularだったりReact.jsだったり、コンポーネント部分はそれぞれが説明的な名前であるべきだと思うので、それについてはnamed importなりdefault importしてきたらいいと思います。
+
+どちらかというとロジックやmapperといった、関数でやりとりするロジックなどに対しての感情が多いです。モジュールの中にわざわざオブジェクトを定義してその中にメソッドを定義する・・・みたいなのは正直無駄だし、関数自体をexportするのが適切なのに無闇に説明的にして認知負荷が上がったり・・・ってのもありますし。
+
+** オチはありません
+最近考えたり実践したりしていることを書き連ねてみました。仕事ではほんのちょっとしか導入していない(他が全然違うので、一貫性の方を重視)んですが、特に変換処理の系統では利用できないかな？と思ったりしてます。
+
+すごいどうでもいいですが、TypeScriptをガリガリ書くようになってからsnippetの利用頻度がめっちゃ上がりました。34キーのキーボードだと記号打ってらんないですよね・・・。
+
+めんどくさいことについて、楽をするというのは大事だなぁ、というのを身に沁みて感じています。みなさんも怠惰になりましょう。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+*

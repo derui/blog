@@ -5,7 +5,7 @@ theme = "hugo-nuo"
 enableRobotsTXT = true
 PygmentsCodeFences = true
 canonifyurls = true
-googleAnalytics = "UA-125827187-1"
+googleAnalytics = true
 
 [[menu.main]]
   name = "Home"

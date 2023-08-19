@@ -4,7 +4,8 @@
 #+hugo_section: post/2023/07
 #+author: derui
 
-* TODO LSPクライアントをlsp-modeからEglotに切り替えてみた :Emacs:
+* DONE LSPクライアントをlsp-modeからEglotに切り替えてみた :Emacs:
+CLOSED: [2023-08-19 土 11:04]
 :PROPERTIES:
 :EXPORT_FILE_NAME: switch_to_eglot
 :END:

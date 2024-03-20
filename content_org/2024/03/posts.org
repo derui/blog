@@ -1,0 +1,48 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_section: post/2024/03
+#+author: derui
+
+* DONE propertizeした文字列をバッファに入れたい :Emacs:
+CLOSED: [2024-03-20 水 22:17]
+:PROPERTIES:
+:EXPORT_FILE_NAME: build_7spro
+:END:
+あれ、もう桜が咲きそうなんですけど？？？
+
+今回は超小ネタです。ちょっと今Emacsをいじっているなかでなかなか出来なかったので。
+
+#+html: <!--more-->
+
+** やりたいこと
+こういうことがやりたいんです。
+
+#+begin_src emacs-lisp
+  (insert (propertize "sample" 'face (:foreground "red")))
+#+end_src
+
+が、例えばこれをscratchバッファでやると、faceが反映されません。whyなんで！？ってなりますね。
+
+** こうしよう
+例えば今のバッファに入れたければ、こうしましょう。
+
+#+begin_src emacs-lisp
+  (with-current-buffer (current-buffer)
+    (insert (propertize "sample" 'face '(:foreground "red"))))
+#+end_src
+
+なんでこれで動くん？って話ですが、公式のドキュメントにちゃんと書いてあるようです。
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Current-Buffer.html
+
+要は、lisp programや関数の中では、bufferが関連付けられていないので、propertyを設定してもfaceを反映する処理が動かないよ、ということのようです。propertize自体は動いているのにバッファに反映されなくて？？？ってなってましたが、私はこれで解消しました。
+
+** 小ネタも書いていきたい
+ネタ自体は、またキーボード変えたとかいくつかあるんですが、目下大きめのネタが進行中で、そっちに集中している全然書けない、というジレンマ状態です。もうちょっとしたらかけるようになると思うので、それまでも小ネタを書いていけるようになりたいところです。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+*

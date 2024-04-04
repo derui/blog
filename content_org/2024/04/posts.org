@@ -1,0 +1,131 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../../../
+#+hugo_section: post/2024/04
+#+author: derui
+
+* DONE Alacritty + Nushell + Zellijにしてみた :環境設定:
+CLOSED: [2024-04-04 木 20:56]
+:PROPERTIES:
+:EXPORT_FILE_NAME: alacritty_nushell_zellij
+:END:
+新入社員の群れを見るたび、春を感じますね？（ほんとか？
+
+最近色々あって、がらっと環境を変えてお試ししているところなので、それらについて書こうかと思います。
+
+#+html: <!--more-->
+
+** 行き着くまでの変遷
+Alacritty + tmuxで長い間生活していました。ただ、せっかくAlacrittyで高速なのに、tmuxで結構わかるレベルで遅いなぁ、とも思っていました。
+
+そこで、Kittyを試してみました。
+
+https://sw.kovidgoyal.net/kitty/
+
+kittyはこれです。特徴としては、
+
+- GPU accellarated
+- Go言語製なので高速・ワンバイナリ
+- kittenという拡張ができる
+- Sixelなど、普通サポートしていないようなプロトコルもサポートしている
+- tab/paneが組み込みでサポート
+  - 公式がtmuxいらないよ、って書いてる
+  - https://sw.kovidgoyal.net/kitty/faq/#i-am-using-tmux-and-have-a-problem
+
+
+これはこれで悪くなかったんですが、最近使うようになって気に入った https://github.com/yuru7/moralerspace が使えないことと、設定ファイルがあまり機能的ではないことが気にかかりました。
+
+で、次に https://github.com/wez/wezterm weztermを試してみました。
+
+- Rust製
+- GPU Accellarated
+- *Luaで* 拡張できる
+  - 設定ファイルの柔軟性ではNo.1か？
+- tab/paneが組み込みでサポート
+- フォント設定がとても柔軟
+- ドキュメントが非常に充実している
+  - ほんとに個人プロダクトか・・・？ってくらい充実してます。えげつない
+
+
+導入してみて結構良かったんですが、 *Waylandとの相性がよくない* という問題がありました。気づいたら落ちててアレ？って何回かなりました。
+
+また、tab/paneが組み込みであるとはいえ、そのキーバインドを覚えるコストと、安定性という話を天秤にかけたところ、最終的にAlacrittyに戻ってきました。
+
+** ZellijとNushell
+tmuxはもう長いとこお世話になっていましたが、なんか変えるんなら一気に変えようと思い、Zellijを導入してみることにしました。
+
+https://zellij.dev/
+
+Rust製で、tmuxやscreenとおなじようなterminal multiplexerです。結構特徴的なUIがbattery includedされており、いろいろな機能が提供されています。もうtmuxとは別物ですね。
+
+ここまで来たんならいっそ行くところまでいったれ、ということで、以前見かけて気になっていたNushellも導入することにしました。もともとはfishでした。
+
+https://www.nushell.sh/
+
+Alacritty + Zellij + Nushellということで、Rust３兄弟が完成したことになります。
+
+** Zellijの気になるとこ
+Alacritty自体はシンプルさと基本機能に全振りしているという状態なので、zellijが色々拡張をする感じになるんですが、使っていると結構気になる部分はあります。
+
+- copy modeがない
+  - tmuxでめちゃくちゃ使っていたので、代替を模索中です
+  - とりあえず、scrollback_editorにnvimを指定して、nvimの設定としてclipboardを利用する、という感じでできそうだったのでやってみてます
+  - 本当はEmacsで開くのが楽なんですが、仕事で使うmacOS上でEmacsをbuildしている都合上使いづらいという
+- デフォルトで結構なバインドを持っていく
+  - ~C-p~ や ~C-s~ といった、結構使われるバインドが最初から定義されています
+  - ~C-g~ で一時的に無効化出来ますが、結構ストレスになってきたりします
+  - ここは絶賛模索中
+- macOSだとパフォーマンスに課題があるかもしれない
+  - 仕事のmacOSでは結構ちらつきます
+  - 単に仕事のmacで色々動いているからか、Alacrittyのほうなのか？はきりわけできてません
+
+
+とはいえ動作はキビキビしていて、使っていて楽しさはあります。
+** Nushellの気になるとこ
+fishが気が効きすぎていた、というだけの気分ですが。
+
+- historyが先頭一致
+  - fishは部分一致で戻れたので、結構アレ？ってなってます
+  - fzfでどうとでもなる部分なのでなんとかできはします
+- gitのブランチ補完とかがない
+  - nu_scriptを使うか、自分で実装する必要があります
+  - fishはかなり解析してくれていた、ってのがよくわかります
+  - とはいえ補完を書くのはかなり楽なので、別に問題はなかったりします
+- debugがむずい
+  - だいぶRustの気配がするscriptなんですが、key bindに仕込んだりしたものがエラーになったりすると結構しんどいです
+- scopeが全体的に影響する
+  - scriptの中でcdしたりしても、そのままだと *呼び出し側はcdされません*
+  - commandにflagをつけたりする必要があります。ghqで移動するcommandを追加しようとしてドハマりしました
+
+
+
+ghqの例だと、こんな感じで書く必要がありました。
+
+#+begin_src bash
+export def --env ghq [] {
+  ^ghq list --full-path | fzf --layout=reverse --height=40% | decode utf-8 | str trim | cd $in
+}
+#+end_src
+
+~--env~ がポイントです。後、 ~^~ という記号がありますが、先頭にこれがないと組み込みを探そうとしてしまってエラーになります。
+
+redirectとかも互換性がないんですが、ここまで互換性がないといっそ清々しいので、もうちょっとカスタマイズしてみようかと思います。
+** 春なので
+いつものdotfilesに追加していってます。
+
+zellij: https://github.com/derui/dotfiles/blob/master/zellij/config.kdl
+nushell: https://github.com/derui/dotfiles/blob/master/nushell
+
+
+同じものをつかい続ける、というのも生産性という意味では正解だと思いますが、たまにはガッツリ環境を変えてみるのも、日ごろ味わえないストレスが味わえて、いいもの（？）だったりします。
+
+今回使っているものは、Linux/macOSで使えますので、興味が湧いた方はさわってみちゃーどうでしょう。タノシイですよ？
+
+** 小ネタも書いていきたい
+ネタ自体は、またキーボード変えたとかいくつかあるんですが、目下大きめのネタが進行中で、そっちに集中している全然書けない、というジレンマ状態です。もうちょっとしたらかけるようになると思うので、それまでも小ネタを書いていけるようになりたいところです。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+*

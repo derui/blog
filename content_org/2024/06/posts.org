@@ -140,6 +140,8 @@ CLOSED: [2024-06-23 日 14:22]
 
 最近またEmacs熱が上がってまして、[[https://github.com/meow-edit/meow][meow]]から[[https://github.com/Kungsgeten/ryo-modal?tab=readme-ov-file][ryo-modal]]に切り替えてみたので、その顛末を記録に残しておきます。
 
+#+html: <!--more-->
+
 ** ryo-modalとは
 https://github.com/Kungsgeten/ryo-modal
 

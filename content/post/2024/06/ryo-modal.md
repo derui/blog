@@ -10,6 +10,8 @@ draft = false
 
 最近またEmacs熱が上がってまして、[meow](https://github.com/meow-edit/meow)から[ryo-modal](https://github.com/Kungsgeten/ryo-modal?tab=readme-ov-file)に切り替えてみたので、その顛末を記録に残しておきます。
 
+<!--more-->
+
 
 ## ryo-modalとは {#ryo-modalとは}
 

@@ -1,8 +1,9 @@
 +++
 title = "Flymakeでのlint結果などの表示方法"
 author = ["derui"]
+date = 2024-09-16T10:46:00+09:00
 tags = ["Emacs"]
-draft = true
+draft = false
 +++
 
 暦の上では秋ですが、ほんとに秋が消えつつあるなぁと実感しています。つまり暑い。

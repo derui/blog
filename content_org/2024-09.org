@@ -4,7 +4,8 @@
 #+hugo_section: post/2024/09
 #+author: derui
 
-* TODO Flymakeでのlint結果などの表示方法 :Emacs:
+* DONE Flymakeでのlint結果などの表示方法 :Emacs:
+CLOSED: [2024-09-16 月 10:46]
 :PROPERTIES:
 :EXPORT_FILE_NAME: emacs_flymake_popon
 :END:

@@ -1,0 +1,214 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../
+#+hugo_section: post/2024/10
+#+author: derui
+
+* DONE 改めてQEMUを使って仮想マシンを起動してみる :Linux:
+CLOSED: [2024-10-05 土 16:19]
+:PROPERTIES:
+:EXPORT_FILE_NAME: launch-vm-with-qemu
+:END:
+一気に凉しくなって、いきなり着るものに困っています。極端ですな。
+
+昔から知っていましたが、よく思い返してみると触ったこともなかったので、QEMUをきちんと触ってみました。
+
+#+html: <!--more-->
+
+** そもそもQEMUとは
+#+begin_quote
+QEMU is a generic and open source machine emulator and virtualizer.
+
+https://www.qemu.org/docs/master/about/index.html
+#+end_quote
+
+とあるように、emulatorとvirtualizer、つまり仮想化をするためのソフトウェアです。QEMU自体はとても昔から開発されており、Windows/macOSを含めてmulti platformで展開されています。
+
+最初はCPU emulationのために作られた、という話があるため、古今東西のCPUを指定して仮想マシンを起動することができます。
+
+
+** 最初の仮想マシン
+なんらかの方法でqemuをインストールしたら、とりあえずcommandを実行してみましょう。
+
+#+begin_src shell
+  $ qemu-system-x86_64
+#+end_src
+
+起動すると、Windowと共に真っ黒な画面が表示されるはずです。QEMUはdefaultでは[[id:b262f0f6-3625-4cf8-bbbe-004084ec9bc6][SeaBIOS]]というOSSのBIOS実装を利用して起動するので、マザーボードに電源だけいれた、という状態ですね。これだけだと意味がないので、なんかisoを入れてみましょう。
+
+#+begin_src shell
+  $ qemu-system-x86_64 -cdrom ubuntu.iso
+#+end_src
+
+見おぼえのあるubuntuのinstallerが起動します。なんか適当に選んでみましょう。
+
+起動してみると、起動した瞬間にkernel panicしているはずです。QEMUは、指定がないとmemory/CPUも設定されていない（！）ので、このままでは何もできません。このあたり、大体いい感じの設定がbattery includedされている最近の風潮とは一線を画しています。
+
+** CPUとmemoryの設定
+CPUとmemoryがないとなにもできないので、追加してみましょう。
+
+#+begin_src shell
+  $ qemu-system-x86_64 -m size=4096 \
+    -smp 8 \
+    -cdron ubuntu.iso
+#+end_src
+
+~-m~ でmemoryの量を指定できます。基本的にMB単位での指定です。 ~-smp~ で、仮想マシンで利用するCPUの数を指定できます。
+
+** networkの有効化
+当然ですがNICなんてものは最初から入っているわけではないので、NICについても指定する必要があります。QEMUのnetworkにはuser mode networkというemulation modeがあり、大抵はこれで用が足ります。
+
+#+begin_src shell
+  # localhost:2222を22と接続する
+  $ qemu-system-x86_64 \
+    # network deviceを追加する
+    -device virtio-net-pci,netdev=unet \
+    # netdevでdeviceに対する設定を追加する
+    -netdev user,id=unet,hostfwd=tcp::2222-:22 \
+        -m 4096 \
+        -smp 10 \
+        -cdrom ubuntu.iso
+
+#+end_src
+
+~hostfwd~ を指定すると、port forwardingができるので、guestとSSHで繋いで～というのがお手軽にできます。設定しておくと捗りますよ。
+
+ちなみにこの設定だけで、wgetとかcurlとかは大体動作します。ただ、pingは何もしない状態だと許可されていないので、必要ならsysfsで許可する必要があります。以下が参考になります。
+
+https://www.qemu.org/docs/master/system/devices/net.html#using-the-user-mode-network-stack
+
+** storageを追加する
+さて、いざインストール・・・というところで、storageがないぞ？となるかと思います。storageも当然ないので、作る必要があります。
+
+qemuに同梱されている ~qemu-img~ を利用することで、[[id:6d5e1891-742e-40f5-960b-78d6d2c3dae7][QCOW]]形式などQEMUで利用できるblock deviceを作製することができます。VirtualBoxなどを利用したことがある方は、 ~.qcow2~ とかの拡張子を見たことがあると思いますが、あれになります。
+
+#+begin_src shell
+  $ qemu-img create <file path> <size>
+
+  # nixos.qcow2を10GiBのサイズで作る
+  # k/m/g でそれぞれ指定できる
+  # -fで指定しないとRAW formatで作られるので、指定された容量がそのまま割り当てられる
+  $ qemu-img create -f qcow2 nixos.qcow2 10g
+
+  # 利用するときは -hda などに渡すことで、block deviceとして利用できる。
+  $ qemu-system-x86_64 -hda ./nixos.qcow2 
+#+end_src
+
+~-hda~ に渡すと、大抵は ~/dev/sda~ として認識されますので、あとはpartedやfdiskで料理できます。
+
+** UEFIで起動する
+さて、なにがしかをinstallしていると、最近のdistributionはUEFIでの起動が前提になっているケースが多いでしょう。そうなると、ここまでの設定だと動きません。UEFIはUEFIの設定が必要になります。
+
+[[https://github.com/tianocore/tianocore.github.io/wiki/OVMF][OVMF]]というOSSのUEFI実装があり、これが広く使われています。これを次のように利用します。
+
+#+begin_src shell
+  # UEFIの設定変更などはここに入るので、専用にcopyしておく
+  $ cp <path of ovmf/OFMV_VARS.fd .
+
+  # UEFIはbiosではないので、 -bios オプションは利用しなくてよい
+  $ qemu-system-x86_64 \
+        -drive if=pflash,format=raw,file=/usr/share/edk2-ovmf/OVMF_CODE.fd,readonly=on \
+        -drive if=pflash,format=raw,file=./OVMF_VARS.fd \
+        -enable-kvm \
+        ...args
+
+#+end_src
+
+OVMF.fdだったりしますので、ファイル名やパスは、ご利用のdistributionを参照下さい。 ~OFMV_VARS~ 的なファイルは、 *UEFIの設定変更* が入るため、基本的には個人毎にcopyしておくのが推奨です。
+
+** QEMUで使い捨ての自由なemulation環境を
+QEMUはKVMなども利用することで、準仮想化をすることができます。NVMeとかのemulationもできたり、GPUの利用などもできます。使ったことのないsoftwareの素振りや、完全に分離された作業環境が必要なときなどにいかがでしょう。
+
+ちなみに、CLIからやるのは一般的ではないので、大抵はvirt-managerとかから利用することになります（私は使ってないですが）。
+
+さて、いきなりなんでこんな記事を書いたのかというと、次の記事へ繋げるため、という感じになります。
+
+* TODO NixOSに入門してみた :Linux:
+:PROPERTIES:
+:EXPORT_FILE_NAME: nixos-starter
+:END:
+一気に凉しくなって、いきなり着るものに困っています。極端ですな。
+
+最近PCを新調しようと考えていて、そのなかでNixOSに興味がでたので入門してみました。
+
+#+html: <!--more-->
+
+** Flymake本体での提供
+FlymakeのDefaultは、 echo areaへの表示になります。が、Eglotなどと利用していると、echo areaは大変和やかになっているため、表示されなかったりします。
+なのでさすがにdefaultはないかな、となります。
+
+Flymakeの1.36からは、 ~flymake-show-diagnostics-at-end-of-line~ というoptionができています。これを指定することで、 *flymakeのdiagnosticが、行末に表示されるようになります* 。
+
+#+begin_quote
+https://www.reddit.com/r/emacs/comments/1dqh339/flymake_adjustments/
+
+Redditで紹介されていました。
+#+end_quote
+
+私はmasterに近いversionを常用しているので、これを試してみました。が・・・、これはなかなか微妙という判定をせざるをえませんでした。理由としては、
+
+- overlayで実装されているため、 *編集している文字と被るとガタガタが激しい*
+- errorやwarningが長い場合、 *入力の都度ガタついてしまう*
+
+
+ということで、正直利用できませんでした。eslintからのerror/warningが大抵長いというのも一つ理由になりそうではありましたが、それでも入力の感覚が悪かったです。
+
+
+
+
+** sideline
+https://github.com/emacs-sideline/sideline
+
+[[https://github.com/emacs-lsp/lsp-ui#lsp-ui-sideline][lsp-ui]]にあるsidelineというものを、汎用的にしたpackageとして、sidelineというものができていました。で、これを利用したflymake向けのpackageもありました。
+
+https://github.com/emacs-sideline/sideline-flymake
+
+見た目については、GitHubを見てもらった方がよいですが、これも試してみました。
+
+が・・・、よく考えたらlsp-modeを利用しているときに真っ先に切ったのがsidelineであったことに、導入してから気付きました。sidelineは見映えはするのですが、overlay実装であるため、本質的にflymakeにある設定と同様の課題が生じます。
+
+しばらく使ってみたのですが、2つくらいerror/warningが表示されてしまうと、やはり編集の体験がよろしくなかったため、これも断念しました。
+
+** popon
+https://codeberg.org/akib/emacs-popon.git
+
+最近見付けたのですが、poponというpackageがあります。poponは、
+
+#+begin_quote
+Popon - "Pop" floating text "on" a window
+#+end_quote
+
+という機能を提供するpackageです。実装自体はoverlayなんですが、これをflymakeに適用した [[https://codeberg.org/akib/emacs-flymake-popon][flymake-popon]]というものを利用してみています。
+
+#+begin_src emacs-lisp
+  (eval-when-compile
+    (elpaca (popon :type git :url "https://codeberg.org/akib/emacs-popon.git"
+                   :ref "bf8174cb7e6e8fe0fe91afe6b01b6562c4dc39da"))
+    (elpaca (flymake-popon :type git :url "https://codeberg.org/akib/emacs-flymake-popon.git"
+                           :ref "99ea813346f3edef7220d8f4faeed2ec69af6060")))
+
+  (with-low-priority-startup
+    (load-package popon)
+    (load-package emacs-popon-flymake)
+
+    (add-hook 'flymake-mode-hook #'flymake-popon-mode))
+#+end_src
+
+こんな設定でお試し利用しています。
+
+- defaultだとposframeを利用しているので、編集中のがたつきなどはない
+- cursorの *上* に出るので、編集時に邪魔になりにくい
+
+
+というところで、利用できそうでした。ただ、cursorの移動に伴って移動してしまうのがちょっとうっとうしいのが玉に暇でしょうか。
+
+** 自分にとって理想的な表示は難しい
+flymake/flycheckなどもそうですが、自分にとって理想とする表示というのは、究極自分自身で創らないといけないというのはあると思います。
+
+が、実際自分で作るのは色々大変なので、packageを利用したくなります。現時点では一旦満足していますが、また変ったら書いていこうと思います。
+
+* comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+

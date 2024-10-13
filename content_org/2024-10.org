@@ -34,7 +34,7 @@ https://www.qemu.org/docs/master/about/index.html
   $ qemu-system-x86_64
 #+end_src
 
-起動すると、Windowと共に真っ黒な画面が表示されるはずです。QEMUはdefaultでは[[id:b262f0f6-3625-4cf8-bbbe-004084ec9bc6][SeaBIOS]]というOSSのBIOS実装を利用して起動するので、マザーボードに電源だけいれた、という状態ですね。これだけだと意味がないので、なんかisoを入れてみましょう。
+起動すると、Windowと共に真っ黒な画面が表示されるはずです。QEMUはdefaultではSeaBIOSというOSSのBIOS実装を利用して起動するので、マザーボードに電源だけいれた、という状態ですね。これだけだと意味がないので、なんかisoを入れてみましょう。
 
 #+begin_src shell
   $ qemu-system-x86_64 -cdrom ubuntu.iso
@@ -80,7 +80,7 @@ https://www.qemu.org/docs/master/system/devices/net.html#using-the-user-mode-net
 ** storageを追加する
 さて、いざインストール・・・というところで、storageがないぞ？となるかと思います。storageも当然ないので、作る必要があります。
 
-qemuに同梱されている ~qemu-img~ を利用することで、[[id:6d5e1891-742e-40f5-960b-78d6d2c3dae7][QCOW]]形式などQEMUで利用できるblock deviceを作製することができます。VirtualBoxなどを利用したことがある方は、 ~.qcow2~ とかの拡張子を見たことがあると思いますが、あれになります。
+qemuに同梱されている ~qemu-img~ を利用することで、QCOW形式などQEMUで利用できるblock deviceを作製することができます。VirtualBoxなどを利用したことがある方は、 ~.qcow2~ とかの拡張子を見たことがあると思いますが、あれになります。
 
 #+begin_src shell
   $ qemu-img create <file path> <size>
@@ -123,89 +123,93 @@ QEMUはKVMなども利用することで、準仮想化をすることができ�
 
 さて、いきなりなんでこんな記事を書いたのかというと、次の記事へ繋げるため、という感じになります。
 
-* TODO NixOSに入門してみた :Linux:
+* DONE NixOSに入門してみた :Linux:
+CLOSED: [2024-10-13 日 11:13]
 :PROPERTIES:
 :EXPORT_FILE_NAME: nixos-starter
 :END:
-一気に凉しくなって、いきなり着るものに困っています。極端ですな。
 
-最近PCを新調しようと考えていて、そのなかでNixOSに興味がでたので入門してみました。
+一気に凉しくなって、いきなり着るものに困っています。極端ですな(２回目)。
+
+
+最近PCを新調しまして、そのなかでNixOSに興味がでたので入門してみました。
 
 #+html: <!--more-->
 
-** Flymake本体での提供
-FlymakeのDefaultは、 echo areaへの表示になります。が、Eglotなどと利用していると、echo areaは大変和やかになっているため、表示されなかったりします。
-なのでさすがにdefaultはないかな、となります。
+** NixOSとは
+https://nixos.org/
 
-Flymakeの1.36からは、 ~flymake-show-diagnostics-at-end-of-line~ というoptionができています。これを指定することで、 *flymakeのdiagnosticが、行末に表示されるようになります* 。
-
-#+begin_quote
-https://www.reddit.com/r/emacs/comments/1dqh339/flymake_adjustments/
-
-Redditで紹介されていました。
-#+end_quote
-
-私はmasterに近いversionを常用しているので、これを試してみました。が・・・、これはなかなか微妙という判定をせざるをえませんでした。理由としては、
-
-- overlayで実装されているため、 *編集している文字と被るとガタガタが激しい*
-- errorやwarningが長い場合、 *入力の都度ガタついてしまう*
-
-
-ということで、正直利用できませんでした。eslintからのerror/warningが大抵長いというのも一つ理由になりそうではありましたが、それでも入力の感覚が悪かったです。
-
-
-
-
-** sideline
-https://github.com/emacs-sideline/sideline
-
-[[https://github.com/emacs-lsp/lsp-ui#lsp-ui-sideline][lsp-ui]]にあるsidelineというものを、汎用的にしたpackageとして、sidelineというものができていました。で、これを利用したflymake向けのpackageもありました。
-
-https://github.com/emacs-sideline/sideline-flymake
-
-見た目については、GitHubを見てもらった方がよいですが、これも試してみました。
-
-が・・・、よく考えたらlsp-modeを利用しているときに真っ先に切ったのがsidelineであったことに、導入してから気付きました。sidelineは見映えはするのですが、overlay実装であるため、本質的にflymakeにある設定と同様の課題が生じます。
-
-しばらく使ってみたのですが、2つくらいerror/warningが表示されてしまうと、やはり編集の体験がよろしくなかったため、これも断念しました。
-
-** popon
-https://codeberg.org/akib/emacs-popon.git
-
-最近見付けたのですが、poponというpackageがあります。poponは、
+トップページにどーんと書いていますが、
 
 #+begin_quote
-Popon - "Pop" floating text "on" a window
+Declarative builds and deployments.
 #+end_quote
 
-という機能を提供するpackageです。実装自体はoverlayなんですが、これをflymakeに適用した [[https://codeberg.org/akib/emacs-flymake-popon][flymake-popon]]というものを利用してみています。
+を実現することを目的としたLinux distributionです。技術的には、Nixというbuild tool及び同名のDSLを利用して、 **OS全体を宣言的にしてやろう** という、かなり狂気を感じる方法を取っています。
 
-#+begin_src emacs-lisp
-  (eval-when-compile
-    (elpaca (popon :type git :url "https://codeberg.org/akib/emacs-popon.git"
-                   :ref "bf8174cb7e6e8fe0fe91afe6b01b6562c4dc39da"))
-    (elpaca (flymake-popon :type git :url "https://codeberg.org/akib/emacs-flymake-popon.git"
-                           :ref "99ea813346f3edef7220d8f4faeed2ec69af6060")))
+#+begin_quote
+Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems. 
+#+end_quote
 
-  (with-low-priority-startup
-    (load-package popon)
-    (load-package emacs-popon-flymake)
+実際進めていくと、色々理想と現実とのGapが見えてきそうなのはやる前からわかってましたが、純粋関数型のbuild、と聞くと、日頃ビルドに苦しめられている開発者としては琴線に触れるものではないでしょうか。
 
-    (add-hook 'flymake-mode-hook #'flymake-popon-mode))
+installにあたっては、すでに色々と地雷を踏んでいただいている先人の資料を参考にさせていただきました。NixOSは、 **準備が足りないと何もできない** ってのは本当だったので、事前に仮想マシンで構築できるかどうかを検証したほうがよいです。
+https://zenn.dev/asa1984/articles/nixos-is-the-best
+
+** Nixとその周辺ツール
+Nixが全体を構成する最重要ツールですが、Nix周辺のエコシステムでは、他にも重要なツール・拡張機能が存在しています。
+
+- Flakes
+- Home Manager
+  - https://nix-community.github.io/home-manager/
+
+
+大きく書くとこの２つになります。Flakesはnix自体の拡張、Home Managerはコミュニティ主導でのツールになります。詳しい使い方とかは公式を見ていただくのがよいかなと。
+
+特にnixは、それぞれ全く構成が異なるため、manualがあっても試行錯誤が前提となっています。
+
+** NixOSのインストール
+https://nixos.org/manual/nixos/stable/#sec-installation
+
+に従ってやりましょう。なお、私はGentooのときからの癖で、minimal installationを常時選択しています。Gentooと比べると、最初にKernel configurationがないだけ大分楽やなぁ、と思ってしまうくらいには楽ですね。
+
+正直インストールは単なる準備で、rebootしてからが本当のinstallになります。ここまでで事前にnixの構成を作っていない場合は、rebootしてしまうと何もできないので、できるだけここで完了させておくことを推奨します。
+
+*** インストールするときにflakesを利用する
+すでにGitHubとかに上げてあり、かつFlakesを利用している場合、以下のようにしてFlakeから直接インストールすることができます。
+
+#+begin_src shell
+  $ nixos-install --root /mnt --flake "github:<owner>/<repo>#<config>"
 #+end_src
 
-こんな設定でお試し利用しています。
+** Nixとの戦い
+NixOSは、 *なにか変更したい* == Nixの編集、となります。そのため、Nix言語及びツールへの習熟は嫌でも高まるという、いいんだか悪いんだか、というループが構成されています。
 
-- defaultだとposframeを利用しているので、編集中のがたつきなどはない
-- cursorの *上* に出るので、編集時に邪魔になりにくい
+ただ、前述したように、NixOSの設定構成は千者万別ですので、基本的には断片をなんとなく理解して、自分の設定に当てはめていく、という厳しい作業が必要になります。
+
+https://github.com/derui/my-nixos
+
+私のNixOSの設定はすべてここにあります。適宜コメントなどは入れていますので、参考になれば。
+
+*** 大事なこと
+https://search.nixos.org/
+
+何も言わずにこのサイトをbookmarkしましょう。option/packageを探すときに最初に見る場所になります。・・・とはいえ、結局よくわからなくてsourceを見る機会も多いのですが。
+
+*** Emacsとかの管理
+home-managerを導入していると、EmacsなどのDotfilesもNixでまとめて管理することができます。他のリポジトリで管理しつつFlakeとして取得する・・・ということもできますので、ここは好みかなと。
+
+私は全部一個にぶち込みたい人なので、まとめて管理しています。管理する中でTipsなどもできたのですが、ここはまた別の機会に。
 
 
-というところで、利用できそうでした。ただ、cursorの移動に伴って移動してしまうのがちょっとうっとうしいのが玉に暇でしょうか。
+** とりあえず入門できました
+今この記事は、新マシンにインストールしたNixOS上で書いています。実はsystemdを利用したシステムは宗教上の理由で利用していなかったのですが、利用するだけならやっぱり楽だよねえ、というのは実感してます。
 
-** 自分にとって理想的な表示は難しい
-flymake/flycheckなどもそうですが、自分にとって理想とする表示というのは、究極自分自身で創らないといけないというのはあると思います。
+ただその分、blackboxが大きすぎることの不安は変わらないので、ここはNixで管理できるというところがありがたいです。以前のGentooだと、基本的に再現を諦めるOr秘伝のタレ状態を引き継ぎ続ける、ってなってたので。
 
-が、実際自分で作るのは色々大変なので、packageを利用したくなります。現時点では一旦満足していますが、また変ったら書いていこうと思います。
+けして万人に進められるようなディストリビューションではないですが、設定ファイルだけなんとかしたい、みたいなときにも対応はできるので、Nixだけでも見てみてはいかがでしょうか。
+
+個人的には、Haskellとかで苦しんだ経験があれば、Nixも多少は理解しやすいかな、と思います。動的に色々変わるのでマジわからなくなるのは困りものですが。
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:

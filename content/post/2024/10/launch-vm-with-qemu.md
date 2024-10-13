@@ -32,7 +32,7 @@ draft = false
 $ qemu-system-x86_64
 ```
 
-起動すると、Windowと共に真っ黒な画面が表示されるはずです。QEMUはdefaultでは[SeaBIOS]({{< relref "#d41d8c" >}})というOSSのBIOS実装を利用して起動するので、マザーボードに電源だけいれた、という状態ですね。これだけだと意味がないので、なんかisoを入れてみましょう。
+起動すると、Windowと共に真っ黒な画面が表示されるはずです。QEMUはdefaultではSeaBIOSというOSSのBIOS実装を利用して起動するので、マザーボードに電源だけいれた、という状態ですね。これだけだと意味がないので、なんかisoを入れてみましょう。
 
 ```shell
 $ qemu-system-x86_64 -cdrom ubuntu.iso
@@ -83,7 +83,7 @@ $ qemu-system-x86_64 \
 
 さて、いざインストール・・・というところで、storageがないぞ？となるかと思います。storageも当然ないので、作る必要があります。
 
-qemuに同梱されている `qemu-img` を利用することで、[QCOW]({{< relref "#d41d8c" >}})形式などQEMUで利用できるblock deviceを作製することができます。VirtualBoxなどを利用したことがある方は、 `.qcow2` とかの拡張子を見たことがあると思いますが、あれになります。
+qemuに同梱されている `qemu-img` を利用することで、QCOW形式などQEMUで利用できるblock deviceを作製することができます。VirtualBoxなどを利用したことがある方は、 `.qcow2` とかの拡張子を見たことがあると思いますが、あれになります。
 
 ```shell
 $ qemu-img create <file path> <size>

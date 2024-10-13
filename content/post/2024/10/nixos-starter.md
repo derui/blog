@@ -1,84 +1,98 @@
 +++
 title = "NixOSに入門してみた"
 author = ["derui"]
+date = 2024-10-13T11:13:00+09:00
 tags = ["Linux"]
-draft = true
+draft = false
 +++
 
-一気に凉しくなって、いきなり着るものに困っています。極端ですな。
+一気に凉しくなって、いきなり着るものに困っています。極端ですな(２回目)。
 
-最近PCを新調しようと考えていて、そのなかでNixOSに興味がでたので入門してみました。
+最近PCを新調しまして、そのなかでNixOSに興味がでたので入門してみました。
 
 <!--more-->
 
 
-## Flymake本体での提供 {#flymake本体での提供}
+## NixOSとは {#nixosとは}
 
-FlymakeのDefaultは、 echo areaへの表示になります。が、Eglotなどと利用していると、echo areaは大変和やかになっているため、表示されなかったりします。なのでさすがにdefaultはないかな、となります。
+<https://nixos.org/>
 
-Flymakeの1.36からは、 `flymake-show-diagnostics-at-end-of-line` というoptionができています。これを指定することで、 **flymakeのdiagnosticが、行末に表示されるようになります** 。
+トップページにどーんと書いていますが、
 
-> <https://www.reddit.com/r/emacs/comments/1dqh339/flymake_adjustments/>
->
-> Redditで紹介されていました。
+> Declarative builds and deployments.
 
-私はmasterに近いversionを常用しているので、これを試してみました。が・・・、これはなかなか微妙という判定をせざるをえませんでした。理由としては、
+を実現することを目的としたLinux distributionです。技術的には、Nixというbuild tool及び同名のDSLを利用して、 ****OS全体を宣言的にしてやろう**** という、かなり狂気を感じる方法を取っています。
 
--   overlayで実装されているため、 **編集している文字と被るとガタガタが激しい**
--   errorやwarningが長い場合、 **入力の都度ガタついてしまう**
+> Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems.
 
-ということで、正直利用できませんでした。eslintからのerror/warningが大抵長いというのも一つ理由になりそうではありましたが、それでも入力の感覚が悪かったです。
+実際進めていくと、色々理想と現実とのGapが見えてきそうなのはやる前からわかってましたが、純粋関数型のbuild、と聞くと、日頃ビルドに苦しめられている開発者としては琴線に触れるものではないでしょうか。
 
-
-## sideline {#sideline}
-
-<https://github.com/emacs-sideline/sideline>
-
-[lsp-ui](https://github.com/emacs-lsp/lsp-ui#lsp-ui-sideline)にあるsidelineというものを、汎用的にしたpackageとして、sidelineというものができていました。で、これを利用したflymake向けのpackageもありました。
-
-<https://github.com/emacs-sideline/sideline-flymake>
-
-見た目については、GitHubを見てもらった方がよいですが、これも試してみました。
-
-が・・・、よく考えたらlsp-modeを利用しているときに真っ先に切ったのがsidelineであったことに、導入してから気付きました。sidelineは見映えはするのですが、overlay実装であるため、本質的にflymakeにある設定と同様の課題が生じます。
-
-しばらく使ってみたのですが、2つくらいerror/warningが表示されてしまうと、やはり編集の体験がよろしくなかったため、これも断念しました。
+installにあたっては、すでに色々と地雷を踏んでいただいている先人の資料を参考にさせていただきました。NixOSは、 ****準備が足りないと何もできない**** ってのは本当だったので、事前に仮想マシンで構築できるかどうかを検証したほうがよいです。
+<https://zenn.dev/asa1984/articles/nixos-is-the-best>
 
 
-## popon {#popon}
+## Nixとその周辺ツール {#nixとその周辺ツール}
 
-<https://codeberg.org/akib/emacs-popon.git>
+Nixが全体を構成する最重要ツールですが、Nix周辺のエコシステムでは、他にも重要なツール・拡張機能が存在しています。
 
-最近見付けたのですが、poponというpackageがあります。poponは、
+-   Flakes
+-   Home Manager
+    -   <https://nix-community.github.io/home-manager/>
 
-> Popon - "Pop" floating text "on" a window
+大きく書くとこの２つになります。Flakesはnix自体の拡張、Home Managerはコミュニティ主導でのツールになります。詳しい使い方とかは公式を見ていただくのがよいかなと。
 
-という機能を提供するpackageです。実装自体はoverlayなんですが、これをflymakeに適用した [flymake-popon](https://codeberg.org/akib/emacs-flymake-popon)というものを利用してみています。
+特にnixは、それぞれ全く構成が異なるため、manualがあっても試行錯誤が前提となっています。
 
-```emacs-lisp
-(eval-when-compile
-  (elpaca (popon :type git :url "https://codeberg.org/akib/emacs-popon.git"
-                 :ref "bf8174cb7e6e8fe0fe91afe6b01b6562c4dc39da"))
-  (elpaca (flymake-popon :type git :url "https://codeberg.org/akib/emacs-flymake-popon.git"
-                         :ref "99ea813346f3edef7220d8f4faeed2ec69af6060")))
 
-(with-low-priority-startup
-  (load-package popon)
-  (load-package emacs-popon-flymake)
+## NixOSのインストール {#nixosのインストール}
 
-  (add-hook 'flymake-mode-hook #'flymake-popon-mode))
+<https://nixos.org/manual/nixos/stable/#sec-installation>
+
+に従ってやりましょう。なお、私はGentooのときからの癖で、minimal installationを常時選択しています。Gentooと比べると、最初にKernel configurationがないだけ大分楽やなぁ、と思ってしまうくらいには楽ですね。
+
+正直インストールは単なる準備で、rebootしてからが本当のinstallになります。ここまでで事前にnixの構成を作っていない場合は、rebootしてしまうと何もできないので、できるだけここで完了させておくことを推奨します。
+
+
+### インストールするときにflakesを利用する {#インストールするときにflakesを利用する}
+
+すでにGitHubとかに上げてあり、かつFlakesを利用している場合、以下のようにしてFlakeから直接インストールすることができます。
+
+```shell
+$ nixos-install --root /mnt --flake "github:<owner>/<repo>#<config>"
 ```
 
-こんな設定でお試し利用しています。
 
--   defaultだとposframeを利用しているので、編集中のがたつきなどはない
--   cursorの **上** に出るので、編集時に邪魔になりにくい
+## Nixとの戦い {#nixとの戦い}
 
-というところで、利用できそうでした。ただ、cursorの移動に伴って移動してしまうのがちょっとうっとうしいのが玉に暇でしょうか。
+NixOSは、 **なにか変更したい** == Nixの編集、となります。そのため、Nix言語及びツールへの習熟は嫌でも高まるという、いいんだか悪いんだか、というループが構成されています。
+
+ただ、前述したように、NixOSの設定構成は千者万別ですので、基本的には断片をなんとなく理解して、自分の設定に当てはめていく、という厳しい作業が必要になります。
+
+<https://github.com/derui/my-nixos>
+
+私のNixOSの設定はすべてここにあります。適宜コメントなどは入れていますので、参考になれば。
 
 
-## 自分にとって理想的な表示は難しい {#自分にとって理想的な表示は難しい}
+### 大事なこと {#大事なこと}
 
-flymake/flycheckなどもそうですが、自分にとって理想とする表示というのは、究極自分自身で創らないといけないというのはあると思います。
+<https://search.nixos.org/>
 
-が、実際自分で作るのは色々大変なので、packageを利用したくなります。現時点では一旦満足していますが、また変ったら書いていこうと思います。
+何も言わずにこのサイトをbookmarkしましょう。option/packageを探すときに最初に見る場所になります。・・・とはいえ、結局よくわからなくてsourceを見る機会も多いのですが。
+
+
+### Emacsとかの管理 {#emacsとかの管理}
+
+home-managerを導入していると、EmacsなどのDotfilesもNixでまとめて管理することができます。他のリポジトリで管理しつつFlakeとして取得する・・・ということもできますので、ここは好みかなと。
+
+私は全部一個にぶち込みたい人なので、まとめて管理しています。管理する中でTipsなどもできたのですが、ここはまた別の機会に。
+
+
+## とりあえず入門できました {#とりあえず入門できました}
+
+今この記事は、新マシンにインストールしたNixOS上で書いています。実はsystemdを利用したシステムは宗教上の理由で利用していなかったのですが、利用するだけならやっぱり楽だよねえ、というのは実感してます。
+
+ただその分、blackboxが大きすぎることの不安は変わらないので、ここはNixで管理できるというところがありがたいです。以前のGentooだと、基本的に再現を諦めるOr秘伝のタレ状態を引き継ぎ続ける、ってなってたので。
+
+けして万人に進められるようなディストリビューションではないですが、設定ファイルだけなんとかしたい、みたいなときにも対応はできるので、Nixだけでも見てみてはいかがでしょうか。
+
+個人的には、Haskellとかで苦しんだ経験があれば、Nixも多少は理解しやすいかな、と思います。動的に色々変わるのでマジわからなくなるのは困りものですが。

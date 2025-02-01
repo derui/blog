@@ -4,7 +4,8 @@
 #+hugo_section: post/2025/01
 #+author: derui
 
-* TODO Ollamaで利用するmodelのcontext sizeを強制的に変更する :Linux:Ollama:
+* DONE Ollamaで利用するmodelのcontext sizeを強制的に変更する :Linux:Ollama:
+CLOSED: [2025-02-01 土 17:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ollama-context-window-problem
 :END:

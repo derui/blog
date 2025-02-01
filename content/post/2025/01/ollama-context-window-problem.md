@@ -1,8 +1,9 @@
 +++
 title = "Ollamaで利用するmodelのcontext sizeを強制的に変更する"
 author = ["derui"]
+date = 2025-02-01T17:55:00+09:00
 tags = ["Linux", "Ollama"]
-draft = true
+draft = false
 +++
 
 年末は色々忙しいな、と思っていたら年が明けていました。今年もゆるくやっていきます。ゆるすぎではないかとも思いますが。

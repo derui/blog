@@ -1,7 +1,7 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2025/04
+#+hugo_section: posts/2025/04
 #+author: derui
 
 * ✨ 基板設計から自分でkeyboardを作ってみた :キーボード:

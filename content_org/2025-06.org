@@ -1,10 +1,11 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2025/06
+#+hugo_section: posts/2025/06
 #+author: derui
 
-* ✅ 最近のProgrammingについて :Programming:
+* ✨ 最近のAIを使ったProgrammingについて :Programming:
+CLOSED: [2025-06-22 日 16:09]
 :PROPERTIES:
 :EXPORT_FILE_NAME: recent-programming
 :END:
@@ -68,7 +69,6 @@ LLMを利用した開発を一気に広げたものですね。日常のcoding�
 
 
 実家の方でできる仕事探そうかな :thinking:
-
 
 * comment Local Variables                                           :ARCHIVE:
 # Local Variables:

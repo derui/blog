@@ -1,7 +1,7 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2024/07
+#+hugo_section: posts/2024/07
 #+author: derui
 
 * DONE Emacsの起動を高速化してみた :Emacs:

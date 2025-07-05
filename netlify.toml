@@ -2,8 +2,8 @@
 publish = "public"
 command = "bash -c ./deploy.sh"
 [context.production.environment]
-  HUGO_VERSION = "0.92.0"
-  NODE_VERSION = "16.13.0"
+  HUGO_VERSION = "0.147.9"
+  NODE_VERSION = "22.16.0"
 [context.deploy-preview.environment]
-  HUGO_VERSION = "0.92.0"
-  NODE_VERSION = "16.13.0"
+  HUGO_VERSION = "0.147.9"
+  NODE_VERSION = "22.16.0"

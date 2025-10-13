@@ -1,0 +1,45 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../
+#+hugo_section: posts/2025/10
+#+author: derui
+
+* ✨ bevyでgltfを読み込むときに.metaファイルが要求されて困るとき :programming:
+CLOSED: [2025-10-13 月 14:02]
+:PROPERTIES:
+:EXPORT_FILE_NAME: loading-gltf-on-bevy
+:END:
+たまには超小ネタです。
+
+** Bevy触ってます
+ちょいちょい中断しつつですが、[[https://github.com/bevyengine/bevy][bevy]]というゲームエンジンを触っています。なんというか現代的なゲームエンジンを触るのは実は初めてなんですが、Direct3Dで・・・みたいな時代とは隔世の感がありますね。そもそも古すぎか。
+
+やりたいことのためにWASMで動作するように作っているのですが、 =glTF= ファイルを読み込ませようとしたら、 =.gltf.meta= という謎のファイルが要求されてエラーになって困ったことになりました。ちなみにglTFファイルとは、WebGLの標準フォーマットとのことです。
+
+#+begin_quote
+https://knowledge.shade3d.jp/knowledgebase/gltf%E3%81%A8%E3%81%AF
+#+end_quote
+
+** 解決
+https://github.com/bevyengine/bevy/issues/10157
+
+困ったときは公式のissue、ということで探したらありました。どうもbevy_assetsの機能で、metadataを確認することでより適した処理にできる、とかそういうもののようです。ちなみに生成するためには *一回起動したらいいよ* 、とのことですが、WASMの場合そもそも書き込むっつってもどこに？となってしまいます。
+
+#+begin_src rust
+      app.add_plugins((
+          DefaultPlugins
+              .set(AssetPlugin {
+                  // これを追加する
+                  meta_check: AssetMetaCheck::Never,
+                 ..default()
+              }),
+      ))
+      #+end_src
+
+issueにあったやり方とは違いますが、meta_checkを無効化するとOKです。私がやりたい範囲ではglTFはほぼ使わないので、これで特に問題なさそうでした。
+
+* Comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+

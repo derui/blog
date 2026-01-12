@@ -1,20 +1,19 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/08
+#+hugo_section: posts/2023/08
 #+author: derui
 
-* DONE OCamlでSQL formatter を作ってみた :OCaml:
-CLOSED: [2023-08-19 土 13:51]
+* ✨ OCamlでSQL formatter を作ってみた :OCaml:
+CLOSED: [2026-01-12 月 16:48]
 :PROPERTIES:
 :EXPORT_FILE_NAME: sql_formatter_ocaml
 :END:
 
+
 台風だったり暑さだったり、気象の振れ幅が大きくなってきてるなー、と思ったりしてます。でも古気候学とか噛じってると、さらに昔はもっと激烈だったんだろうなぁ、と思ったり思わなかったり。
 
 さて、題名の通りなんですが、やっとこさ形になったのでこの記事を書こうと思います。
-
-#+html: <!--more-->
 
 ** モチベーション
 https://github.com/derui/ocaml-sql-format

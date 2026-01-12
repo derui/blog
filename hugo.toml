@@ -48,3 +48,6 @@ url = "tags"
   github = "derui"
   paginate = 10
   avatar = "/img/avatar.png"
+
+  # theme params
+  ShowBreadCrumbs = true

@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/09
+#+HUGO_SECTION: posts/2019/09
 
-* DONE OCamlでMonadを使う時はppx_letを使おう                          :OCaml:
+* ✨ OCamlでMonadを使う時はppx_letを使おう                          :OCaml:
 CLOSED: [2019-09-14 土 11:17]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_ppx_let_in_ocaml
@@ -16,7 +16,6 @@ CLOSED: [2019-09-14 土 11:17]
 <!--more-->
 
 [[https://github.com/janestreet/ppx_let][ppx_let]]は、OCaml界隈では知らない人のいない[[https://www.janestreet.com/][Jane Street]]社が公開しているPPX拡張です。
-
 
 ** OCamlでmonadを扱う時の課題
 大抵、resultとかoption（特にresult）をmonadicにつなげていく時、大抵は下のような書き方になります。

@@ -2,7 +2,7 @@
 title = "Windows10 + WSL2で環境を整えた"
 author = ["derui"]
 date = 2020-08-08T16:20:00+09:00
-lastmod = 2020-09-22T10:41:00+09:00
+lastmod = 2026-01-12T17:20:52+09:00
 tags = ["Windows", "Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 見切り発車ですので出来るかどうかは不定です。ではいってみましょう。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 不安な点 {#不安な点}
@@ -33,7 +33,7 @@ draft = false
 -   EmacsをGUIで使える
 -   自分のdotfile/.emacs.dを使えている
 -   OCaml/opam/Node.jsが入っている
--   `(OPT)` Emacsからmozc\_emacs\_helperを通してWindows上のGoogle日本語入力を使えている
+-   `(OPT)` Emacsからmozc_emacs_helperを通してWindows上のGoogle日本語入力を使えている
 -   `(OPT)` EmacsからWindowsの方のブラウザとかを使える
 
 Emacsとterminalだけで大体生きてるOld typeなので、これくらい出来ればだいたい何とかなります。

@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/03
+#+HUGO_SECTION: posts/2019/03
 
-* DONE all-the-iconsとCicaの組み合わせでアイコンがずれる              :Emacs:
+* ✨ all-the-iconsとCicaの組み合わせでアイコンがずれる              :Emacs:
 CLOSED: [2019-03-09 土 17:38]
 :PROPERTIES:
 :EXPORT_FILE_NAME: all-the-icons_with_cica

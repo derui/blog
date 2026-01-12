@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/05
+#+HUGO_SECTION: posts/2019/05
 
-* DONE KotlinでAPIサーバーとバッチを書いてみた感想                   :Kotlin:
+* ✨ KotlinでAPIサーバーとバッチを書いてみた感想                   :Kotlin:
 CLOSED: [2019-05-02 木 09:29]
 :PROPERTIES:
 :EXPORT_FILE_NAME: kotlin_impressions
@@ -177,7 +177,7 @@ v.exec() // 200
 
 Java本体の機能拡充も続いていますが、まだしばらくはKotlinを続けていこうかと思います。
 
-* DONE SEKIRO -SHADOWS DIE TWICE- の感想                          :Game:雑記:
+* ✨ SEKIRO -SHADOWS DIE TWICE- の感想                          :Game:雑記:
 CLOSED: [2019-05-22 水 13:17]
 :PROPERTIES:
 :EXPORT_FILE_NAME: game_review_sekiro

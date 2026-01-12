@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/03
+#+HUGO_SECTION: posts/2021/03
 #+AUTHOR: derui
 
-* DONE Emacsのinit.elをorgで書く方法と、変更時に楽をしてみる          :Emacs:
+* ✨ Emacsのinit.elをorgで書く方法と、変更時に楽をしてみる          :Emacs:
 CLOSED: [2021-03-13 土 13:25]
 :PROPERTIES:
 :EXPORT_FILE_NAME: init-el-with-org
@@ -118,12 +118,12 @@ Vim/Visual Studio Codeに押されているEmacsですが、すでに1x年使っ
 
 - https://orgmode.org/worg/org-contrib/babel/
   - org-babelのサイト
-- [[https://taipapamotohus.com/post/init_org/][Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する]]
+- [[https://taipapamotohus.com/posts/init_org/][Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する]]
   - init.el自体を書きかえるのではなく、init.orgから別の場所に生成して、それをinit.elから読み込むスタイル
 - [[http://blog.lambda-consulting.jp/2015/11/20/article/][俺、ちゃんと全部管理してます（org-modeでinit.elを管理する）]]
   - 上でもリンクされている
 
-* DONE 前回購入から2年が経過したのでゲーミングノートを更新した         :雑記:
+* ✨ 前回購入から2年が経過したのでゲーミングノートを更新した         :雑記:
 CLOSED: [2021-03-25 木 21:39]
 :PROPERTIES:
 :EXPORT_FILE_NAME: new-gaming-note-pc

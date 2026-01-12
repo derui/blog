@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2020/09
+#+HUGO_SECTION: posts/2020/09
 #+AUTHOR: derui
 
-* DONE Migemoを使って絞り込みできるfzfっぽいものを作っています        :OCaml:
+* ✨ Migemoを使って絞り込みできるfzfっぽいものを作っています        :OCaml:
 CLOSED: [2020-09-09 水 21:00]
 :PROPERTIES:
 :EXPORT_FILE_NAME: finder_with_migemo
@@ -68,7 +68,7 @@ Migemoっている風景は以下。
 
 OCamlはライブラリがないなら作ってしまえばいいじゃない、という感じなので、自前で色々作る練習にもなりますよ。
 
-* DONE OCaml製プログラムでperformance profileをする                   :OCaml:
+* ✨ OCaml製プログラムでperformance profileをする                   :OCaml:
 CLOSED: [2020-09-22 火 09:14]
 :PROPERTIES:
 :EXPORT_FILE_NAME: performance_profile_with_ocaml

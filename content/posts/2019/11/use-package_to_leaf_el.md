@@ -2,14 +2,14 @@
 title = "Emacsの設定管理をuse-packageからleaf.elにしてみた"
 author = ["derui"]
 date = 2019-11-17T09:10:00+09:00
-lastmod = 2019-11-17T09:10:42+09:00
+lastmod = 2026-01-12T17:18:32+09:00
 tags = ["Emacs"]
 draft = false
 +++
 
 大分長い間[use-package](https://github.com/jwiegley/use-package)を利用していましたが、一日掛けて[leaf.el](https://github.com/conao3/leaf.el)に移行してみました。leaf.elの利点や移行時の注意などをまとめたいと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## use-packageに感じていた問題点 {#use-packageに感じていた問題点}

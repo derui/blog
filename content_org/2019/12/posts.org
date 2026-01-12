@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/12
+#+HUGO_SECTION: posts/2019/12
 
-* DONE OCamlの開発環境2019末                                 :OCaml:開発環境:
+* ✨ OCamlの開発環境2019末                                 :OCaml:開発環境:
 CLOSED: [2019-12-03 火 08:29]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_development_env_2019
@@ -85,7 +85,7 @@ ocamldocという、コンパイラに付属している同様のツールもあ
 
 明日は・・・決まっていないですが、多分誰か書いてくれるでしょう。
 
-* DONE OCamlとTypeScriptをProtocal Buffersでつないでみる :OCaml:TypeScript:ProtocolBuffers:
+* ✨ OCamlとTypeScriptをProtocal Buffersでつないでみる :OCaml:TypeScript:ProtocolBuffers:
 CLOSED: [2019-12-22 日 15:59]
 :PROPERTIES:
 :EXPORT_FILE_NAME: connect_ocaml_and_typescript_with_protocol_buffers

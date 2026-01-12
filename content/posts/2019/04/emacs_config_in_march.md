@@ -2,14 +2,14 @@
 title = "Emacsの設定を色々いじった -その１-"
 author = ["derui"]
 date = 2019-04-04T22:28:00+09:00
-lastmod = 2020-09-22T13:00:25+09:00
+lastmod = 2026-01-12T17:17:49+09:00
 tags = ["Emacs"]
 draft = false
 +++
 
 いろいろ書くネタを探しているうちに4月になってしまったので、3月にやったEmacs改善について書いてみようかと思います。結構量が多くなったので、分割します。
 
-<!--more-->
+&lt;!--more--&gt;
 
 なお、かなりの部分で [Emacsモダン化計画 -かわEmacs編-](https://qiita.com/Ladicle/items/feb5f9dce9adf89652cf) を参考にさせていただきました。私の.emacs.dはGithubにおいてあります。
 
@@ -97,7 +97,7 @@ evil-leaderでも普通に動くので、leaderキーに色々割り当てても
 
 [company-box](https://github.com/sebastiencs/company-box)
 
-補完インターフェースのcompanyにおいて、UIをEmacs 26から搭載されたchild frameを利用することで、今どきのVS CodeやIDEっぽいlook & faceを実現します。
+補完インターフェースのcompanyにおいて、UIをEmacs 26から搭載されたchild frameを利用することで、今どきのVS CodeやIDEっぽいlook &amp; faceを実現します。
 
 実は家のデスクトップ（Linux）でインストールしたとき、ノートPC上の仮想マシンで動いているEmacs上よりも遅い！？ということがありました。
 

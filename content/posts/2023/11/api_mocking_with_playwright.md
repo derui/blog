@@ -1,5 +1,5 @@
 +++
-title = "PlaywrightでのAPIモッキングをどうやっていくか"
+title = "DONE PlaywrightでのAPIモッキングをどうやっていくか"
 author = ["derui"]
 date = 2023-11-04T09:51:00+09:00
 tags = ["Playwright"]
@@ -165,7 +165,7 @@ $ cat recorder.json
 
 -   `localhost:3000` にアクセスをプロキシ
 -   テキストは全部別ファイルへ
--   同じAPI(POST/PUT/DELETEなど)の繰り返し実行をシナリオにはしない
+-   同じAPI(POSTS/PUT/DELETEなど)の繰り返し実行をシナリオにはしない
 
 という条件でrecordingすることができます。recordingされたものは、wiremockにおいてはmappingと呼ばれるファイルに記載されていく感じですね。実際にはAPIアクセス毎にmappingが作成されます。ちなみに同じ内容だったとしても全部違うmappingになるので、結構狙ったときだけやらないと、分量がエグいことになるかなーと思ってます。また、wiremockは非常に高機能で、リクエストの値を一部利用してレスポンスを書き換えたり、ということができます。
 

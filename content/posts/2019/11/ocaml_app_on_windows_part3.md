@@ -2,7 +2,7 @@
 title = "Windows上でOCamlアプリケーションを動かす デバッグ編"
 author = ["derui"]
 date = 2019-11-11T21:36:00+09:00
-lastmod = 2019-11-11T21:36:27+09:00
+lastmod = 2026-01-12T17:18:28+09:00
 tags = ["OCaml", "Windows"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 第三回は、Cross Compileできたものの、上手く動かない、というときに役立つデバッグについて書きます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Cross Compileしたバイナリの難しさ {#cross-compileしたバイナリの難しさ}

@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2022/01
+#+HUGO_SECTION: posts/2022/01
 #+AUTHOR: derui
 
-* DONE Rust + YewでTypeScript + Reactをリライトしてみた          :Rust:OCaml:
+* ✨ Rust + YewでTypeScript + Reactをリライトしてみた          :Rust:OCaml:
 CLOSED: [2022-01-10 月 13:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: rewrite_with_rust_and_yew

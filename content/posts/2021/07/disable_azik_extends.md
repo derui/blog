@@ -2,7 +2,7 @@
 title = "あえてAZIKの拡張を無効化するという選択肢"
 author = ["derui"]
 date = 2021-07-11T11:02:00+09:00
-lastmod = 2021-07-11T11:03:00+09:00
+lastmod = 2026-01-12T17:23:26+09:00
 tags = ["雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 以前AZIK + SKKを利用している、という記事を書きましたが、今回はちょっとそれから色々アップデートをかましたので、それについて書きます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## AZIK + SKKの問題 {#azik-plus-skkの問題}

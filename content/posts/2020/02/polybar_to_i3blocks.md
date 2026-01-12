@@ -2,7 +2,7 @@
 title = "polybarからi3blocksに乗り換えてみた"
 author = ["derui"]
 date = 2020-02-21T16:01:00+09:00
-lastmod = 2020-09-22T12:56:26+09:00
+lastmod = 2026-01-12T17:19:49+09:00
 tags = ["Linux"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 時事ネタは置いといて、最近デスクトップのbarをpolybarからi3blockに移行したので、なんで移行したのかとかを書いておこうかと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## i3blocks {#i3blocks}
@@ -40,7 +40,7 @@ i3blocksは1.4まではデフォルトでmoduleを用意していましたが、
 
 ## i3blocksの設定 {#i3blocksの設定}
 
-```conf
+```cfg
 color=#8fa1b3
 
 [title]

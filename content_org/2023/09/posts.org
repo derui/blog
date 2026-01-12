@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/09
+#+hugo_section: posts/2023/09
 #+author: derui
 
-* DONE pnpmでworkspaceを運用するときの構成を考えてみた :TypeScript:pnpm:
+* ✨ pnpmでworkspaceを運用するときの構成を考えてみた :TypeScript:pnpm:
 CLOSED: [2023-09-18 月 22:59]
 :PROPERTIES:
 :EXPORT_FILE_NAME: pnpm_workspace_thinking

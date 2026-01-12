@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2024/11
+#+hugo_section: posts/2024/11
 #+author: derui
 
-* DONE Ollamaをnixos上で使えるようにしてみる :Linux:
+* ✨ Ollamaをnixos上で使えるようにしてみる :Linux:
 CLOSED: [2024-11-02 土 13:46]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use-ollama-on-nixos
@@ -99,7 +99,7 @@ GPUを利用するように設定すると、CPUと比較しても10倍程度高
 Emacs上だとcopilotとか使ってても邪魔すぎて（overlayなので）、現時点では切っているくらいなので。実は [[https://github.com/bernardo-bruning/ollama-copilot]] という、ollamaをcopilotとして（かなり無理矢理）使う、というツールも見つけたので、これを使ってみようともしました。
 が、Emacsからだと *ollama-copilotを使うためにGitHub Copilotにloginしないといけない* というなんともかんともな感じになってしまったので、今回記事にはしていません。またなんか進捗があれば書こうかなと思います。
 
-* DONE tabbyをvulkanで使えるようにしてみた :Linux:
+* ✨ tabbyをvulkanで使えるようにしてみた :Linux:
 CLOSED: [2024-11-14 木 23:26]
 :PROPERTIES:
 :EXPORT_FILE_NAME: tabby-with-vulkan

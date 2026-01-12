@@ -2,7 +2,7 @@
 title = "OCamlでSchemeを実装してみている"
 author = ["derui"]
 date = 2021-01-24T09:51:00+09:00
-lastmod = 2021-01-24T09:51:36+09:00
+lastmod = 2026-01-12T17:22:45+09:00
 tags = ["OCaml"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 最近引っ越しにかこつけて、環境をいろいろ変更しています。その話でもう一回くらい書けるネタはあるんですが、今回はなんとなく始めたOCamlでのScheme実装について書いてみたいと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## とりあえずリポジトリ {#とりあえずリポジトリ}
@@ -44,7 +44,7 @@ draft = false
 
 昔探したとき、なんかいろいろあったよなー・・・と思いながら探していたら、こんなのを見つけました。
 
-<https://www.cs.utexas.edu/ftp/garbage/cs345/schintro-v13/schintro%5Ftoc.html>
+<https://www.cs.utexas.edu/ftp/garbage/cs345/schintro-v13/schintro_toc.html>
 
 本当に最小限の実装から、lambdaやmacroの実装、compilerの実装とかまで進んでいくようで、結構分量が多いです。ちなみにこの資料だと、schemeでschemeするタイプなので、OCamlで実装する場合は前提になっているいろいろなものを事前に実装する必要があったりします。
 

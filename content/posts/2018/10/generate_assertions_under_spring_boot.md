@@ -3,7 +3,7 @@ title = "Spring Boot + Gradle + AssertJでAssertJ generatorを実行するTips"
 author = ["derui"]
 date = 2018-10-23T09:50:00+09:00
 publishDate = 2018-10-23T00:00:00+09:00
-lastmod = 2020-09-22T13:03:11+09:00
+lastmod = 2026-01-12T17:17:06+09:00
 tags = ["java"]
 draft = false
 +++
@@ -12,7 +12,7 @@ draft = false
 
 それはともあれ、それぞれのプロジェクトでSpring Bootを触ることになりました。これまた人生初です。そんなときになかなか解決しなかったことについて書きます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 今回やりたいことは以下のような感じです。他にもいろいろありますが、今回は絞っています。
 
@@ -129,11 +129,11 @@ Spring BootのBootable Jarは、いろいろと実現するために、repackage
 
 そこで、こんなスニペットを入れてbuildしてみると、もともと生成されるであろう、小さいjarが作成されます。
 
-\#+build\_src groovy
+\#+build_src groovy
 jar {
   enabled = true
 }
-\#+end\_src
+\#+end_src
 
 この状態でassertjGenを実行すると、無事に作成できます。ただ、assertjGenを実行する前には、上の設定が有効になっている必要があります。
 

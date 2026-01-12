@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2024/05
+#+hugo_section: posts/2024/05
 #+author: derui
 
-* DONE 自分でかな配列を計算してみた :Rust:
+* ✨ 自分でかな配列を計算してみた :Rust:
 CLOSED: [2024-05-26 日 10:31]
 :PROPERTIES:
 :EXPORT_FILE_NAME: keymap_generator_with_rust
@@ -240,12 +240,6 @@ https://github.com/derui/keymap-generator/blob/d11dbc504397a12381fc50ee1ca127a58
 
 
 また、ある程度使い込んでみないとわからないものもあるので、しばらくは頑張って使っていこうと思います。
-
-* TODO QMKでかな配列を使いつつ英字も入れられるようにする :Keyboard:
-:PROPERTIES:
-:EXPORT_FILE_NAME: alphabet_mode_for_qmk
-:END:
-
 
 
 * comment Local Variables                                           :ARCHIVE:

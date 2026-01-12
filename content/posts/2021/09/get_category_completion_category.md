@@ -2,14 +2,14 @@
 title = "completion-category-overridesで使う値を取得する"
 author = ["derui"]
 date = 2021-09-04T13:01:00+09:00
-lastmod = 2021-09-04T13:01:42+09:00
+lastmod = 2026-01-12T17:23:37+09:00
 tags = ["Emacs"]
 draft = false
 +++
 
 今回は超小ネタです。
 
-<!--more-->
+&lt;!--more--&gt;
 
 最近はEmacs上でのcompletionとして、[orderless](https://github.com/oantolin/orderless)などの標準のcompletion-readなどに則ったものを利用してます。Emacsの標準補完は、実はかなり柔軟性に富んでいて、様々なカスタマイズが可能になっています。
 

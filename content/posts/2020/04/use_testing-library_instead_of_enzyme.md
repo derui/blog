@@ -2,7 +2,7 @@
 title = "Enzymeの代わりにtesting-libraryを使うようにしてみた"
 author = ["derui"]
 date = 2020-04-05T13:47:00+09:00
-lastmod = 2020-09-22T12:55:40+09:00
+lastmod = 2026-01-12T17:20:23+09:00
 tags = ["JavaScript"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今まで、ReactとかのIntegration testには[enzyme](https://enzymejs.github.io/enzyme/)を使っていましたが、[Preact](https://preactjs.com/)に切り替えた際に課題が多発したため、なんとかして解決してみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Preact + Enzymeの課題 {#preact-plus-enzymeの課題}

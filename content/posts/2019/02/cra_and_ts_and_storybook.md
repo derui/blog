@@ -2,14 +2,14 @@
 title = "Create React App + TypeScriptにStorybookを追加してみる"
 author = ["derui"]
 date = 2019-02-23T11:17:00+09:00
-lastmod = 2020-09-22T13:01:28+09:00
+lastmod = 2026-01-12T17:17:42+09:00
 tags = ["JavaScript", "TypeScript"]
 draft = false
 +++
 
 タイトルの通り、CRA2 + TypeScriptのプロジェクトに、更にStorybookを追加してみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 前口上 {#前口上}

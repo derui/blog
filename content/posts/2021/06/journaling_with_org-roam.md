@@ -2,7 +2,7 @@
 title = "org-roamでjournalを書いてみている"
 author = ["derui"]
 date = 2021-06-05T15:15:00+09:00
-lastmod = 2021-06-05T15:15:49+09:00
+lastmod = 2026-01-12T17:23:17+09:00
 tags = ["雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回はライトな話題で、org-roamでjournalを書くようにしてみている話です。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## org-roamとは {#org-roamとは}
@@ -31,7 +31,7 @@ org-roamはローカルでだけ動作するので、特にサーバーとか不
 
 org-roamは、org-modeよろしく非常に多彩な機能が含まれていますが、その中に `dailies` という機能があります。
 
-<https://www.orgroam.com/manual.html#Daily%5F002dnotes>
+<https://www.orgroam.com/manual.html#Daily_002dnotes>
 
 org-journalほどは機能があるわけではないけど、必要最低限の機能はあって、かつroamと統合されている・・・というようなのが特徴です。
 

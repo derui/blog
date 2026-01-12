@@ -2,7 +2,7 @@
 title = "hygen.ioでboilerplateを自動生成すると捗る話"
 author = ["derui"]
 date = 2020-02-29T16:54:00+09:00
-lastmod = 2020-09-22T10:42:30+09:00
+lastmod = 2026-01-12T17:19:56+09:00
 tags = ["JavaScript"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回は、最近使い始めて結構いい感じになってきた、hygen.ioについてです。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## hygen.ioとは {#hygen-dot-ioとは}

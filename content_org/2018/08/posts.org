@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2018/08
+#+HUGO_SECTION: posts/2018/08
 
-* DONE ブログをHugo + Netlifyで作りました                              :雑記:
+* ✨ ブログをHugo + Netlifyで作りました                              :雑記:
 CLOSED: [2018-08-30 木 23:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: create_blog_with_hugo_and_netlify
@@ -56,7 +56,7 @@ ox-hugoは、 *org fileをmarkdownにexportするbackend* です。backendとは
 というフローでやっていきます。
 
 ** 決めかねてる点
-Hugoだと基本的に =post/<ファイル名>= 、という形式になるようですが、個人的にはいつ書いたか？をURLに入れておきたいです。
+Hugoだと基本的に =posts/<ファイル名>= 、という形式になるようですが、個人的にはいつ書いたか？をURLに入れておきたいです。
 
 ただ、色々な人の構成を見ている限りでは、日時はHugoに任せて、タイトルだけにしているケースが多いようでした。
 郷に入れば郷に従え、ということでとりあえず従っておきますが、なんかモヤモヤします。

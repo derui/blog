@@ -1,10 +1,9 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/05
+#+hugo_section: posts/2023/05
 #+author: derui
-
-* DONE reduxにおけるactionのパターンを考える :TypeScript:Redux:
+* ✨ reduxにおけるactionのパターンを考える :TypeScript:Redux:
 CLOSED: [2023-05-07 日 09:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: redux_action_pattern

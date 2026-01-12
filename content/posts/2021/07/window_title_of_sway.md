@@ -2,7 +2,7 @@
 title = "swayでwindowのタイトルを出したい"
 author = ["derui"]
 date = 2021-07-07T20:37:00+09:00
-lastmod = 2021-07-07T20:37:42+09:00
+lastmod = 2026-01-12T17:23:25+09:00
 tags = ["Linux"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回も大分ライトな話題で、swayに今利用しているアプリケーションのタイトルを出したいという話です。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## swayとswaybar {#swayとswaybar}

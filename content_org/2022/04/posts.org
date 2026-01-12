@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2022/04
+#+HUGO_SECTION: posts/2022/04
 #+AUTHOR: derui
 
-* DONE TypeScriptで超シンプルなDIコンテナっぽいのを作ってみた :TypeScript:Emacs:
+* ✨ TypeScriptで超シンプルなDIコンテナっぽいのを作ってみた :TypeScript:Emacs:
 CLOSED: [2022-04-03 日 13:57]
 :PROPERTIES:
 :EXPORT_FILE_NAME: dependency_registrar
@@ -157,7 +157,7 @@ Angular2とかの時代、これ自体黒魔術とか言われるレベルだっ
 
 こんな感じにシンプルなものでも、わりと実用に耐えそうだったので、下手に再利用を考えすぎるよりも、30分でさくっと作ってさくっと捨てられるようなものにするというのもありではないでしょうか。
 
-* DONE Emacsでperspective.elを使い始めた                              :Emacs:
+* ✨ Emacsでperspective.elを使い始めた                              :Emacs:
 CLOSED: [2022-04-23 土 14:24]
 :PROPERTIES:
 :EXPORT_FILE_NAME: perspective-el

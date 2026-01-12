@@ -2,7 +2,7 @@
 title = "Emacsのinit.elをorgで書く方法と、変更時に楽をしてみる"
 author = ["derui"]
 date = 2021-03-13T13:25:00+09:00
-lastmod = 2021-03-13T13:25:41+09:00
+lastmod = 2026-01-12T17:22:51+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、最近Emacsのinit.elをorgで書くようにしてみたのと、ちょっとした工夫をしてみたので、それについて書いてみます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## なぜinit.elをorgファイルにするのか {#なぜinit-dot-elをorgファイルにするのか}
@@ -123,7 +123,7 @@ Vim/Visual Studio Codeに押されているEmacsですが、すでに1x年使っ
 
 -   <https://orgmode.org/worg/org-contrib/babel/>
     -   org-babelのサイト
--   [Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する](https://taipapamotohus.com/post/init%5Forg/)
+-   [Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する](https://taipapamotohus.com/posts/init_org/)
     -   init.el自体を書きかえるのではなく、init.orgから別の場所に生成して、それをinit.elから読み込むスタイル
 -   [俺、ちゃんと全部管理してます（org-modeでinit.elを管理する）](http://blog.lambda-consulting.jp/2015/11/20/article/)
     -   上でもリンクされている

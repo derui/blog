@@ -2,7 +2,7 @@
 title = "Windows上でOCamlアプリケーションを動かす パッケージ編"
 author = ["derui"]
 date = 2019-10-21T22:31:00+09:00
-lastmod = 2019-10-21T22:31:03+09:00
+lastmod = 2026-01-12T17:18:23+09:00
 tags = ["OCaml"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 第一回は、OCamlのcross compile事情について書きたいと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Cross compileとは {#cross-compileとは}

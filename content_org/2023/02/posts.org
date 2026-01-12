@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/02
+#+hugo_section: posts/2023/02
 #+author: derui
 
-* DONE 直接importとalias import :TypeScript:
+* ✨ 直接importとalias import :TypeScript:
 CLOSED: [2023-02-25 土 17:52]
 :PROPERTIES:
 :EXPORT_FILE_NAME: named_import_vs_alias_import

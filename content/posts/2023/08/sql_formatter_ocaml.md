@@ -1,7 +1,7 @@
 +++
 title = "OCamlでSQL formatter を作ってみた"
 author = ["derui"]
-date = 2026-01-12T16:48:00+09:00
+date = 2023-08-12T16:48:00+09:00
 tags = ["OCaml"]
 draft = false
 +++

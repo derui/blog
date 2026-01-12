@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2020/04
+#+HUGO_SECTION: posts/2020/04
 
-* DONE Enzymeの代わりにtesting-libraryを使うようにしてみた       :JavaScript:
+* ✨ Enzymeの代わりにtesting-libraryを使うようにしてみた       :JavaScript:
 CLOSED: [2020-04-05 日 13:47]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_testing-library_instead_of_enzyme
@@ -121,7 +121,7 @@ testing-libraryを使うと、propsの ~onXxx~ を実行して〜というのは
 
 無論、現在Enzymeを使っていて問題になっていない、とかtesting-libraryと意見の相違がある、というのであれば、無理して使う必要はないと思います。ただ、なんかcomponentのpropsを取得したりすることに違和感を感じる方は、一回触ってみてはいかがでしょうか。
 
-* DONE qmk_firmwareの日本語配列からかな入力をする                      :雑記:
+* ✨ qmk_firmwareの日本語配列からかな入力をする                      :雑記:
 CLOSED: [2020-04-29 水 12:01]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_kana_from_qmk

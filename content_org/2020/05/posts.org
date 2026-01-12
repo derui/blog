@@ -2,10 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
-#+hugo_section: post/2020/05
+#+hugo_section: posts/2020/05
 #+AUTHOR: derui
 
-* DONE cmigemoの代わりに自作のmigemoを使うようにしてみた         :JavaScript:
+* ✨ cmigemoの代わりに自作のmigemoを使うようにしてみた         :JavaScript:
 CLOSED: [2020-05-05 火 10:52]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_selfmade_migemo

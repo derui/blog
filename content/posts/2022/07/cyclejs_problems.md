@@ -2,7 +2,7 @@
 title = "Cycle.jsでやってたらドハマリしまくった話"
 author = ["derui"]
 date = 2022-09-01T22:22:00+09:00
-lastmod = 2022-09-01T22:22:18+09:00
+lastmod = 2026-01-12T17:24:17+09:00
 tags = ["JavaScript", "TypeScript"]
 draft = false
 +++

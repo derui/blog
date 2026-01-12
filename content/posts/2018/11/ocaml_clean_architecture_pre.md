@@ -3,14 +3,14 @@ title = "OCamlでClean Architectureもどき"
 author = ["derui"]
 date = 2018-11-04T17:06:00+09:00
 publishDate = 2018-11-04T00:00:00+09:00
-lastmod = 2020-09-22T13:02:41+09:00
+lastmod = 2026-01-12T17:17:18+09:00
 tags = ["OCaml"]
 draft = false
 +++
 
 このところOCamlでアプリケーションをほそぼそと作っているのですが、その過程でClean Architectureっぽいものを採用してみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 作っているアプリケーション自体は、完全に趣味の領域のものなのでまだ公開していません。ただ、OCamlであってもなんであっても、ある程度の規模になったらなんらかの方法論は必要かな、と思い始めました。
 

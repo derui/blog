@@ -2,7 +2,7 @@
 title = "mozcの候補をposframeで表示するEmacs拡張を作った"
 author = ["derui"]
 date = 2019-06-07T09:54:00+09:00
-lastmod = 2020-09-22T12:59:34+09:00
+lastmod = 2026-01-12T17:17:59+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、今回はmozcの候補表示pluginを作ってみたというお話です。
 
-<!--more-->
+&lt;!--more--&gt;
 
 <https://github.com/derui/mozc-posframe>
 

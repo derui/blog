@@ -3,14 +3,14 @@ title = "自作キーボードを作ってみた：作成編"
 author = ["derui"]
 date = 2018-09-30T15:32:00+09:00
 publishDate = 2018-09-30T00:00:00+09:00
-lastmod = 2020-09-22T13:03:56+09:00
+lastmod = 2026-01-12T17:16:40+09:00
 tags = ["自作キーボード"]
 draft = false
 +++
 
 以前の記事で、キーボードを自作するために色々と注文していましたが、一通り届いたので、実際に作ってみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Irisのキットの内容 {#irisのキットの内容}
@@ -71,7 +71,7 @@ draft = false
 
 ## ところでキーマップは？ {#ところでキーマップは}
 
-[こちら](https://github.com/derui/qmk%5Ffirmware/blob/master/keyboards/iris/keymaps/derui/keymap.c) です。
+[こちら](https://github.com/derui/qmk_firmware/blob/master/keyboards/iris/keymaps/derui/keymap.c) です。
 
 今までのErgodox EZを再現することは当たり前に出来ないので、まだ試行錯誤しています。
 

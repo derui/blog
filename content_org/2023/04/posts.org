@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/04
+#+hugo_section: posts/2023/04
 #+author: derui
 
-* DONE 最近知ったOCamlの小ネタ :OCaml:
+* ✨ 最近知ったOCamlの小ネタ :OCaml:
 CLOSED: [2023-04-09 日 07:57]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_small_tips

@@ -2,7 +2,7 @@
 title = "手動で作るReact + TypeScript環境（2019/8版）"
 author = ["derui"]
 date = 2019-08-21T22:27:00+09:00
-lastmod = 2020-09-22T12:58:46+09:00
+lastmod = 2026-01-12T17:18:12+09:00
 tags = ["JavaScript"]
 draft = false
 +++
@@ -13,7 +13,7 @@ draft = false
 
 そういうときに備えて（？）、０から環境を作ってみましょう。こういう経験をしておくと、ejectすること無くいろいろすることが出来ます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 今回作っていって見る環境は、次のような環境です。
 
@@ -268,7 +268,7 @@ module.exports = {
 
 ## prettierの追加 {#prettierの追加}
 
-フォーマットは、四の五の言わずprettierを使います。prettier\_dを導入しているのは、Emacsで開発する際に、prettierをそのまま使っているとめっちゃ重いからです。
+フォーマットは、四の五の言わずprettierを使います。prettier_dを導入しているのは、Emacsで開発する際に、prettierをそのまま使っているとめっちゃ重いからです。
 
 ```sh
 $ npm install prettier prettier_d

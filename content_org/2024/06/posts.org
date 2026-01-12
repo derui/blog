@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2024/06
+#+hugo_section: posts/2024/06
 #+author: derui
 
-* DONE QMKでかな配列を使いつつ英字も入れられるようにする :Keyboard:
+* ✨ QMKでかな配列を使いつつ英字も入れられるようにする :Keyboard:
 CLOSED: [2024-06-02 日 14:59]
 :PROPERTIES:
 :EXPORT_FILE_NAME: alphabet_mode_for_qmk
@@ -131,7 +131,7 @@ https://github.com/derui/qmk_firmware/tree/master/keyboards/lily58/keymaps/derui
 
 ただ、そこに対して工夫する、というのもまた楽しめるところだとおもいます。
 
-* DONE Meowからryo-modalに切り替えてみた :Emacs:
+* ✨ Meowからryo-modalに切り替えてみた :Emacs:
 CLOSED: [2024-06-23 日 14:22]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ryo-modal

@@ -3,7 +3,7 @@ title = "crkbdを作った"
 author = ["derui"]
 date = 2018-12-01T10:12:00+09:00
 publishDate = 2018-11-18T00:00:00+09:00
-lastmod = 2020-09-22T11:22:07+09:00
+lastmod = 2026-01-12T17:17:21+09:00
 tags = ["自作キーボード"]
 draft = false
 +++
@@ -12,14 +12,14 @@ draft = false
 
 なお、私が作ったのは **マットブラック** です。ボトムプレートはアクリルです。
 
-<!--more-->
+&lt;!--more--&gt;
 
 以前のcrkbdは、以前作ったirisと同じダイオード式でしたが、Corne Cherryは [表面実装ダイオード](https://www.google.com/search?q=%25E8%25A1%25A8%25E9%259D%25A2%25E5%25AE%259F%25E8%25A3%2585%25E3%2583%2580%25E3%2582%25A4%25E3%2582%25AA%25E3%2583%25BC%25E3%2583%2589) を利用するようになっています。今回はこいつとPCBソケットが課題となりました。
 
 
 ## 色々購入 {#色々購入}
 
-表面実装ダイオードを利用するというのはもうわかっていたので、[逆作用ピンセット](https://www.amazon.co.jp/gp/product/B01LZBSUSP/ref=as%5Fli%5Fss%5Ftl?ie=UTF8&psc=1&linkCode=ll1&tag=derui09-22&linkId=0c723b05935d036348311c247e76f103&language=ja%5FJP)を購入しました。
+表面実装ダイオードを利用するというのはもうわかっていたので、[逆作用ピンセット](https://www.amazon.co.jp/gp/product/B01LZBSUSP/ref=as_li_ss_tl?ie=UTF8&psc=1&linkCode=ll1&tag=derui09-22&linkId=0c723b05935d036348311c247e76f103&language=ja_JP)を購入しました。
 
 それ以外は、 [遊佐工房](https://yushakobo.jp/) さんから購入しました。今回のキースイッチは Kailh Speedの銀軸にしました。キーキャップは、irisを作った時に余ったものと、Ergodox EZから引っ剥がして使いました。
 

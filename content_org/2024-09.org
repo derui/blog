@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2024/09
+#+hugo_section: posts/2024/09
 #+author: derui
 
-* DONE Flymakeでのlint結果などの表示方法 :Emacs:
+* ✨ Flymakeでのlint結果などの表示方法 :Emacs:
 CLOSED: [2024-09-16 月 10:46]
 :PROPERTIES:
 :EXPORT_FILE_NAME: emacs_flymake_popon

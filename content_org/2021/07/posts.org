@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/07
+#+HUGO_SECTION: posts/2021/07
 #+AUTHOR: derui
 
-* DONE swayでwindowのタイトルを出したい                               :Linux:
+* ✨ swayでwindowのタイトルを出したい                               :Linux:
 CLOSED: [2021-07-07 水 20:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: window_title_of_sway
@@ -80,7 +80,7 @@ CSSですが、これはかなり巨大なので、 https://github.com/derui/dot
 
 ちなみに私は結構デフォルトで満足してしまう(最近はデフォルトでも十分なケースが多い)方ですが、やりづらい場所はできるだけ改善していきたいなぁ、と思ってます。
 
-* DONE あえてAZIKの拡張を無効化するという選択肢                        :雑記:
+* ✨ あえてAZIKの拡張を無効化するという選択肢                        :雑記:
 CLOSED: [2021-07-11 日 11:02]
 :PROPERTIES:
 :EXPORT_FILE_NAME: disable_azik_extends

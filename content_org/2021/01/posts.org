@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/01
+#+HUGO_SECTION: posts/2021/01
 #+AUTHOR: derui
 
-* DONE OCamlでSchemeを実装してみている                                :OCaml:
+* ✨ OCamlでSchemeを実装してみている                                :OCaml:
 CLOSED: [2021-01-24 日 09:51]
 :PROPERTIES:
 :EXPORT_FILE_NAME: implementing_scheme_by_ocaml

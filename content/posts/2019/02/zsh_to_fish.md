@@ -2,7 +2,7 @@
 title = "zshからfishに移行してみた"
 author = ["derui"]
 date = 2019-02-12T22:23:00+09:00
-lastmod = 2020-09-22T11:21:11+09:00
+lastmod = 2026-01-12T17:17:38+09:00
 tags = ["Shell", "zsh", "fish"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 それは置いておいて、つい最近zshからfishへ移行してみましたので、関連する諸々をメモしていこうかと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 fishや他のdotfilesは以下で管理しています。
 

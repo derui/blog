@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2020/12
+#+HUGO_SECTION: posts/2020/12
 #+AUTHOR: derui
 
-* DONE 引っ越ししたのでPCを新調した話                                  :雑記:
+* ✨ 引っ越ししたのでPCを新調した話                                  :雑記:
 CLOSED: [2020-12-12 土 11:06]
 :PROPERTIES:
 :EXPORT_FILE_NAME: make_new_pc
@@ -124,7 +124,7 @@ Realtekか・・・。でも今までもRealtekだったしなー、と思いな
 
 今回の教訓としては、新しいNICが入る場合、動作済みのUSB NICとかをお守りに持っておくのを推奨します。特に最近はネットワークにつながっていないとOSのインストールすらできないのがほとんどなので・・・。
 
-* DONE Linux環境をいろいろ変えた話                                     :雑記:
+* ✨ Linux環境をいろいろ変えた話                                     :雑記:
 CLOSED: [2020-12-21 月 21:18]
 :PROPERTIES:
 :EXPORT_FILE_NAME: renewal_desktop_environment

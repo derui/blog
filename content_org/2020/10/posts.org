@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2020/10
+#+HUGO_SECTION: posts/2020/10
 #+AUTHOR: derui
 
-* DONE ctypesをduneで使っていく方法                                   :OCaml:
+* ✨ ctypesをduneで使っていく方法                                   :OCaml:
 CLOSED: [2020-10-07 水 21:25]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ctypes_with_dune

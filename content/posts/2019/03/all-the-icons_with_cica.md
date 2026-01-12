@@ -2,7 +2,7 @@
 title = "all-the-iconsとCicaの組み合わせでアイコンがずれる"
 author = ["derui"]
 date = 2019-03-09T17:38:00+09:00
-lastmod = 2020-09-22T13:00:48+09:00
+lastmod = 2026-01-12T17:17:45+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 原因を探ったり何なりで解決できたので、備忘録として残しておきます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 発生していた事象 {#発生していた事象}

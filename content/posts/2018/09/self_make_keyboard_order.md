@@ -2,14 +2,14 @@
 title = "自作キーボードを作ってみた：注文編"
 author = ["derui"]
 date = 2018-09-11T22:13:00+09:00
-lastmod = 2020-09-22T11:21:48+09:00
+lastmod = 2026-01-12T17:16:35+09:00
 tags = ["自作キーボード"]
 draft = false
 +++
 
 個人的には2年くらい前から [Ergodox EZ](https://ergodox-ez.com/) を使ってきました。セパレート式に目覚めたのはこれが契機で、自宅も仕事場もErgodoxに統一しています。ただ、不満がないかというとそうでもなく、よりよいキーボードを探していました。そんなとき、半年くらい前から自作キーボードが非常に賑わって来ていることに気づきました。これはムーブメントに乗るしか無い！と半年遅れくらいで乗ることにしました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Ergodoxの不満 {#ergodoxの不満}
@@ -22,7 +22,7 @@ draft = false
 -   人差し指内側のキーが基本死んでる
 -   一番下の段のキーは基本使ってない
 
-など、使っていくうちにどんどんデッドキーが多くなっていきました。それと、個人的にもqmk\_firmwareの挙動に慣れてきたりして、レイヤーを使いこなせるようになってきたことが大きいです。
+など、使っていくうちにどんどんデッドキーが多くなっていきました。それと、個人的にもqmk_firmwareの挙動に慣れてきたりして、レイヤーを使いこなせるようになってきたことが大きいです。
 
 
 ## 自作候補 {#自作候補}
@@ -68,23 +68,23 @@ Keeb.ioでだいたい注文しました。
 工具類とUSBケーブルはAmazonで揃えました。
 
 -   はんだごてとコテ台
-    -   [白光 ダイヤル式温度制御はんだこて FX600](https://www.amazon.co.jp/gp/product/B006MQD7M4/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
-    -   [白光(HAKKO) こて台 633-01](https://www.amazon.co.jp/gp/product/B000TGNWCS/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [白光 ダイヤル式温度制御はんだこて FX600](https://www.amazon.co.jp/gp/product/B006MQD7M4/ref=od_aui_detailpages00?ie=UTF8&psc=1)
+    -   [白光(HAKKO) こて台 633-01](https://www.amazon.co.jp/gp/product/B000TGNWCS/ref=od_aui_detailpages00?ie=UTF8&psc=1)
     -   定番っぽいのでこれに。こういうので奇をてらってもなんにもならないので・・・
 -   はんだ
-    -   [goot 両面プリント基板用はんだ SD-61](https://www.amazon.co.jp/gp/product/B0029LGAKW/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [goot 両面プリント基板用はんだ SD-61](https://www.amazon.co.jp/gp/product/B0029LGAKW/ref=od_aui_detailpages00?ie=UTF8&psc=1)
     -   0.8mmのものがちょうどいいらしいのでこれに
 -   ニッパー
-    -   [goot ニッパー YN-10](https://www.amazon.co.jp/gp/product/B001VB37RK/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [goot ニッパー YN-10](https://www.amazon.co.jp/gp/product/B001VB37RK/ref=od_aui_detailpages00?ie=UTF8&psc=1)
     -   ドライバーとかはあったんですが、なぜかニッパーがなかったのでこれで。鋼線切断能力が1.3mmということで、Pro Microの足も切れるはず
 -   その他
-    -   [エポキシ系接着剤](https://www.amazon.co.jp/gp/product/B003SJI5RU/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [エポキシ系接着剤](https://www.amazon.co.jp/gp/product/B003SJI5RU/ref=od_aui_detailpages00?ie=UTF8&psc=1)
         -   モゲ防止に
-    -   [3M しっかりつくクッションゴム 8x2mm 台形 22粒 CS-04](https://www.amazon.co.jp/gp/product/B00V5MQQIC/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [3M しっかりつくクッションゴム 8x2mm 台形 22粒 CS-04](https://www.amazon.co.jp/gp/product/B00V5MQQIC/ref=od_aui_detailpages00?ie=UTF8&psc=1)
         -   クッションに
-    -   [ユニバーサル基板](https://www.amazon.co.jp/gp/product/B074YFS6MV/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [ユニバーサル基板](https://www.amazon.co.jp/gp/product/B074YFS6MV/ref=od_aui_detailpages00?ie=UTF8&psc=1)
         -   はんだ付けの練習用に
-    -   [マグネット式のUSBケーブル](https://www.amazon.co.jp/gp/product/B074DFF8TB/ref=od%5Faui%5Fdetailpages00?ie=UTF8&psc=1)
+    -   [マグネット式のUSBケーブル](https://www.amazon.co.jp/gp/product/B074DFF8TB/ref=od_aui_detailpages00?ie=UTF8&psc=1)
         -   モゲ防止 + 持ち運び用
         -   1Mはないと部屋で使う時足りないので
     -   これ以外にも、テスターや絶縁テープなど購入しています

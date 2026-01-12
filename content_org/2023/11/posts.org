@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/11
+#+hugo_section: posts/2023/11
 #+author: derui
 
-* DONE PlaywrightでのAPIモッキングをどうやっていくか :Playwright:
+* ✨ PlaywrightでのAPIモッキングをどうやっていくか :Playwright:
 CLOSED: [2023-11-04 土 09:51]
 :PROPERTIES:
 :EXPORT_FILE_NAME: api_mocking_with_playwright
@@ -166,7 +166,7 @@ routeFromHARにあるようなrecording/replayもできます。
 
 - ~localhost:3000~ にアクセスをプロキシ
 - テキストは全部別ファイルへ
-- 同じAPI(POST/PUT/DELETEなど)の繰り返し実行をシナリオにはしない
+- 同じAPI(POSTS/PUT/DELETEなど)の繰り返し実行をシナリオにはしない
 
 
 という条件でrecordingすることができます。recordingされたものは、wiremockにおいてはmappingと呼ばれるファイルに記載されていく感じですね。実際にはAPIアクセス毎にmappingが作成されます。ちなみに同じ内容だったとしても全部違うmappingになるので、結構狙ったときだけやらないと、分量がエグいことになるかなーと思ってます。

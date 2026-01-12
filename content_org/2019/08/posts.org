@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/08
+#+HUGO_SECTION: posts/2019/08
 
-* DONE 手動で作るReact + TypeScript環境（2019/8版）              :JavaScript:
+* ✨ 手動で作るReact + TypeScript環境（2019/8版）              :JavaScript:
 CLOSED: [2019-08-21 水 22:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: handmade_react_typescript

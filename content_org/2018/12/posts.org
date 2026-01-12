@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2018/12
+#+HUGO_SECTION: posts/2018/12
 
-* DONE 2018年のキーボードを振り返る                                    :雑記:
+* ✨ 2018年のキーボードを振り返る                                    :雑記:
    CLOSED: [2018-12-02 日 16:08]
 :PROPERTIES:
 :EXPORT_FILE_NAME: keyboard_in_2018

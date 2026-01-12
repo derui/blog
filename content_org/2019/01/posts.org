@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2019/01
+#+HUGO_SECTION: posts/2019/01
 
-* DONE 格子配列に適したかな入力を模索する                        :日本語入力:
+* ✨ 格子配列に適したかな入力を模索する                        :日本語入力:
    CLOSED: [2019-01-24 木 17:44]
 :PROPERTIES:
 :EXPORT_FILE_NAME: kana_input_for_columner_struggle
@@ -214,7 +214,7 @@ F + B = ・
 
 楽しいことは楽しいので、いろいろ考えてみたいと思います。
 
-* DONE Angularのチュートリアルにngrxでstate管理を追加する :JavaScript:Angular:Programming:
+* ✨ Angularのチュートリアルにngrxでstate管理を追加する :JavaScript:Angular:Programming:
    CLOSED: [2019-01-27 日 16:51]
 :PROPERTIES:
 :EXPORT_FILE_NAME: angular_tutorial_with_state

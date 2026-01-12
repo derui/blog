@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2024/04
+#+hugo_section: posts/2024/04
 #+author: derui
 
-* DONE Alacritty + Nushell + Zellijにしてみた :環境設定:
+* ✨ Alacritty + Nushell + Zellijにしてみた :環境設定:
 CLOSED: [2024-04-04 木 20:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: alacritty_nushell_zellij

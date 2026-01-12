@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/03
+#+hugo_section: posts/2023/03
 #+author: derui
 
-* DONE firebaseをうまいことplaywrightから使う :TypeScript:firebase:playwright:
+* ✨ firebaseをうまいことplaywrightから使う :TypeScript:firebase:playwright:
 CLOSED: [2023-03-20 月 12:58]
 :PROPERTIES:
 :EXPORT_FILE_NAME: firebase_with_playwright

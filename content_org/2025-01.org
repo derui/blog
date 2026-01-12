@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../
-#+hugo_section: post/2025/01
+#+hugo_section: posts/2025/01
 #+author: derui
 
-* DONE Ollamaで利用するmodelのcontext sizeを強制的に変更する :Linux:Ollama:
+* ✨ Ollamaで利用するmodelのcontext sizeを強制的に変更する :Linux:Ollama:
 CLOSED: [2025-02-01 土 17:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: ollama-context-window-problem

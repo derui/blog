@@ -2,10 +2,10 @@
 
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
-#+HUGO_SECTION: post/2020/01
+#+HUGO_SECTION: posts/2020/01
 #+AUTHOR: derui
 
-* DONE Protocol BuffersとJSONの扱い in OCaml                     :日本語入力:
+* ✨ Protocol BuffersとJSONの扱い in OCaml                     :日本語入力:
 CLOSED: [2020-01-13 月 12:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: protocolbuffers_and_json_in_ocaml

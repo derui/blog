@@ -2,7 +2,7 @@
 title = "GraphQL + Kotlin + SpringBootの構成を試してみた(graphql-spring-boot-starter)"
 author = ["derui"]
 date = 2021-10-24T11:56:00+09:00
-lastmod = 2021-10-24T11:56:03+09:00
+lastmod = 2026-01-12T17:23:43+09:00
 tags = ["Kotlin"]
 draft = false
 +++
@@ -21,7 +21,7 @@ GraphQLをKotlin + SpringBootで利用する方法としては、大きく三つ
 
 今回は、graphql-spring-boot-starterを利用してみた感想をば。なお、そもそもGraphQLとは？については、 [公式サイト](https://graphql.org/)を見ましょう。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## セットアップ {#セットアップ}

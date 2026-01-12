@@ -2,7 +2,7 @@
 title = "Recoil.jsを使ってアプリケーションを作ってみた"
 author = ["derui"]
 date = 2021-08-26T21:37:00+09:00
-lastmod = 2021-08-26T21:37:40+09:00
+lastmod = 2026-01-12T17:23:32+09:00
 tags = ["JavaScript"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回は、ひょんなことからガッと作ったアプリケーションで、Recoil.jsを使ってみたのでその話をしようかと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 作ったもの {#作ったもの}

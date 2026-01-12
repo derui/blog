@@ -1,5 +1,5 @@
 +++
-title = "DONE Emacsの起動を高速化してみた"
+title = "Emacsの起動を高速化してみた"
 author = ["derui"]
 date = 2024-07-20T11:13:00+09:00
 tags = ["Emacs"]

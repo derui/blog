@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2020/11
+#+HUGO_SECTION: posts/2020/11
 #+AUTHOR: derui
 
-* DONE GitHub Actionsでrelease processを作ってみた                    :OCaml:
+* ✨ GitHub Actionsでrelease processを作ってみた                    :OCaml:
 CLOSED: [2020-11-08 日 10:17]
 :PROPERTIES:
 :EXPORT_FILE_NAME: release_process_with_gh_action

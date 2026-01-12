@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/05
+#+HUGO_SECTION: posts/2021/05
 #+AUTHOR: derui
 
-* DONE 引越しして半年経過したので振り返ってみる                        :雑記:
+* ✨ 引越しして半年経過したので振り返ってみる                        :雑記:
 CLOSED: [2021-05-20 木 21:05]
 :PROPERTIES:
 :EXPORT_FILE_NAME: review-moving-after-a-half-year

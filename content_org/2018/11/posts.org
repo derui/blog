@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2018/11
+#+HUGO_SECTION: posts/2018/11
 
-* DONE OCamlでClean Architectureもどき                                :OCaml:
+* ✨ OCamlでClean Architectureもどき                                :OCaml:
    CLOSED: [2018-11-04 日 17:06] SCHEDULED: <2018-11-04 日>
 :PROPERTIES:
 :EXPORT_FILE_NAME: ocaml_clean_architecture_pre
@@ -191,7 +191,7 @@ SpringとかのDIライブラリがあれば、この辺をうまくやってく
 
 もっとOCamlに習熟したら、こういう手段に訴えなくても、より楽・堅牢な実装をしていけるかもしれないので、より精進していきたいです。
 
-* DONE crkbdを作った                                         :自作キーボード:
+* ✨ crkbdを作った                                         :自作キーボード:
    CLOSED: [2018-12-01 土 10:12] SCHEDULED: <2018-11-18 日>
 :PROPERTIES:
 :EXPORT_FILE_NAME: made_crkbd

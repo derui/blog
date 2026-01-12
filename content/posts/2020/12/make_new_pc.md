@@ -2,7 +2,7 @@
 title = "引っ越ししたのでPCを新調した話"
 author = ["derui"]
 date = 2020-12-12T11:06:00+09:00
-lastmod = 2020-12-12T11:06:45+09:00
+lastmod = 2026-01-12T17:22:13+09:00
 tags = ["雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 で、引っ越しを期に自作PCを新調したので、それについて書いてみようと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## なんで新調したのか？ {#なんで新調したのか}
@@ -22,12 +22,12 @@ draft = false
 
 Themaltake Urban T81
 
-<https://kakaku.com/item/K0000626152/?cid=shop%5Fyahoo%5Fdsa%5F00010032&yclid=YSS.1000163161.EAIaIQobChMI5MqMh6LH7QIVV3RgCh3HQAkMEAAYAyAAEgLUW%5FD%5FBwE>
+<https://kakaku.com/item/K0000626152/?cid=shop_yahoo_dsa_00010032&yclid=YSS.1000163161.EAIaIQobChMI5MqMh6LH7QIVV3RgCh3HQAkMEAAYAyAAEgLUW_D_BwE>
 
 フルタワーケースで、全高が ****61cm**** あります。このサイズの何が問題というと、実際に問題として感じていたのは以下のような点です。
 
 -   入るPCラックがほとんどない
-    -   入手できそうなもので唯一入りそうだったのが[これ](https://www.amazon.co.jp/PJC-PJC-7201-WD-%E3%80%90%E4%B8%8A%E4%B8%8B%E6%98%87%E9%99%8D-51%EF%BD%9E80cm%E3%80%91%E3%82%B5%E3%82%A4%E3%83%89%E3%83%87%E3%82%B9%E3%82%AF%E3%83%BBL%E5%AD%97%E3%83%87%E3%82%B9%E3%82%AF%E3%83%BBCPU%E3%83%AF%E3%82%B4%E3%83%B3%E3%83%BB%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%AF%E3%82%B4%E3%83%B3/dp/B07W7H6LZ4/ref=asc%5Fdf%5FB07W7H6LZ4/?tag=jpgo-22&linkCode=df0&hvadid=342449963937&hvpos=&hvnetw=g&hvrand=6733612781861752480&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009303&hvtargid=pla-827085345755&psc=1&tag=&ref=&adgrpid=69189144376&hvpone=&hvptwo=&hvadid=342449963937&hvpos=&hvnetw=g&hvrand=6733612781861752480&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009303&hvtargid=pla-827085345755)です。これも割とギリギリまで伸ばさないとならなかった・・・。
+    -   入手できそうなもので唯一入りそうだったのが[これ](https://www.amazon.co.jp/PJC-PJC-7201-WD-%E3%80%90%E4%B8%8A%E4%B8%8B%E6%98%87%E9%99%8D-51%EF%BD%9E80cm%E3%80%91%E3%82%B5%E3%82%A4%E3%83%89%E3%83%87%E3%82%B9%E3%82%AF%E3%83%BBL%E5%AD%97%E3%83%87%E3%82%B9%E3%82%AF%E3%83%BBCPU%E3%83%AF%E3%82%B4%E3%83%B3%E3%83%BB%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%AF%E3%82%B4%E3%83%B3/dp/B07W7H6LZ4/ref=asc_df_B07W7H6LZ4/?tag=jpgo-22&linkCode=df0&hvadid=342449963937&hvpos=&hvnetw=g&hvrand=6733612781861752480&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009303&hvtargid=pla-827085345755&psc=1&tag=&ref=&adgrpid=69189144376&hvpone=&hvptwo=&hvadid=342449963937&hvpos=&hvnetw=g&hvrand=6733612781861752480&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1009303&hvtargid=pla-827085345755)です。これも割とギリギリまで伸ばさないとならなかった・・・。
 -   重い
     -   スチールラックなので当然ですが、重いです。全部部品が組み込んであると、だいたい20kgくらいになるので、ダンボールに入れるのも一苦労です（でした
 -   よく考えたらそこまででかくなくていい

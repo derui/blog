@@ -2,7 +2,7 @@
 title = "Emacsでの補完とかを脱ivy/selectrumした"
 author = ["derui"]
 date = 2021-06-19T15:49:00+09:00
-lastmod = 2021-06-19T15:49:22+09:00
+lastmod = 2026-01-12T17:23:20+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、今回はEmacsの補完をivyから完全に切り替えたのでその話を書こうと思います。とはいえかなりライトなお話ですが。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 補完インターフェースの遍歴 {#補完インターフェースの遍歴}

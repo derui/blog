@@ -2,7 +2,7 @@
 title = "Rustで超簡単なツールを作ってみた"
 author = ["derui"]
 date = 2021-08-07T10:08:00+09:00
-lastmod = 2021-08-15T09:53:13+09:00
+lastmod = 2026-01-12T17:23:30+09:00
 tags = ["Rust"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 少しは別のこともやらんとなぁ、ということで、久し振りにRustを使ってちゃんとしたツールというのを作ってみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 何を作ったのか {#何を作ったのか}
@@ -20,7 +20,7 @@ draft = false
 
 こんなのを作りました。今、個人なナレッジの蓄積として[org-roam](https://www.orgroam.com/)を利用しています。org-modeには、[org-protocol](https://orgmode.org/manual/Protocols.html)という、外部からorg-modeに対してcaptureを行わせることができる仕組みが存在しています。
 
-org-roamにはこれを独自に拡張した、[org-roam-protocol](https://www.orgroam.com/manual.html#Org%5F002droam-Protocol)というものがあります。これを利用すると、webページとかをお手軽にorg-roamにcaptureする・・・ということができます。
+org-roamにはこれを独自に拡張した、[org-roam-protocol](https://www.orgroam.com/manual.html#Org_002droam-Protocol)というものがあります。これを利用すると、webページとかをお手軽にorg-roamにcaptureする・・・ということができます。
 
 が、リンク先のドキュメントを見てもらえばわかるのですが、ファイルを作ったりなんだりと、別段複雑ではないものの、多少手順が必要だったりして、これはこれでなぁ・・・みたいなことを考えました。特にmacOSがめんどくさい。
 

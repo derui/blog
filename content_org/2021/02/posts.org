@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2021/02
+#+HUGO_SECTION: posts/2021/02
 #+AUTHOR: derui
 
-* DONE かな入力を断念してAZIK + SKKになりました                        :雑記:
+* ✨ かな入力を断念してAZIK + SKKになりました                        :雑記:
 CLOSED: [2021-02-23 火 10:05]
 :PROPERTIES:
 :EXPORT_FILE_NAME: switched_kana_to_roma
@@ -120,7 +120,7 @@ switky keyについては、元々SandS/SandEnterという形で、両手でSand
 
 SKKでも多少色々設定をしたりしているので、今度はその話も書ければ。そのときにまだSKKを使っていれば…。
 
-* DONE SKKの辞書サーバーとしてyaskkserv2を使うようにしてみた           :雑記:
+* ✨ SKKの辞書サーバーとしてyaskkserv2を使うようにしてみた           :雑記:
 CLOSED: [2021-02-23 火 10:05]
 :PROPERTIES:
 :EXPORT_FILE_NAME: use_yasskkserv2_as_skk_dic_server

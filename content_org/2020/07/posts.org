@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2020/07
+#+HUGO_SECTION: posts/2020/07
 
-* DONE shellのpipeを使いつつ入力とかを受け付ける方法                  :Linux:
+* ✨ shellのpipeを使いつつ入力とかを受け付ける方法                  :Linux:
 CLOSED: [2020-07-12 日 13:54]
 :PROPERTIES:
 :EXPORT_FILE_NAME: pipe_with_terminal_interactive

@@ -2,7 +2,7 @@
 title = "lambda-termでmulti byteを一文字ずつ表示する"
 author = ["derui"]
 date = 2020-08-01T11:34:00+09:00
-lastmod = 2020-09-22T12:53:45+09:00
+lastmod = 2026-01-12T17:20:49+09:00
 tags = ["OCaml"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回は、OCamlでTUI（Terminal-based User Interface）を作る際の鉄板ライブラリである [lambda-term](https://github.com/ocaml-community/lambda-term) を使ったときに、multi byteを表示出来なかったのを解消したので、備忘録として書いておきます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## やりたかったことと起こっていたこと {#やりたかったことと起こっていたこと}
@@ -45,7 +45,7 @@ LTerm_draw.draw_char ~style ctx 0 1 @@ Zed_string.get 0 str
 val draw_char: ?style:LTerm_style.style -> LTerm_draw.context -> int -> int -> Zed_char.t -> unit
 ```
 
-さて、Zed\_charですが、こいつは [zed](https://github.com/ocaml-community/zed) というライブラリが提供しているmoduleです。こいつはunicodeを保持していて、保持している文字の幅も持っています。 `Zed_char.width` で取得できます。
+さて、Zed_charですが、こいつは [zed](https://github.com/ocaml-community/zed) というライブラリが提供しているmoduleです。こいつはunicodeを保持していて、保持している文字の幅も持っています。 `Zed_char.width` で取得できます。
 
 `LTerm_draw.draw_char` の挙動ですが、基本的にはterminalのascii 1文字を1columnとして描画します。ただ、 `Zed_char.width` が1より大きい場合は、1より大きい分だけSizeHolderというダミー文字で埋めるようになっています。
 

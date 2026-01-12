@@ -2,7 +2,7 @@
 title = "最近はpure CSS + PostCSSを使っている話"
 author = ["derui"]
 date = 2020-06-10T21:07:00+09:00
-lastmod = 2020-09-22T12:54:38+09:00
+lastmod = 2026-01-12T17:20:35+09:00
 tags = ["CSS"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今日は ~~ネタがないので~~ 、最近の趣味におけるCSSの書き方を簡単に書いていきます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## なぜPure CSSに回帰したのか {#なぜpure-cssに回帰したのか}

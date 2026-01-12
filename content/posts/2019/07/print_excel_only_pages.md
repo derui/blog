@@ -2,7 +2,7 @@
 title = "Excelのページ指定印刷をPowerShellでやる方法"
 author = ["derui"]
 date = 2019-07-10T15:14:00+09:00
-lastmod = 2020-09-22T12:59:07+09:00
+lastmod = 2026-01-12T17:18:06+09:00
 tags = ["Emacs"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 その中で、割と調べても出てこなかった事柄をメモしておきます。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## 要望 {#要望}
@@ -65,7 +65,7 @@ draft = false
 | ActivePrinter    | 省略可能   | Variant | アクティブなプリンターの名前を指定します。                                       |
 | PrintToFile      | 省略可能   | Variant | True の場合、ファイルへ出力します。 引数 PrToFileName が省略された場合、出力先のファイル名を指定するためのダイアログ ボックスを表示します。 |
 | Collate          | 省略可能   | Variant | True の場合、部単位で印刷します。                                                |
-| PrToFileName     | 省略可能   | Variant | \_PrintToFile\_がTrueに設定されている場合、この引数は印刷先のファイル名を指定します。 |
+| PrToFileName     | 省略可能   | Variant | \_PrintToFile_がTrueに設定されている場合、この引数は印刷先のファイル名を指定します。 |
 | IgnorePrintAreas | 省略可能   | Variant | True の場合、印刷範囲を無視してオブジェクト全体を印刷します。                    |
 
 これをPrintOutに指定すればいいんじゃね！？ということで、こんな感じにしてみました。

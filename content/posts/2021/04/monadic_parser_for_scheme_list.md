@@ -2,7 +2,7 @@
 title = "Monadic ParserでSchemeのリストをパースする"
 author = ["derui"]
 date = 2021-04-25T09:07:00+09:00
-lastmod = 2021-04-25T09:07:56+09:00
+lastmod = 2026-01-12T17:23:08+09:00
 tags = ["Programming", "Scheme"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 そんな状態ですが、最近チマチマと作っているOCamlでのScheme処理系で、Monadic Parserを作ってみたので、その紹介をちょっとできれば。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Monadic parserとは {#monadic-parserとは}
@@ -28,7 +28,7 @@ draft = false
 
 ## OCamlのapplicable let {#ocamlのapplicable-let}
 
-Haskellだと、Monadの記述にとても役立つ、 **do記法** というのがあります。OCamlには長らくそういうのがなく、PPXとかで各ライブラリごとに拡張を書いていたり、ppx\_letのように汎用的な拡張を利用したり・・・というのが必要でした。
+Haskellだと、Monadの記述にとても役立つ、 **do記法** というのがあります。OCamlには長らくそういうのがなく、PPXとかで各ライブラリごとに拡張を書いていたり、ppx_letのように汎用的な拡張を利用したり・・・というのが必要でした。
 
 が、OCamlの4.08？くらいで導入された `Applicable let` というのを利用すると、do記法と同じような記述を、OCamlらしく記述することができます。
 

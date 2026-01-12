@@ -3,9 +3,9 @@
 #+HUGO_BASE_DIR: ../../../
 #+HUGO_AUTO_SET_LASTMOD: t
 #+AUTHOR: derui
-#+HUGO_SECTION: post/2020/06
+#+HUGO_SECTION: posts/2020/06
 
-* DONE 最近はpure CSS + PostCSSを使っている話                           :CSS:
+* ✨ 最近はpure CSS + PostCSSを使っている話                           :CSS:
 CLOSED: [2020-06-10 水 21:07]
 :PROPERTIES:
 :EXPORT_FILE_NAME: pure_css_with_postcss

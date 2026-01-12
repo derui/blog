@@ -2,14 +2,14 @@
 title = "Angularのチュートリアルにngrxでstate管理を追加する"
 author = ["derui"]
 date = 2019-01-27T16:51:00+09:00
-lastmod = 2020-09-22T13:01:52+09:00
+lastmod = 2026-01-12T17:17:34+09:00
 tags = ["JavaScript", "Angular", "Programming"]
 draft = false
 +++
 
 諸事情（主に会社の事情）で、AngularとState管理について評価する必要が出ました。ただ、今までそもそもAngularを触ったことがなかったため、[Angular公式のTutorial](https://angular.io/tutorial/)をやることにしました。このTutorialが結構な分量なので、これにstate管理を追加すると丁度いいんでは？ということでやってみました。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Angular CLIのインストール {#angular-cliのインストール}

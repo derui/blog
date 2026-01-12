@@ -2,10 +2,10 @@
 
 #+hugo_base_dir: ../../../
 #+hugo_auto_set_lastmod: t
-#+HUGO_SECTION: post/2022/06
+#+HUGO_SECTION: posts/2022/06
 #+AUTHOR: derui
 
-* DONE React.js + recoilをSolid.jsで置き換えてみた    :JavaScript:TypeScript:
+* ✨ React.js + recoilをSolid.jsで置き換えてみた    :JavaScript:TypeScript:
 CLOSED: [2022-06-19 日 15:41]
 :PROPERTIES:
 :EXPORT_FILE_NAME: react_to_solidjs
@@ -254,7 +254,7 @@ Reactで気にしないといけない系統のパフォーマンスや、DOMと
 ** 補足：参考にした資料
 ぶっちゃけ本家サイト以上に参考になるものはありませんでしたので、本家サイトにいきましょう。
 
-* DONE 簡単なQRコードが出力できるようになった                         :OCaml:
+* ✨ 簡単なQRコードが出力できるようになった                         :OCaml:
 CLOSED: [2022-07-03 日 15:41]
 :PROPERTIES:
 :EXPORT_FILE_NAME: qrcode_from_ocaml

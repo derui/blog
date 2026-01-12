@@ -2,7 +2,7 @@
 title = "filebaseのrealtime databaseでテストする"
 author = ["derui"]
 date = 2021-09-27T21:08:00+09:00
-lastmod = 2021-09-27T21:08:57+09:00
+lastmod = 2026-01-12T17:23:39+09:00
 tags = ["JavaScript"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 今回も小ネタで、最近やったfirebaseのrealtime databaseでローカルのテストをやる方法をサラッと書いてみます
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## Realtime databaseをローカルで動かす {#realtime-databaseをローカルで動かす}
@@ -35,7 +35,7 @@ $ npx firebase emulators:start
 
 しかし、emulators:startにはいくつか問題があります。
 
-そのなかでも大きな問題は、 **backgroundでの起動ができない & テストに同期して落とすとかできない** という点です。まぁそりゃそうなんですが。
+そのなかでも大きな問題は、 **backgroundでの起動ができない &amp; テストに同期して落とすとかできない** という点です。まぁそりゃそうなんですが。
 
 
 ## `emulators:exec` を使おう {#emulators-exec-を使おう}

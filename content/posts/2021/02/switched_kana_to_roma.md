@@ -2,7 +2,7 @@
 title = "かな入力を断念してAZIK + SKKになりました"
 author = ["derui"]
 date = 2021-02-23T10:05:00+09:00
-lastmod = 2021-02-23T10:05:03+09:00
+lastmod = 2026-01-12T17:22:48+09:00
 tags = ["雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、実は今回結構大きめの決断をしたので、なんでそれに至ったのかを書いていきます。まぁそこまで強い理由がある、というわけでもないのですが。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## かな入力、やめました {#かな入力-やめました}
@@ -47,7 +47,7 @@ draft = false
 
 詳しくは、私のキー配列を見てもらうとわかりやすいのですが、かなりの量の機能を割り振っています。
 
-<https://github.com/derui/qmk%5Ffirmware/blob/master/keyboards/crkbd/keymaps/derui/keymap.c>
+<https://github.com/derui/qmk_firmware/blob/master/keyboards/crkbd/keymaps/derui/keymap.c>
 
 簡単に挙げると、
 

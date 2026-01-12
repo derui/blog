@@ -2,7 +2,7 @@
 title = "ProtocolBufferを使ってWebSocketでRPCをする"
 author = ["derui"]
 date = 2020-03-15T13:59:00+09:00
-lastmod = 2020-09-22T12:56:06+09:00
+lastmod = 2026-01-12T17:20:18+09:00
 tags = ["JavaScript", "ProtocolBuffer"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 そういう世間の流れを一旦見ないことにして、最近やっと動作の確認が取れた、ProtocolBuffer + WebSocketによるRPCの方法を書こうかと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## さきにまとめ {#さきにまとめ}
@@ -159,6 +159,6 @@ Commandを `enum` としているのは、OCamlで代数的データ型として
 
 世間的には、 `ProtocolBuffer == gRPC` という感じになっていると思いますが、protoファイルによる自動生成を活用したい、という動機もあるはずです。その場合、ProtocolBufferやその周辺を整えてやることで、色々とうまく使えるんではないでしょうか。
 
-実際、JavaScriptは別格で、OCamlとかJavaだとJSON < ProtocolBufferとなるケースも多いらしいので、フロントが多少遅くなってもトータルで速くなる、という話もあります。
+実際、JavaScriptは別格で、OCamlとかJavaだとJSON &lt; ProtocolBufferとなるケースも多いらしいので、フロントが多少遅くなってもトータルで速くなる、という話もあります。
 
 猫も杓子もJSON、というのもいいんですが、たまにはこういうのもいかがでしょうか？（何

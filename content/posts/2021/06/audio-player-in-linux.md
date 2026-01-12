@@ -2,7 +2,7 @@
 title = "Linuxで音楽を聞く時に使っているもの"
 author = ["derui"]
 date = 2021-06-13T00:00:00+09:00
-lastmod = 2021-06-19T15:25:40+09:00
+lastmod = 2026-01-12T17:23:18+09:00
 tags = ["Linux", "雑記"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、今回もライトな話題で、Linuxでの音楽鑑賞をどうやっているか、について書いてみようと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## GUI or CUI {#gui-or-cui}

@@ -1,10 +1,10 @@
 #+startup: content logdone inlneimages
 
 #+hugo_base_dir: ../../../
-#+hugo_section: post/2023/12
+#+hugo_section: posts/2023/12
 #+author: derui
 
-* DONE PlaywrightでのAPIモッキングをどうやっていくか :Playwright:TypeScript:
+* ✨ PlaywrightでのAPIモッキングをどうやっていくか :Playwright:TypeScript:
 CLOSED: [2023-12-23 土 15:27]
 :PROPERTIES:
 :EXPORT_FILE_NAME: implement_simple_recorder_in_playwright

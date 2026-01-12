@@ -2,7 +2,7 @@
 title = "Windows上でOCamlアプリケーションを動かす ビルド環境編"
 author = ["derui"]
 date = 2019-11-02T10:10:00+09:00
-lastmod = 2020-09-22T12:57:32+09:00
+lastmod = 2026-01-12T17:18:27+09:00
 tags = ["OCaml", "Windows"]
 draft = false
 +++
@@ -11,7 +11,7 @@ draft = false
 
 さて、第二回は実際にCross Compileを行うための環境について書きたいと思います。
 
-<!--more-->
+&lt;!--more--&gt;
 
 
 ## ビルド環境の選定 {#ビルド環境の選定}

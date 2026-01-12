@@ -4,7 +4,7 @@
 #+hugo_section: posts/2024/07
 #+author: derui
 
-* DONE Emacsの起動を高速化してみた :Emacs:
+* ✨ Emacsの起動を高速化してみた :Emacs:
 CLOSED: [2024-07-20 土 11:13]
 :PROPERTIES:
 :EXPORT_FILE_NAME: fast_emacs_launch_time

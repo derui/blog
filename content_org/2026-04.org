@@ -4,7 +4,8 @@
 #+hugo_section: posts/2026/04
 #+author: derui
 
-* ✅ Emacsでのcursor移動をisearchに１本化しようとしている :programming:emacs:
+* ✨ Emacsでのcursor移動をisearchに１本化しようとしている :programming:emacs:
+CLOSED: [2026-04-22 水 07:59]
 :PROPERTIES:
 :EXPORT_FILE_NAME: isearch-use-with-avy
 :END:

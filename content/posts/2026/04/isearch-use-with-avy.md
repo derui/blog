@@ -1,8 +1,9 @@
 +++
 title = "Emacsでのcursor移動をisearchに１本化しようとしている"
 author = ["derui"]
+date = 2026-04-22T07:59:00+09:00
 tags = ["programming", "emacs"]
-draft = true
+draft = false
 +++
 
 気づいたら新入社員がはいって来てました。なんか去年も同じこと書いた気がしますが、気のせいでしょう。

@@ -1,0 +1,89 @@
+#+startup: content logdone inlneimages
+
+#+hugo_base_dir: ../
+#+hugo_section: posts/2026/07
+#+author: derui
+
+* ✨ 最近のEmacsの使い方 :Emacs:
+CLOSED: [2026-07-18 土 14:28]
+:PROPERTIES:
+:EXPORT_FILE_NAME: recent-emacs-usage
+:END:
+あれ？というくらいに季節が過ぎてますね。そろそろ梅雨が明けそうな昨今、いかがお過ごしでしょうか。
+
+キーボードの話題ばっかなので、たまにはEmacsの話題をしてみます。あ、前のキーボードは無事v2となり、かなりThockyな音が出るようになったので、個人的にはだいぶ満足です。
+
+** gptelを利用したcommit message生成
+https://github.com/derui/gptel-commit-message
+
+LLMを使ってガツッと作りました。非常にシンプルな作りとしていて、カスタマイズも最小限です。部屋のGPUだと90token/sとか出るので、Gemma 4/4bと組み合わせると、速いと1秒くらいで生成がおわったりします。後でsquashするからとりあえずcommit、みたいなときに重宝します。
+
+ちなみにこの類は、同じようなものがあと２つくらいあるのは見かけましたが、差異としては
+
+- アニメーションを追加
+  - 他は割となかったんですが、個人的に視覚的にわかるものがほしかったので
+  - IntelliJとかも勝手に生成したりしますが、 *今生成しているのかどうなのか* がわからないのが大変にストレスだったので、自分でハンドリングできるようにしてます
+
+
+くらいですね。git diffをcontextに突っ込んでいるので、尋常じゃないサイズとかだと遅くなりますが、そもそもそんなケースは少ないので無視してます。
+
+** eglotのsignatureの出し方試行
+https://github.com/derui/eglot-signature-display
+
+もう一個、LLMを使って作ってみました。何かというと、eglotを利用しているときに、LSPから返ってくるsignatureをどう見やすく永続化するか・・・？というポイントに対してです。IntelliJとかVSCodeとかだとwindowになるんですが、posframeを利用したところ、AeroSpaceを利用しているお仕事PCでとても大変なことになったので、overlayを利用してみてます。
+
+#+begin_quote
+逆にいえば、これがなかったらposframeだけで良かったとも言えます。Aerospace以外には https://github.com/typester/yashiki ってものも見つけたので、こっちも試してみようかなと。
+#+end_quote
+
+だいたい動くんですが、overlayの宿命として、空白行だったりするとガコンと下がる問題があり、これについてはなかなかいかんともしがたい・・・っていうところになってます。AeroSpaceにchild frame対応が入ったらまた考えようとはしてます。
+
+
+*** eglot標準のsignatureが気に入らなかった理由
+eglotは、当然標準としてsignatureの表示に対応しています。いるんですが、表示される場所が *echo area* となっており、これは変数の型表示とかですごい勢いで更新されます。で、かつecho areaに出るということは、都度視線をそっちに持っていく必要がある、ということにもなります。これは割とストレスです。
+
+これに対する対策というか案として、side windowにeldocを永続化して、そっちに表示する、みたいなのも試しましたが、これはこれで結局は
+
+- 都度固定しないといけない
+- triggerでいきなり出るとすっごい邪魔
+
+
+という課題が発生しました。signatureがLSPから送られるのは基本的にtriggerになるキーが押された場合とかで、LSPサーバー側から一方的に送られる形になっています。なので編集するときにいきなりレイアウトが切り替わるのは、ちょっと色々許せない感じです。
+
+** agent-shell + agent-shell-pet
+https://github.com/xenodium/agent-shell
+https://github.com/lgmoneda/agent-shell-pet
+
+自分でforkしたもの。
+https://github.com/derui/agent-shell-pet 
+
+現在Emacsに統合されたcoding agent環境がほしいのであれば、ほぼagent-shell一択でいいのではないかとは思います。高速なrendering、visual、diffのみやすさなどは群を抜いています。agent-shell-petはまあ賑やかしといったところですね。ただ、agent-shell-petは自分の設定をサポートしていなかったのと、macOSしかまともに動作しない🤣状態だったので、以下の改善を施してます。
+
+- viewport modeへの対応
+- child frameのサイズ設定バグの対応
+- image insertではなく、事前生成したanimated webpを利用することによる性能改善
+- child frameのサイズ計算がちょっとミスっていそうだったのを修正
+
+
+これをやることで、概ね問題ない感じになってます。ただ、event handlingがちょっと変・・・？というところがあったので、暇があればそのへんも対応しようかな、とは思ってます。
+
+とはいえ、terminal経由でagentを直接利用することがほとんどで、そこまで使いこなしているわけではないのですが。
+
+** mozcからの脱却
+記憶にある限りだと、かれこれ10年くらいmozcにお世話になってきましたが、mozc自体のバージョン管理とかとmozc.elのミスマッチとかが重なったため、macOSではnative、LinuxではFcitxを利用する形に変更しました。なんか以前は色々できなかった気がしますが、Wayland対応の一環で、そこら辺がなんとかなるアダプターだけ作ったから、あとはなんとかしてくれ、ということになったっぽいです。さすがOSたるEmacs（なんか違う気がする）。
+
+今この文章もFcitxで打ってますが、まあ特になんの問題もなく打てていますし、keybindについても自由にできているので、ここらへんについては隔世の感を強く感じますね。Meadowとか使ってて、Windows IMEと戦ってた時代が大変に懐かしいです。
+
+** これから
+Emacs（Meadow/Xyzzyも含む）をなんだかんだ使い続けて20年くらいになりそうですが、最近は良くも悪くも *Emacsならでは* ってものはなくなり、逆に言えばエディターとしての機能そのものは収斂進化したという感覚があります。ただ、よく言うXxx is deadみたいなのは、ほぼほぼマーケティングの言葉だと思ってるので、まだEmacsは進化するとも思ってます。
+
+Vim(neovim)/Emacsがまだ熱い支持を受けているのは、両方とも *完全なるカスタマイズが可能* であること、つまりなんらかのアイディアがある場合の実験場として利用できることそのものでもあると思います。VSCodeもカスタマイズできるとはいえ、その場で環境そのものをいじれるわけでもないですし。Emacsがvimとも一線を画すのは、まさにLisp Machineそのものであるがゆえの、「なんでもできる」ことそのものだと思います。
+最近はSVGなども利用できるようになったりしているので、表現力についても色々向上していますし、develでは *shaderを利用する* とか、いい感じに狂気を感じる提案が出ていたりしています。
+
+仕事ではなかなか使ってられない場合もありますが、より快適だったり、使っていて楽しい、みたいなものは追い求めたいですね。
+
+* Comment Local Variables                                           :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:
+
